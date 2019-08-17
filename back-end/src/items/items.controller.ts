@@ -7,7 +7,7 @@ import {
   Body,
   Param,
 } from '@nestjs/common';
-import { CreateItemdto } from './dto/createtem.dto';
+import { CreateItemdto } from './dto/createitem.module'
 import { ItemsService } from './items.service';
 import { Item } from './interfaces/item.interface';
 
