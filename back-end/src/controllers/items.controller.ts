@@ -6,31 +6,34 @@ import { Item } from '../models/item.interface';
 @Controller('items')
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
+
   @Get()
   findAll(): Promise<Item[]> {
-    return this.itemsService.findAll();
+    const items = this.itemsService.findAll();
+    return items;
   }
 
   @Get(':id')
   findOne(@Param('id') id: String): Promise<Item> {
-    return this.itemsService.findOne(id);
+    const item = this.itemsService.findOne(id);
+    return item;
   }
 
   @Post()
   create(@Body() newItem: CreateItemdto): Promise<Item> {
-    return this.itemsService.create(newItem);
+    const newI = this.itemsService.create(newItem);
+    return newI;
   }
 
   @Delete(':id')
   delete(@Param('id') id: String): Promise<Item> {
-    return this.itemsService.delete(id);
+    const deletedItem = this.itemsService.delete(id);
+    return deletedItem;
   }
 
   @Put(':id')
-  update(
-    @Body() updItem: CreateItemdto,
-    @Param('id') id: String,
-  ): Promise<Item> {
-    return this.itemsService.update(id, updItem);
+  update(@Body() updItem: CreateItemdto, @Param('id') id: String,): Promise<Item> {
+    const updatedItem = this.itemsService.update(id, updItem);
+    return updatedItem;
   }
 }

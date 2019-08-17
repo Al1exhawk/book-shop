@@ -6,21 +6,29 @@ import { Item } from '../models/item.interface';
 @Injectable()
 export class ItemsService {
   constructor(@InjectModel('Item') private readonly itemModule: Model<Item>) {}
+
   async findAll(): Promise<Item[]> {
-    return await this.itemModule.find();
+    const items = await this.itemModule.find();
+    return items;
   }
+
   async findOne(id: String): Promise<Item> {
-    return await this.itemModule.findOne({ _id: id });
+    const item = await this.itemModule.findOne({ _id: id });
+    return item;
   }
+
   async create(item: Item): Promise<Item> {
     const newItem = new this.itemModule(item);
     return await newItem.save();
   }
+
   async delete(id: String): Promise<Item> {
-    return await this.itemModule.findByIdAndRemove(id);
+    const deletedItem = await this.itemModule.findByIdAndRemove(id);
+    return deletedItem;
   }
 
   async update(id: String, item: Item): Promise<Item> {
-    return await this.itemModule.findByIdAndUpdate(id, item, { new: true });
+    const updatedItem = await this.itemModule.findByIdAndUpdate(id, item, { new: true });
+    return updatedItem;
   }
 }
