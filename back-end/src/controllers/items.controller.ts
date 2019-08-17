@@ -1,15 +1,7 @@
-import {
-  Controller,
-  Get,
-  Put,
-  Post,
-  Delete,
-  Body,
-  Param,
-} from '@nestjs/common';
-import { CreateItemdto } from './dto/createitem.module'
-import { ItemsService } from './items.service';
-import { Item } from './interfaces/item.interface';
+import {  Controller,  Get,  Put,  Post,  Delete,  Body,  Param,} from '@nestjs/common';
+import { CreateItemdto } from '../items/dto/createitem.module'
+import { ItemsService } from '../services/items.service';
+import { Item } from '../items/interfaces/item.interface';
 
 @Controller('items')
 export class ItemsController {
