@@ -1,20 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './controllers/app.controller';
-import { AppService } from './services/app.service';
-import { ItemsModule } from './items/items.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import config from './config/keys';
+import { AppService } from './services/app.service';
 import {ItemsService} from './services/items.service'
 import {ItemsController} from './controllers/items.controller'
-import {ItemSchema} from './items/schemas/item.schema'
+import { AppController } from './controllers/app.controller';
+import {ItemSchema} from './models/item.schema'
+import config from './config/keys';
 
 @Module({
-  imports: [
-    ItemsModule,
+  imports: [    
     MongooseModule.forRoot(config.mongoURI, {
       useNewUrlParser: true,
       useFindAndModify: false,
-    }), MongooseModule.forFeature([{ name: 'Item', schema: ItemSchema }])
+    }), MongooseModule.forFeature([{ name: 'Item', schema: ItemSchema }]),
   ],
   controllers: [AppController,ItemsController],
   providers: [AppService,ItemsService],
