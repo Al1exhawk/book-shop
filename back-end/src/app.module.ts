@@ -1,14 +1,10 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 //Services
 import { AppService } from './services/app.service';
 import {  ItemService } from './services/item.service'
 //Contrillers
-import { ItemsController } from './controllers/item.controller'
+import { ItemController } from './controllers/item.controller'
 import { AppController } from './controllers/app.controller';
-//Schema
-import { ItemSchema } from './models/item.schema'
-import config from './config/keys';
 //Repositories
 import {  ItemRepository } from './repositories/item.repository'
 //Providers
@@ -17,7 +13,7 @@ import {databaseProviders} from './providers/database.providers'
 
 @Module({
   
-  controllers: [AppController,ItemsController],
+  controllers: [AppController,ItemController],
   providers: [
     AppService,
     ItemService,

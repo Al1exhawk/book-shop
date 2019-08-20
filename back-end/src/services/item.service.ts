@@ -1,6 +1,4 @@
-import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Item } from '../models/item.interface';
 import {ItemRepository} from '../repositories/item.repository'
 

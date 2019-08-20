@@ -4,7 +4,7 @@ import { ItemService } from '../services/item.service';
 import { Item } from '../models/item.interface';
 
 @Controller('items')
-export class ItemsController {
+export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Get()
