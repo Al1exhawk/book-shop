@@ -1,4 +1,4 @@
-export class CreateItemdto {
+export interface CreateItemdto {
   readonly title: String;
   readonly authors: String[];
   readonly type: String;
