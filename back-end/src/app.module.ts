@@ -1,20 +1,28 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+//Services
 import { AppService } from './services/app.service';
-import {  ItemsService } from './services/item.service'
+import {  ItemService } from './services/item.service'
+//Contrillers
 import { ItemsController } from './controllers/item.controller'
 import { AppController } from './controllers/app.controller';
+//Schema
 import { ItemSchema } from './models/item.schema'
 import config from './config/keys';
+//Repositories
+import {  ItemRepository } from './repositories/item.repository'
+//Providers
+import {ItemProviders} from './providers/item.providers'
+import {databaseProviders} from './providers/database.providers'
 
 @Module({
-  imports: [    
-    MongooseModule.forRoot(config.mongoURI, {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-    }), MongooseModule.forFeature([{ name: 'Item', schema: ItemSchema }]),
-  ],
+  
   controllers: [AppController,ItemsController],
-  providers: [AppService,ItemsService],
+  providers: [
+    AppService,
+    ItemService,
+    ItemRepository,
+    ...ItemProviders,
+    ...databaseProviders],
 })
 export class AppModule {}

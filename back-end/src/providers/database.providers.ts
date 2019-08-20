@@ -1,5 +1,4 @@
 import config from "../config/keys"
-
 import * as mongoose from 'mongoose';
 
 export const databaseProviders = [

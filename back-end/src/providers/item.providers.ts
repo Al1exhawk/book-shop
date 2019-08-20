@@ -1,5 +1,5 @@
 import { Connection } from 'mongoose';
-import { ItemSchema } from 'src/models/item.schema';
+import { ItemSchema } from '../models/item.schema';
 
 export const ItemProviders = [
     {
