@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppService } from './services/app.service';
-import {ItemsService} from './services/item.service'
-import {ItemsController} from './controllers/item.controller'
+import {  ItemsService } from './services/item.service'
+import { ItemsController } from './controllers/item.controller'
 import { AppController } from './controllers/app.controller';
-import {ItemSchema} from './models/item.schema'
+import { ItemSchema } from './models/item.schema'
 import config from './config/keys';
 
 @Module({
