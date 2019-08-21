@@ -35,5 +35,5 @@ export class ItemRepository {
   async delete(id: String): Promise<ItemDoc> {    
     const deletetedItem = await this.ItemModel.findByIdAndRemove(id);
     return deletetedItem;
-  }   
+  }
 }

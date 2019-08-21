@@ -3,7 +3,7 @@ import { createUserdto } from '../models/createuser.module'
 import { UserService } from '../services/user.sevice';
 import { User } from '../models/user.interface';
 
-@Controller('Users')
+@Controller('users')
 export class UserController {
   constructor(private readonly UserService: UserService) {}
 

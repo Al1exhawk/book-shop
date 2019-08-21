@@ -36,4 +36,8 @@ export class UserRepository {
     const deleteteduser = await this.userModel.findByIdAndRemove(id);
     return deleteteduser;
   }   
+  async findByName(name: String): Promise<UserDoc> {
+    const user = await this.userModel.findOne({userName: name})
+    return user;
+  }
 }
