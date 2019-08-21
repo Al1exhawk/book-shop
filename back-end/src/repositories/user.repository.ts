@@ -6,7 +6,7 @@ import { UserDoc } from 'src/documents/db.data';
 @Injectable()
 export class UserRepository {
   constructor(
-    @Inject('user_MODEL')
+    @Inject('USER_MODEL')
     private readonly userModel: Model<UserDoc>,
   ) {}
 
