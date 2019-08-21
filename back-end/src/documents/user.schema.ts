@@ -4,5 +4,8 @@ export const UserSchema = new mongoose.Schema({
      userName: String,
      type: String,
      password: String,
-     confirmPassword: Boolean,  
+     confirmPassword: {
+          type: Boolean,
+          default: false,
+     },  
 });

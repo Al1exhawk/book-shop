@@ -1,5 +1,5 @@
 import {  Controller,  Get,  Put,  Post,  Delete,  Body,  Param,} from '@nestjs/common';
-import { CreateItemdto } from '../models/createitem.module'
+import { CreateItem } from '../models/createitem.module'
 import { ItemService } from '../services/item.service';
 import { Item } from '../models/item.interface';
 
@@ -20,7 +20,7 @@ export class ItemController {
   }
 
   @Post()
-  create(@Body() newItem: CreateItemdto): Promise<Item> {
+  create(@Body() newItem: CreateItem): Promise<Item> {
     const newI = this.itemService.create(newItem);
     return newI;
   }
@@ -32,7 +32,7 @@ export class ItemController {
   }
 
   @Put(':id')
-  update(@Body() updItem: CreateItemdto, @Param('id') id: String,): Promise<Item> {
+  update(@Body() updItem: CreateItem, @Param('id') id: String,): Promise<Item> {
     const updatedItem = this.itemService.update(id, updItem);
     return updatedItem;
   }

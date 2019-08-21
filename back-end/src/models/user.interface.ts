@@ -3,6 +3,6 @@ export interface User {
     userName: String;
     type: String;
     password: String;
-    confirmPassword: Boolean;  
+    confirmPassword?: Boolean;  
   }
   

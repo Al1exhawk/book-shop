@@ -1,5 +1,5 @@
 import {  Controller,  Get,  Put,  Post,  Delete,  Body,  Param,} from '@nestjs/common';
-import { createUserdto } from '../models/createuser.module'
+import { createUser } from '../models/createuser.module'
 import { UserService } from '../services/user.sevice';
 import { User } from '../models/user.interface';
 
@@ -20,7 +20,7 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() newUser: createUserdto): Promise<User> {
+  create(@Body() newUser: createUser): Promise<User> {
     const newI = this.UserService.create(newUser);
     return newI;
   }
@@ -32,7 +32,7 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Body() updUser: createUserdto, @Param('id') id: String,): Promise<User> {
+  update(@Body() updUser: createUser, @Param('id') id: String,): Promise<User> {
     const updatedUser = this.UserService.update(id, updUser);
     return updatedUser;
   }

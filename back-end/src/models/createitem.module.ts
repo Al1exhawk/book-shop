@@ -1,6 +1,6 @@
 import {Author} from './author.interface'
 
-export interface CreateItemdto {
+export interface CreateItem {
   readonly title: String;
   readonly authors: Author[];
   readonly type: String;

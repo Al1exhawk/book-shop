@@ -9,7 +9,7 @@ export class UserRepository {
     @Inject('USER_MODEL')
     private readonly userModel: Model<UserDoc>,
   ) {}
-
+  
   
   async findAll(): Promise<UserDoc[]> {
     const users = await this.userModel.find();
@@ -18,6 +18,11 @@ export class UserRepository {
   
   async findOne(id: String): Promise<UserDoc> {
     const user = await this.userModel.findOne({ _id: id });
+    return user;
+  }
+  
+  async findByName(name: String): Promise<UserDoc> {
+    const user = await this.userModel.findOne({userName: name})
     return user;
   }
   
@@ -36,8 +41,4 @@ export class UserRepository {
     const deleteteduser = await this.userModel.findByIdAndRemove(id);
     return deleteteduser;
   }   
-  async findByName(name: String): Promise<UserDoc> {
-    const user = await this.userModel.findOne({userName: name})
-    return user;
-  }
 }
