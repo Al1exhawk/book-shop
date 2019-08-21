@@ -4,7 +4,7 @@ import {ItemRepository} from '../repositories/item.repository'
 
 @Injectable()
 export class ItemService {
-  constructor(private readonly itemRepository: ItemRepository/* @InjectModel('Item') private readonly itemModule: Model<Item> */) {}
+  constructor(private readonly itemRepository: ItemRepository) {}
 
   async findAll(): Promise<Item[]> {
     const items = this.itemRepository.findAll();

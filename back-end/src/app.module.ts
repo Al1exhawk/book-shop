@@ -11,8 +11,7 @@ import {  ItemRepository } from './repositories/item.repository'
 import {ItemProviders} from './providers/item.providers'
 import {databaseProviders} from './providers/database.providers'
 
-@Module({
-  
+@Module({  
   controllers: [AppController,ItemController],
   providers: [
     AppService,

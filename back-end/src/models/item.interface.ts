@@ -1,9 +1,9 @@
-import {author} from './author.interface'
+import {Author} from './author.interface'
 
 export interface Item {
   id?: String;
   title: String;
-  authors: author[];
+  authors: Author[];
   type: String;
   price: Number;
 }
