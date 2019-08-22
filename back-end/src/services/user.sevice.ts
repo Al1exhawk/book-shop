@@ -16,6 +16,11 @@ export class UserService {
     return User;
   }
 
+  async findByName(userName: String):Promise<User|null>{
+    const User = this.userRepository.findByName(userName);
+    return User;
+  }
+
   async create(User: User): Promise<User> {
     const newUser = this.userRepository.create(User);
     return  newUser;
