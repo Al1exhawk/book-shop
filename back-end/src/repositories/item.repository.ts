@@ -17,7 +17,7 @@ export class ItemRepository {
   }
   
   async findOne(id: String): Promise<ItemDoc> {
-    const item = await this.ItemModel.findOne({ _id: id });
+    const item = await this.ItemModel.findById(id);
     return item;
   }
   
