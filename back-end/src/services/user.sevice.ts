@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../models/user.interface';
-import {UserRepository} from '../repositories/user.repository'
+import { User } from 'src/models/user.interface';
+import {UserRepository} from 'src/repositories/user.repository'
 
 @Injectable()
 export class UserService {
@@ -13,6 +13,11 @@ export class UserService {
 
   async findOne(id: String): Promise<User> {
     const User = this.userRepository.findOne( id );
+    return User;
+  }
+
+  async findByName(userName: String):Promise<User|null>{
+    const User = this.userRepository.findByName(userName);
     return User;
   }
 
