@@ -17,7 +17,7 @@ export class UserRepository {
   }
   
   async findOne(id: String): Promise<UserDoc> {
-    const user = await this.userModel.findOne({ _id: id });
+    const user = await this.userModel.findById( id );
     return user;
   }
   
