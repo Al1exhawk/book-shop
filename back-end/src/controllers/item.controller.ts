@@ -1,5 +1,5 @@
 import {  Controller,  Get,  Put,  Post,  Delete,  Body,  Param,} from '@nestjs/common';
-import { CreateItem } from 'src/models/createitem.module'
+import { CreateItem } from 'src/models/createitem.model'
 import { ItemService } from 'src/services/item.service';
 import { Item } from 'src/models/item.interface';
 

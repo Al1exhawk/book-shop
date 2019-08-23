@@ -16,3 +16,8 @@ export interface UserDoc extends Document {
   readonly  password: String;  
   readonly  confirmPassword?: Boolean;   
 }
+
+export interface AuthorDoc extends Document {
+  readonly firstName: String;
+  readonly lastName: String;
+}
