@@ -1,39 +1,42 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { AuthorDoc } from 'src/documents/db.data';
-
+import { AuthorDocument } from 'src/documents/db.data';
 
 @Injectable()
 export class AuthorRepository {
   constructor(
     @Inject('AUTHOR_MODEL')
-    private readonly AuthorModel: Model<AuthorDoc>,
+    private readonly authorModel: Model<AuthorDocument>,
   ) {}
 
-  
-  async findAll(): Promise<AuthorDoc[]> {
-    const Authors = await this.AuthorModel.find();
-    return Authors;
+  async findAll(): Promise<AuthorDocument[]> {
+    const authors = await this.authorModel.find();
+
+    return authors;
   }
-  
-  async findOne(id: String): Promise<AuthorDoc> {
-    const Author = await this.AuthorModel.findById(id);
-    return Author;
+
+  async findOne(id: String): Promise<AuthorDocument> {
+    const author = await this.authorModel.findById(id);
+
+    return author;
   }
-  
-  async create(author: AuthorDoc): Promise<AuthorDoc> {
-    const createdAuthor = new this.AuthorModel(author);
-    const newAuthor = await createdAuthor.save()
+
+  async create(author: AuthorDocument): Promise<AuthorDocument> {
+    const createdAuthor = new this.authorModel(author);
+    const newAuthor = await createdAuthor.save();
+
     return newAuthor;
   }
 
-  async update(id: String, Author: AuthorDoc): Promise<AuthorDoc> {
-    const updAuthor = await this.AuthorModel.findByIdAndUpdate(id, Author, { new: true });
+  async update(id: String, Author: AuthorDocument): Promise<AuthorDocument> {
+    const updAuthor = await this.authorModel.findByIdAndUpdate(id, Author, { new: true });
+
     return updAuthor;
   }
 
-  async delete(id: String): Promise<AuthorDoc> {    
-    const deletetedAuthor = await this.AuthorModel.findByIdAndRemove(id);
+  async delete(id: String): Promise<AuthorDocument> {
+    const deletetedAuthor = await this.authorModel.findByIdAndRemove(id);
+
     return deletetedAuthor;
   }
 }

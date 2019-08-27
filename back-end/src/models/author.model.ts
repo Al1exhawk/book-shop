@@ -1,5 +1,5 @@
 export interface Author {
-    id?: String,
+    id?: String;
     firstName: String;
     lastName: String;
 }

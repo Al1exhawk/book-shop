@@ -7,5 +7,5 @@ export const UserSchema = new mongoose.Schema({
      confirmPassword: {
           type: Boolean,
           default: false,
-     },  
+     },
 });
