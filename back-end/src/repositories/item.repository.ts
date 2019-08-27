@@ -11,27 +11,32 @@ export class ItemRepository {
 
   async findAll(): Promise<ItemDocument[]> {
     const items = await this.itemModel.find();
+
     return items;
   }
 
-  async findOne(id: String): Promise<ItemDocument> {
+  async findOne(id: string): Promise<ItemDocument> {
     const item = await this.itemModel.findById(id);
+
     return item;
   }
 
   async create(item: ItemDocument): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
     const newItem = await createdItem.save();
+
     return newItem;
   }
 
-  async update(id: String, item: ItemDocument): Promise<ItemDocument> {
+  async update(id: string, item: ItemDocument): Promise<ItemDocument> {
     const updItem = await this.itemModel.findByIdAndUpdate(id, item, { new: true });
+
     return updItem;
   }
 
-  async delete(id: String): Promise<ItemDocument> {
-    const deletetedItem = await this.itemModel.findByIdAndRemove(id);
-    return deletetedItem;
+  async delete(id: string): Promise<ItemDocument> {
+    const deletedItem = await this.itemModel.findByIdAndRemove(id);
+
+    return deletedItem;
   }
 }

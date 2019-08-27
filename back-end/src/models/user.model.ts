@@ -1,7 +1,7 @@
 export interface User {
-    id?: String;
-    userName: String;
-    type: String;
-    password: String;
-    confirmPassword?: Boolean;
+    id?: string;
+    userName: string;
+    type: string;
+    password: string;
+    confirmPassword?: boolean;
   }

@@ -1,4 +1,4 @@
 export interface UserAuth {
-    userName: String;
-    password: String;
+    userName: string;
+    password: string;
 }

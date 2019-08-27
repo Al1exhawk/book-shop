@@ -12,13 +12,13 @@ export class UserService {
     return users;
   }
 
-  async findOne(id: String): Promise<User> {
+  async findOne(id: string): Promise<User> {
     const user = this.userRepository.findOne( id );
 
     return user;
   }
 
-  async findByName(userName: String): Promise<User|null> {
+  async findByName(userName: string): Promise<User|null> {
     const user = this.userRepository.findByName(userName);
 
     return user;
@@ -30,13 +30,13 @@ export class UserService {
     return  newUser;
   }
 
-  async delete(id: String): Promise<User> {
+  async delete(id: string): Promise<User> {
     const deletedUser = this.userRepository.delete(id);
 
     return deletedUser;
   }
 
-  async update(id: String, user: User): Promise<User> {
+  async update(id: string, user: User): Promise<User> {
     const updatedUser = this.userRepository.update(id, user);
 
     return updatedUser;

@@ -1,8 +1,8 @@
 import {Author} from './author.model';
 
 export interface CreateItem {
-  readonly title: String;
+  readonly title: string;
   readonly authors: Author[];
-  readonly type: String;
-  readonly price: Number;
+  readonly type: string;
+  readonly price: number;
 }

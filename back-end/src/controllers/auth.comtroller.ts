@@ -9,7 +9,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Body() user: UserAuth): Promise<String> {
+  async login(@Body() user: UserAuth): Promise<string> {
     const accessToken = await this.authService.login(user);
     return accessToken;
   }

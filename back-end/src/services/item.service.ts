@@ -8,26 +8,31 @@ export class ItemService {
 
   async findAll(): Promise<Item[]> {
     const items = this.itemRepository.findAll();
+
     return items;
   }
 
-  async findOne(id: String): Promise<Item> {
+  async findOne(id: string): Promise<Item> {
     const item = this.itemRepository.findOne( id );
+
     return item;
   }
 
   async create(item: Item): Promise<Item> {
     const newItem = this.itemRepository.create(item);
+
     return  newItem;
   }
 
-  async delete(id: String): Promise<Item> {
+  async delete(id: string): Promise<Item> {
     const deletedItem = this.itemRepository.delete(id);
+
     return deletedItem;
   }
 
-  async update(id: String, item: Item): Promise<Item> {
+  async update(id: string, item: Item): Promise<Item> {
     const updatedItem = this.itemRepository.update(id, item);
+
     return updatedItem;
   }
 }

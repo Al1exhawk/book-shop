@@ -1,7 +1,6 @@
-export interface createUser {
-    readonly  userName: String;
-    readonly  type: String;
-    readonly  password: String;
-    readonly  confirmPassword?: Boolean;
+export interface CreateUser {
+    readonly  userName: string;
+    readonly  type: string;
+    readonly  password: string;
+    readonly  confirmPassword?: boolean;
   }
-  

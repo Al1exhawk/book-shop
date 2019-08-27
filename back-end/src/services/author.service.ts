@@ -8,26 +8,31 @@ export class AuthorService {
 
   async findAll(): Promise<Author[]> {
     const authors = this.authorRepository.findAll();
+
     return authors;
   }
 
-  async findOne(id: String): Promise<Author> {
+  async findOne(id: string): Promise<Author> {
     const author = this.authorRepository.findOne( id );
+
     return author;
   }
 
   async create(author: Author): Promise<Author> {
     const newauthor = this.authorRepository.create(author);
+
     return  newauthor;
   }
 
-  async delete(id: String): Promise<Author> {
+  async delete(id: string): Promise<Author> {
     const deletedauthor = this.authorRepository.delete(id);
+
     return deletedauthor;
   }
 
-  async update(id: String, author: Author): Promise<Author> {
+  async update(id: string, author: Author): Promise<Author> {
     const updatedauthor = this.authorRepository.update(id, author);
+
     return updatedauthor;
   }
 }

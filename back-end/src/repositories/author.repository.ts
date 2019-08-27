@@ -15,7 +15,7 @@ export class AuthorRepository {
     return authors;
   }
 
-  async findOne(id: String): Promise<AuthorDocument> {
+  async findOne(id: string): Promise<AuthorDocument> {
     const author = await this.authorModel.findById(id);
 
     return author;
@@ -28,13 +28,13 @@ export class AuthorRepository {
     return newAuthor;
   }
 
-  async update(id: String, Author: AuthorDocument): Promise<AuthorDocument> {
+  async update(id: string, Author: AuthorDocument): Promise<AuthorDocument> {
     const updAuthor = await this.authorModel.findByIdAndUpdate(id, Author, { new: true });
 
     return updAuthor;
   }
 
-  async delete(id: String): Promise<AuthorDocument> {
+  async delete(id: string): Promise<AuthorDocument> {
     const deletetedAuthor = await this.authorModel.findByIdAndRemove(id);
 
     return deletetedAuthor;
