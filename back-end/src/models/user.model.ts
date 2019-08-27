@@ -1,7 +1,7 @@
 export interface User {
-    id?: string;
-    userName: string;
-    type: string;
-    password: string;
-    confirmPassword?: boolean;
+  readonly id?: string;
+  readonly userName: string;
+  readonly type: string;
+  readonly password: string;
+  readonly confirmPassword?: boolean;
   }
