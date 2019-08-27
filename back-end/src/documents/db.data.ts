@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import {Author} from 'src/models/author.interface'
+import {Author} from 'src/models/author.model'
 
 export interface ItemDoc extends Document {
   readonly  id?: String;
