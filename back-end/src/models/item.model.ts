@@ -1,4 +1,4 @@
-import {Author} from './author.interface'
+import {Author} from './author.model'
 
 export interface Item {
   id?: String;
