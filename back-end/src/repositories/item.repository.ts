@@ -10,7 +10,7 @@ export class ItemRepository {
   ) {}
 
   async findAll(): Promise<ItemDocument[]> {
-    const items = await this.itemModel.find();
+    const items =  await this.itemModel.find();
 
     return items;
   }

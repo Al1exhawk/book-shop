@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import { Document} from 'mongoose';
 import {Author} from 'src/models/author.model';
 
 export interface ItemDocument extends Document {
@@ -18,6 +18,7 @@ export interface UserDocument extends Document {
 }
 
 export interface AuthorDocument extends Document {
+  readonly id?: string;
   readonly firstName: string;
   readonly lastName: string;
 }
