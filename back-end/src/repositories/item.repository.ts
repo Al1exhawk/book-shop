@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { ItemDocument } from 'src/documents/db.data';
+import { Item } from 'src/models/item.model';
 
 @Injectable()
 export class ItemRepository {
@@ -14,21 +15,20 @@ export class ItemRepository {
 
     return items;
   }
-
   async findOne(id: string): Promise<ItemDocument> {
     const item = await this.itemModel.findById(id);
 
     return item;
   }
 
-  async create(item: ItemDocument): Promise<ItemDocument> {
+  async create(item: Item): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
     const newItem = await createdItem.save();
 
     return newItem;
   }
 
-  async update(id: string, item: ItemDocument): Promise<ItemDocument> {
+  async update(id: string, item: Item): Promise<ItemDocument> {
     const updItem = await this.itemModel.findByIdAndUpdate(id, item, { new: true });
 
     return updItem;
