@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Item } from 'src/models/item.model';
-import {ItemRepository} from 'src/repositories/item.repository';
+import { ItemRepository } from 'src/repositories/item.repository';
 
 @Injectable()
 export class ItemService {
   constructor(private readonly itemRepository: ItemRepository) {}
 
-  async findAll(): Promise<Item[]> {
-    const items = this.itemRepository.findAll();
+  async findAll(quary: object = {}): Promise<Item[]> {
+    const items = this.itemRepository.findAll(quary);
 
     return items;
   }
@@ -25,7 +25,7 @@ export class ItemService {
   }
 
   async delete(id: string): Promise<Item> {
-    const deletedItem = this.itemRepository.delete(id);
+    const deletedItem =  this.itemRepository.delete(id);
 
     return deletedItem;
   }

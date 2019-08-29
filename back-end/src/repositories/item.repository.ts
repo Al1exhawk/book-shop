@@ -3,6 +3,9 @@ import { Injectable, Inject } from '@nestjs/common';
 import { ItemDocument } from 'src/documents/db.data';
 import { Item } from 'src/models/item.model';
 
+/* {authors: {$in: [{firstName: "Hilover", lastName: "Korolenko"}]}}
+ */
+
 @Injectable()
 export class ItemRepository {
   constructor(
@@ -10,8 +13,8 @@ export class ItemRepository {
     private readonly itemModel: Model<ItemDocument>,
   ) {}
 
-  async findAll(): Promise<ItemDocument[]> {
-    const items =  await this.itemModel.find();
+  async findAll(quary: object = {}): Promise<ItemDocument[]> {
+    const items =  await this.itemModel.find(quary);
 
     return items;
   }

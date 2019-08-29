@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Author } from 'src/models/author.model';
 import { AuthorRepository } from 'src/repositories/author.repository';
+import { ItemRepository } from 'src/repositories/item.repository';
+
+/* {authors: {$in: [{firstName: "Hilover", lastName: "Korolenko"}]}}
+ */
 
 @Injectable()
 export class AuthorService {
-  constructor(private readonly authorRepository: AuthorRepository) {}
+  constructor(private readonly authorRepository: AuthorRepository, private readonly itemRepository: ItemRepository) {}
 
   async findAll(): Promise<Author[]> {
     const authors = this.authorRepository.findAll();
@@ -25,8 +29,10 @@ export class AuthorService {
   }
 
   async delete(id: string): Promise<Author> {
-    const deletedauthor = this.authorRepository.delete(id);
-
+    const deletedauthor = await this.authorRepository.delete(id);
+    const {firstName, lastName} = deletedauthor;
+    const i = await this.itemRepository.findAll({authors: {$in: [{firstName, lastName}]}});
+    console.log(i);
     return deletedauthor;
   }
 
