@@ -1,10 +1,9 @@
 import { Document} from 'mongoose';
-import {Author} from 'src/models/author.model';
 
 export interface ItemDocument extends Document {
   readonly  id?: string;
   readonly  title: string;
-  readonly  authors: Author[];
+  readonly  authors: any[];
   readonly  type: string;
   readonly  price: number;
 }
@@ -12,7 +11,7 @@ export interface ItemDocument extends Document {
 export interface UserDocument extends Document {
   readonly  id?: string;
   readonly  userName: string;
-  readonly  type: string;
+  readonly  role: string;
   readonly  password: string;
   readonly  confirmPassword?: boolean;
 }
@@ -21,4 +20,5 @@ export interface AuthorDocument extends Document {
   readonly id?: string;
   readonly firstName: string;
   readonly lastName: string;
+  readonly items: any[];
 }

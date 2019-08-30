@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Item } from 'src/models/item.model';
 import { ItemRepository } from 'src/repositories/item.repository';
+import { CreateItem } from 'src/models/create-item.model';
 
 @Injectable()
 export class ItemService {
@@ -13,12 +14,12 @@ export class ItemService {
   }
 
   async findOne(id: string): Promise<Item> {
-    const item = this.itemRepository.findOne( id );
+    const item = this.itemRepository.findOne(id);
 
     return item;
   }
 
-  async create(item: Item): Promise<Item> {
+  async create(item: CreateItem): Promise<Item> {
     const newItem = this.itemRepository.create(item);
 
     return  newItem;
@@ -30,7 +31,7 @@ export class ItemService {
     return deletedItem;
   }
 
-  async update(id: string, item: Item): Promise<Item> {
+  async update(id: string, item: CreateItem): Promise<Item> {
     const updatedItem = this.itemRepository.update(id, item);
 
     return updatedItem;

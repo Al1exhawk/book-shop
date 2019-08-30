@@ -1,6 +1,7 @@
 import {  Controller,  Get,  Put,  Post,  Delete,  Body,  Param} from '@nestjs/common';
 import { AuthorService } from 'src/services/author.service';
 import { Author } from 'src/models/author.model';
+import { CreateAuthor } from 'src/models/create-aurhor.model';
 
 @Controller('authors')
 export class AuthorController {
@@ -21,7 +22,7 @@ export class AuthorController {
   }
 
   @Post()
-  create(@Body() newAuthor: Author): Promise<Author> {
+  create(@Body() newAuthor: CreateAuthor): Promise<Author> {
     const newuAuthor = this.authorService.create(newAuthor);
 
     return newuAuthor;
@@ -35,7 +36,7 @@ export class AuthorController {
   }
 
   @Put(':id')
-  update(@Body() updAuthor: Author, @Param('id') id: string): Promise<Author> {
+  update(@Body() updAuthor: CreateAuthor, @Param('id') id: string): Promise<Author> {
     const updatedAuthor = this.authorService.update(id, updAuthor);
 
     return updatedAuthor;

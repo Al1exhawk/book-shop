@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Author } from 'src/models/author.model';
 import { AuthorRepository } from 'src/repositories/author.repository';
 import { ItemRepository } from 'src/repositories/item.repository';
+import { CreateAuthor } from 'src/models/create-aurhor.model';
 
 /* {authors: {$in: [{firstName: "Hilover", lastName: "Korolenko"}]}}
  */
@@ -22,7 +23,7 @@ export class AuthorService {
     return author;
   }
 
-  async create(author: Author): Promise<Author> {
+  async create(author: CreateAuthor): Promise<Author> {
     const newauthor = this.authorRepository.create(author);
 
     return  newauthor;
@@ -31,12 +32,12 @@ export class AuthorService {
   async delete(id: string): Promise<Author> {
     const deletedauthor = await this.authorRepository.delete(id);
     const {firstName, lastName} = deletedauthor;
-    const i = await this.itemRepository.findAll({authors: {$in: [{firstName, lastName}]}});
-    console.log(i);
+    /* this.itemRepository.findAll({authors: {$in: [{firstName, lastName}]}}); */
+
     return deletedauthor;
   }
 
-  async update(id: string, author: Author): Promise<Author> {
+  async update(id: string, author: CreateAuthor): Promise<Author> {
     const updatedauthor = this.authorRepository.update(id, author);
 
     return updatedauthor;
