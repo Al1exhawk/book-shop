@@ -4,7 +4,6 @@ import { CreateItem } from 'src/models/create-item.model';
 import { ItemRepository } from 'src/repositories/item.repository';
 import { AuthorRepository } from 'src/repositories/author.repository';
 
-
 @Injectable()
 export class ItemService {
   constructor(

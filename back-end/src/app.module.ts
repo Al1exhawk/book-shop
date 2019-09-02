@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-
 // Services
 import { ItemService } from 'src/services/item.service';
 import { UserService } from 'src/services/user.service';
@@ -18,9 +17,9 @@ import {  UserRepository } from 'src/repositories/user.repository';
 import {  AuthorRepository } from 'src/repositories/author.repository';
 // Providers
 import { ItemProviders } from 'src/providers/item.providers';
-import { DatabaseProviders } from 'src/providers/database.providers';
 import { UserProviders } from 'src/providers/user.providers';
 import { AuthorProviders } from 'src/providers/author.providers';
+import { DatabaseProviders } from 'src/providers/database.providers';
 // Stategies
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
 import { LocalStrategy } from 'src/strategies/local.strategy';
