@@ -3,4 +3,4 @@ export interface User {
     readonly role: string;
     readonly password: string;
     readonly confirmPassword?: boolean;
-    }
+}

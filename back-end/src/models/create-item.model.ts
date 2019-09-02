@@ -5,4 +5,4 @@ export interface CreateItem {
     readonly authors: [mongoose.Schema.Types.ObjectId];
     readonly type: string;
     readonly price: number;
-  }
+}
