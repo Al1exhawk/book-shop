@@ -57,4 +57,12 @@ export class ItemRepository {
 
     return deletedItem;
   }
+
+  async deleteAuthorFromItems(id: string) {
+    const updDatedItems = await this.itemModel.
+    updateMany({authors: id},
+       {$pull: {authors: id}});
+
+    return updDatedItems;
+  }
 }

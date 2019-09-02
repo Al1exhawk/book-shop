@@ -55,4 +55,12 @@ export class AuthorRepository {
 
     return deletetedAuthor;
   }
+
+  async deleteItemFromAuthors(id: string) {
+    const updDatedItems = await this.authorModel.
+    updateMany({items: id},
+       {$pull: {items: id}});
+
+    return updDatedItems;
+  }
 }
