@@ -32,10 +32,7 @@ export class ItemRepository {
 
   async create(item: CreateItem): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
-    const newItem = await createdItem
-    .save()
-    .populate('authors')
-    .exec();
+    const newItem = await createdItem.save();
 
     return newItem;
   }
@@ -56,5 +53,13 @@ export class ItemRepository {
     .exec();
 
     return deletedItem;
+  }
+
+  async deleteAuthorFromItems(id: string) {
+    const updDatedItems = await this.itemModel.
+    updateMany({authors: id},
+       {$pull: {authors: id}});
+
+    return updDatedItems;
   }
 }

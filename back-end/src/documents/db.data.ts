@@ -14,6 +14,7 @@ export interface UserDocument extends Document {
   readonly  role: string;
   readonly  password: string;
   readonly  confirmPassword?: boolean;
+  readonly  email: string;
 }
 
 export interface AuthorDocument extends Document {
