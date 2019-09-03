@@ -1,7 +1,7 @@
-import {  Controller,  Get,  Put,  Post,  Delete,  Body,  Param} from '@nestjs/common';
-import { AuthorService } from 'src/services/author.service';
 import { Author } from 'src/models/author.model';
 import { CreateAuthor } from 'src/models/create-aurhor.model';
+import { AuthorService } from 'src/services/author.service';
+import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param } from '@nestjs/common';
 
 @Controller('authors')
 export class AuthorController {

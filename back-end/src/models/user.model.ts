@@ -5,4 +5,4 @@ export interface User {
   readonly password: string;
   readonly confirmPassword?: boolean;
   readonly email: string;
-  }
+}

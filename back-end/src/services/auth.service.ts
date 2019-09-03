@@ -1,4 +1,4 @@
-import { UserAuth } from 'src/models/user-auth.model';
+import { JWTpayload } from 'src/models/jwt-payload';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/services/user.service';
@@ -18,7 +18,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserAuth): Promise<string> {
+  async login(user: JWTpayload): Promise<string> {
     const payload = { userName: user.userName, password: user.password };
     const  accessToken = await this.jwtService.sign(payload);
     return accessToken;

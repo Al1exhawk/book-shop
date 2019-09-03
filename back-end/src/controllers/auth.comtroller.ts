@@ -1,7 +1,7 @@
-import { Controller, Post, UseGuards, Body } from '@nestjs/common';
+import { JWTpayload } from 'src/models/jwt-payload';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/services/auth.service';
-import { UserAuth } from 'src/models/user-auth.model';
+import { Controller, Post, UseGuards, Body } from '@nestjs/common';
 
 @Controller('login')
 export class AuthController {
@@ -9,7 +9,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard('local'))
   @Post()
-  async login(@Body() user: UserAuth): Promise<string> {
+  async login(@Body() user: JWTpayload): Promise<string> {
     const accessToken = await this.authService.login(user);
     return accessToken;
   }
