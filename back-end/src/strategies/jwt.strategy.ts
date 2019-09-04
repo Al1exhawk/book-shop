@@ -1,6 +1,6 @@
 import constants from 'src/environment/constants';
 import { JWTpayload } from 'src/models/jwt-payload.model';
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 import { AuthService } from 'src/services/auth.service';
@@ -15,7 +15,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JWTpayload) {
-    return { userName: payload.userName, role: payload.role };
+  async validate(payload: JWTpayload, done: VerifiedCallback) {
+    const user = await this.authService.validatePayload(payload);
+
+    if (!user) {
+
+      return done(new HttpException({}, HttpStatus.UNAUTHORIZED), false);
+    }
+
+    return done(null, user);
   }
 }

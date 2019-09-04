@@ -1,4 +1,4 @@
-export interface JWTpayload {
-    readonly username: string;
-    readonly role: string;
+export interface Login {
+    readonly userName: string;
+    readonly password: string;
  }
