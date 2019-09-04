@@ -1,4 +1,4 @@
-import { JWTpayload } from 'src/models/jwt-payload';
+import { JWTpayload } from 'src/models/jwt-payload.model';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/services/auth.service';
 import { Controller, Post, UseGuards, Body } from '@nestjs/common';
