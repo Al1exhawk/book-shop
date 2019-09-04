@@ -3,9 +3,6 @@ import { Injectable, Inject } from '@nestjs/common';
 import { ItemDocument } from 'src/documents/db.data';
 import { CreateItem } from 'src/models/create-item.model';
 
-/* {authors: {$in: [{firstName: "Hilover", lastName: "Korolenko"}]}}
-*/
-
 @Injectable()
 export class ItemRepository {
   constructor(

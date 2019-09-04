@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
 import { JWTpayload } from 'src/models/jwt-payload.model';
 import { UserService } from 'src/services/user.service';
+import { LoginResponse } from 'src/models/login-response.model';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
     return user;
   }
 
-  async login(loginModel: Login): Promise<string> {
+  async login(loginModel: Login): Promise<LoginResponse> {
 
     const user =  await this.usersService.findByName(loginModel.userName);
 
@@ -28,6 +29,11 @@ export class AuthService {
 
     const accessToken = await this.jwtService.sign(payload);
 
-    return accessToken;
+    const loginResponse: LoginResponse = {
+      userName: payload.userName,
+      role: payload.role,
+      token: accessToken,
+    };
+    return loginResponse;
   }
 }
