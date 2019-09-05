@@ -1,4 +1,4 @@
-export interface User {
+export interface CreateUser {
     readonly userName: string;
     readonly role: string;
     readonly password: string;

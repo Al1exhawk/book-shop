@@ -24,15 +24,15 @@ export class UserController {
     return newuser;
   }
 
-  @Delete(':id')
-  delete(@Param('id') id: string): Promise<User> {
-    const deletedUser = this.userService.delete(id);
-    return deletedUser;
-  }
-
   @Put(':id')
   update(@Body() updUser: User, @Param('id') id: string): Promise<User> {
     const updatedUser = this.userService.update(id, updUser);
     return updatedUser;
   }
+
+   @Delete(':id')
+   delete(@Param('id') id: string): Promise<User> {
+     const deletedUser = this.userService.delete(id);
+     return deletedUser;
+   }
 }

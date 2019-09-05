@@ -1,9 +1,10 @@
 import { Login } from 'src/models/login.model';
+import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Injectable } from '@nestjs/common';
 import { JWTpayload } from 'src/models/jwt-payload.model';
 import { UserService } from 'src/services/user.service';
 import { LoginResponse } from 'src/models/login-response.model';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -19,15 +20,25 @@ export class AuthService {
   }
 
   async login(loginModel: Login): Promise<LoginResponse> {
+    const {userName, password} = loginModel;
+    const user =  await this.usersService.findByName(userName);
 
-    const user =  await this.usersService.findByName(loginModel.userName);
+    if (!user) {
+      throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
+    }
+
+    const isMath: boolean = await compare(password, user.password);
+
+    if (!isMath) {
+      throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
+    }
 
     const payload: JWTpayload = {
       userName: user.userName,
       role: user.role,
     };
 
-    const accessToken = await this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload);
 
     const loginResponse: LoginResponse = {
       userName: payload.userName,

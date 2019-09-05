@@ -22,7 +22,6 @@ import { AuthorProviders } from 'src/providers/author.providers';
 import { DatabaseProviders } from 'src/providers/database.providers';
 // Stategies
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
-import { LocalStrategy } from 'src/strategies/local.strategy';
 
 @Module({
   imports: [
@@ -41,7 +40,6 @@ import { LocalStrategy } from 'src/strategies/local.strategy';
     AuthService,
     AuthorService,
     JwtStrategy,
-    LocalStrategy,
     ItemRepository,
     UserRepository,
     AuthorRepository,

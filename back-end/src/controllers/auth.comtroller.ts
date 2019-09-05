@@ -1,17 +1,17 @@
 import { Login } from 'src/models/login.model';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/services/auth.service';
-import { Controller, Post, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
+import { LoginResponse } from 'src/models/login-response.model';
 
 @Controller('login')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard('jwt'))
   @Post()
-  async login(@Body() user: Login): Promise<string> {
-    const accessToken = await this.authService.login(user);
+  async login(@Body() user: Login): Promise<LoginResponse> {
+    const loginResponse: LoginResponse = await this.authService.login(user);
 
-    return accessToken;
+    return loginResponse;
   }
 }

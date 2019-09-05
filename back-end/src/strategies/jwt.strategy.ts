@@ -1,9 +1,9 @@
 import constants from 'src/environment/constants';
 import { JWTpayload } from 'src/models/jwt-payload.model';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 import { AuthService } from 'src/services/auth.service';
+import { PassportStrategy } from '@nestjs/passport';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -15,9 +15,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
+  
   async validate(payload: JWTpayload, done: VerifiedCallback) {
+    console.log('lpo');
     const user = await this.authService.validatePayload(payload);
-
+    console.log(user);
     if (!user) {
 
       return done(new HttpException({}, HttpStatus.UNAUTHORIZED), false);
