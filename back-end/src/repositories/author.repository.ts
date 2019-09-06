@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
-import { Injectable, Inject } from '@nestjs/common';
-import { AuthorDocument } from 'src/documents/db.data';
 import { CreateAuthor } from 'src/models/create-aurhor.model';
+import { AuthorDocument } from 'src/documents/db.data';
+import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
 export class AuthorRepository {

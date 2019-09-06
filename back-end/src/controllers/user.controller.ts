@@ -3,9 +3,12 @@ import { Roles } from 'src/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/guards/roles-guard';
 import { UserService } from 'src/services/user.service';
+import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
+@ApiUseTags('Users')
 @Controller('users')
+@ApiBearerAuth()
 @Roles('admin')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class UserController {

@@ -4,9 +4,12 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/guards/roles-guard';
 import { CreateAuthor } from 'src/models/create-aurhor.model';
 import { AuthorService } from 'src/services/author.service';
+import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
+@ApiUseTags('Authors')
 @Controller('authors')
+@ApiBearerAuth()
 @Roles('admin')
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 export class AuthorController {

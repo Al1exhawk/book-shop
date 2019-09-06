@@ -4,8 +4,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/guards/roles-guard';
 import { CreateItem } from 'src/models/create-item.model';
 import { ItemService } from 'src/services/item.service';
+import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
+@ApiUseTags('Items')
 @Controller('items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
@@ -17,6 +19,7 @@ export class ItemController {
     return items;
   }
 
+  @ApiBearerAuth()
   @Get(':id')
   @Roles('user', 'admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -26,6 +29,7 @@ export class ItemController {
     return item;
   }
 
+  @ApiBearerAuth()
   @Post()
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
@@ -34,6 +38,7 @@ export class ItemController {
 
     return newI;
   }
+  @ApiBearerAuth()
 
   @Delete(':id')
   @Roles('admin')
@@ -44,6 +49,7 @@ export class ItemController {
     return deletedItem;
   }
 
+  @ApiBearerAuth()
   @Put(':id')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
