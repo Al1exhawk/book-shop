@@ -1,5 +1,4 @@
 import { Login } from 'src/models/login.model';
-import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from 'src/services/auth.service';
 import { Controller, Post, Body } from '@nestjs/common';
 import { LoginResponse } from 'src/models/login-response.model';

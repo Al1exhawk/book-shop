@@ -1,18 +1,18 @@
 import { Roles } from 'src/decorators/role-decorator';
 import { Author } from 'src/models/author.model';
 import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/guards/roles-guard';
 import { CreateAuthor } from 'src/models/create-aurhor.model';
 import { AuthorService } from 'src/services/author.service';
-import { RolesGuard } from 'src/guards/roles-guard';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
 @Controller('authors')
+@Roles('admin')
+@UseGuards(AuthGuard('jwt'), RolesGuard)
 export class AuthorController {
   constructor(private readonly authorService: AuthorService) {}
 
   @Get()
-  @Roles('admin')
-  @UseGuards(AuthGuard('jwt'), RolesGuard)
   findAll(): Promise<Author[]> {
     const authors = this.authorService.findAll();
 

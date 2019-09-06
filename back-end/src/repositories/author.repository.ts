@@ -30,7 +30,11 @@ export class AuthorRepository {
 
   async create(author: CreateAuthor): Promise<AuthorDocument> {
     const createdAuthor = new this.authorModel(author);
-    const newAuthor = await createdAuthor.save();
+    const newAuthor = await createdAuthor.save((error, createdauthor) => {
+      createdauthor
+      .populate('items')
+      .execPopulate();
+      });
 
     return newAuthor;
   }
