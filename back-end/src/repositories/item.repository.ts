@@ -29,7 +29,11 @@ export class ItemRepository {
 
   async create(item: CreateItem): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
-    const newItem = await createdItem.save();
+    const newItem = await createdItem.save((error, createditem) => {
+      createditem
+      .populate('authors')
+      .execPopulate();
+    });
 
     return newItem;
   }

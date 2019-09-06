@@ -15,16 +15,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  
   async validate(payload: JWTpayload, done: VerifiedCallback) {
-    console.log('lpo');
     const user = await this.authService.validatePayload(payload);
-    console.log(user);
     if (!user) {
-
       return done(new HttpException({}, HttpStatus.UNAUTHORIZED), false);
     }
 
-    return done(null, user);
+    return  done(null, user);
   }
 }

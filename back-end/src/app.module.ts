@@ -9,7 +9,7 @@ import { AuthorService } from 'src/services/author.service';
 // Contrillers
 import { ItemController } from 'src/controllers/item.controller';
 import { UserController } from 'src/controllers/user.controller';
-import { AuthController } from 'src/controllers/auth.comtroller';
+import { AuthController } from 'src/controllers/auth.controller';
 import { AuthorController } from 'src/controllers/author.controller';
 // Repositories
 import {  ItemRepository } from 'src/repositories/item.repository';
