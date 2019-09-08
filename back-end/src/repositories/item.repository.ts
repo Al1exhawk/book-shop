@@ -1,13 +1,13 @@
-import * as mongoose from 'mongoose';
-import { Injectable, Inject } from '@nestjs/common';
-import { ItemDocument } from 'src/documents/db.data';
+import { Model } from 'mongoose';
 import { CreateItem } from 'src/models/create-item.model';
+import { ItemDocument } from 'src/documents/db.data';
+import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
 export class ItemRepository {
   constructor(
     @Inject('ITEM_MODEL')
-    private readonly itemModel: mongoose.model<ItemDocument>,
+    private readonly itemModel: Model<ItemDocument>,
   ) {}
 
   async findAll(quary: object = {}): Promise<ItemDocument[]> {
@@ -29,7 +29,7 @@ export class ItemRepository {
 
   async create(item: CreateItem): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
-    const newItem = await createdItem.save((error, createditem) => {
+    const newItem: ItemDocument = await createdItem.save((error, createditem) => {
       createditem
       .populate('authors')
       .execPopulate();

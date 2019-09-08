@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose';
+import { ObjectId, Schema } from 'mongoose';
 
-export const ItemSchema = new mongoose.Schema({
+export const ItemSchema = new Schema({
   title: String,
   authors: [{
-      type: mongoose.Schema.Types.ObjectId,
+      type: ObjectId,
       ref: 'Author',
     }],
   type: String,

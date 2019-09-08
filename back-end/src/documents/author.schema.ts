@@ -1,10 +1,10 @@
-import * as mongoose from 'mongoose';
+import {ObjectId, Schema} from 'mongoose';
 
-export const AuthorSchema = new mongoose.Schema({
+export const AuthorSchema = new Schema({
      firstName: String,
      lastName: String,
      items: [{
-          type: mongoose.Schema.Types.ObjectId,
+          type: ObjectId,
           ref: 'Item',
      }],
 });

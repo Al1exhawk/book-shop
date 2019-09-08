@@ -2,7 +2,7 @@ import { ApiModelProperty } from '@nestjs/swagger';
 
 export class User {
   @ApiModelProperty()
-  readonly id?: string;
+  readonly id: string;
   @ApiModelProperty()
   readonly userName: string;
   @ApiModelProperty()

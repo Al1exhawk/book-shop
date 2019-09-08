@@ -9,19 +9,19 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersService: UserService,
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
   async validatePayload(payload: JWTpayload): Promise<any> {
-    const user = await this.usersService.findByName(payload.userName);
+    const user = await this.userService.findByName(payload.userName);
 
     return user;
   }
 
   async login(loginModel: Login): Promise<LoginResponse> {
     const {userName, password} = loginModel;
-    const user =  await this.usersService.findByName(userName);
+    const user =  await this.userService.findByName(userName);
 
     if (!user) {
       throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);

@@ -1,11 +1,9 @@
 import { Author } from 'src/models/author.model';
 import { Injectable } from '@nestjs/common';
 import { CreateAuthor } from 'src/models/create-aurhor.model';
+import { AuthorDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
 import { AuthorRepository } from 'src/repositories/author.repository';
-
-/* {authors: {$in: [{firstName: "Hilover", lastName: "Korolenko"}]}}
- */
 
 @Injectable()
 export class AuthorService {
@@ -14,33 +12,77 @@ export class AuthorService {
     private readonly itemRepository: ItemRepository) {}
 
   async findAll(): Promise<Author[]> {
-    const authors = this.authorRepository.findAll();
+    const authors: AuthorDocument[] = await this.authorRepository.findAll();
+    const authorsModel: Author[] = authors.map((item: AuthorDocument) => {
+      const { id, firstName, lastName, items } = item;
 
-    return authors;
+      const authorModel: Author = {
+        id,
+        firstName,
+        lastName,
+        items,
+      };
+
+      return authorModel;
+    });
+
+    return authorsModel;
   }
 
-  async findOne(id: string): Promise<Author> {
-    const author = this.authorRepository.findOne( id );
+  async findOne(authorId: string): Promise<Author> {
+    const author: AuthorDocument = await this.authorRepository.findOne(authorId);
+    const {id, items, firstName, lastName } = author;
 
-    return author;
+    const authorModel: Author = {
+      id,
+      items,
+      firstName,
+      lastName,
+    };
+
+    return authorModel;
   }
 
   async create(author: CreateAuthor): Promise<Author> {
-    const newauthor = this.authorRepository.create(author);
+    const newauthor: AuthorDocument = await this.authorRepository.create(author);
+    const {id, items, firstName, lastName } = newauthor;
 
-    return  newauthor;
+    const newAuthorModel: Author = {
+      id,
+      items,
+      firstName,
+      lastName,
+    };
+
+    return  newAuthorModel;
   }
 
-  async delete(id: string): Promise<Author> {
-    const deletedauthor = this.authorRepository.delete(id);
-    this.itemRepository.deleteAuthorFromItems(id);
+  async delete(authorId: string): Promise<Author> {
+    const deletedAuthor: AuthorDocument = await this.authorRepository.delete(authorId);
+    this.itemRepository.deleteAuthorFromItems(authorId);
+    const {id, items, firstName, lastName } = deletedAuthor;
 
-    return deletedauthor;
+    const deletedAuthorModel: Author = {
+      id,
+      items,
+      firstName,
+      lastName,
+    };
+
+    return deletedAuthorModel;
   }
 
-  async update(id: string, author: CreateAuthor): Promise<Author> {
-    const updatedauthor = this.authorRepository.update(id, author);
+  async update(authorId: string, author: CreateAuthor): Promise<Author> {
+    const updatedAuthor: AuthorDocument = await this.authorRepository.update(authorId, author);
+    const {id, items, firstName, lastName } = updatedAuthor;
 
-    return updatedauthor;
+    const updatedAuthorModel: Author = {
+      id,
+      items,
+      firstName,
+      lastName,
+    };
+
+    return updatedAuthorModel;
   }
 }

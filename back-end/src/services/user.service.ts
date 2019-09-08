@@ -3,27 +3,62 @@ import { CreateUser } from 'src/models/create-user.model';
 import { Injectable } from '@nestjs/common';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories/user.repository';
+import { UserDocument } from 'src/documents/db.data';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async findAll(): Promise<User[]> {
-    const users = this.userRepository.findAll();
+    const users: UserDocument[] = await this.userRepository.findAll();
+    const usersmodel: User[] = users.map((item: UserDocument) => {
+      const { id, userName, role, password, email, confirmPassword } = item;
 
-    return users;
+      const userModel: User = {
+        id,
+        userName,
+        role,
+        password,
+        email,
+        confirmPassword,
+      };
+
+      return userModel;
+    });
+
+    return usersmodel;
   }
 
-  async findOne(id: string): Promise<User> {
-    const user = this.userRepository.findOne( id );
+  async findOne(userId: string): Promise<User> {
+    const user: UserDocument = await this.userRepository.findOne(userId);
+    const { id, userName, role, password, email, confirmPassword } = user;
 
-    return user;
+    const userModel: User = {
+       id,
+       userName,
+       role,
+       password,
+       email,
+       confirmPassword,
+      };
+
+    return userModel;
   }
 
-  async findByName(userName: string): Promise<User|null> {
-    const user = this.userRepository.findByName(userName);
+  async findByName(username: string): Promise<User|null> {
+    const user: UserDocument = await this.userRepository.findByName(username);
+    const { id, userName, role, password, email, confirmPassword } = user;
 
-    return user;
+    const userModel: User = {
+      id,
+      userName,
+      role,
+      password,
+      email,
+      confirmPassword,
+     };
+
+    return userModel;
   }
 
   async create(newuser: CreateUser): Promise<User> {
@@ -37,20 +72,49 @@ export class UserService {
       role,
       email,
     };
-    const newUser = this.userRepository.create(user);
 
-    return  newUser;
+    const newUser: UserDocument = await this.userRepository.create(user);
+
+    const newUserModel: User = {
+      id: newUser.id,
+      userName: newUser.userName,
+      password: newUser.password,
+      role: newUser.role,
+      email: newUser.email,
+    };
+
+    return  newUserModel;
   }
 
-  async delete(id: string): Promise<User> {
-    const deletedUser = this.userRepository.delete(id);
+  async delete(userId: string): Promise<User> {
+    const deletedUser: UserDocument = await this.userRepository.delete(userId);
+    const { id, userName, role, password, email, confirmPassword } = deletedUser;
 
-    return deletedUser;
+    const deletedUserModel: User = {
+      id,
+      userName,
+      role,
+      password,
+      email,
+      confirmPassword,
+     };
+
+    return deletedUserModel;
   }
 
-  async update(id: string, user: CreateUser): Promise<User> {
-    const updatedUser = this.userRepository.update(id, user);
+  async update(userId: string, user: CreateUser): Promise<User> {
+    const updatedUser: UserDocument = await this.userRepository.update(userId, user);
+    const { id, userName, role, password, email, confirmPassword } = updatedUser;
 
-    return updatedUser;
+    const updatedUserModel: User = {
+      id,
+      userName,
+      role,
+      password,
+      email,
+      confirmPassword,
+     };
+
+    return updatedUserModel;
   }
 }
