@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { CreateAuthor } from 'src/models/create-aurhor.model';
+import { CreateAuthorModel } from 'src/models/create-aurhor.model';
 import { AuthorDocument } from 'src/documents/db.data';
 import { Injectable, Inject } from '@nestjs/common';
 
@@ -28,7 +28,7 @@ export class AuthorRepository {
     return author;
   }
 
-  async create(author: CreateAuthor): Promise<AuthorDocument> {
+  async create(author: CreateAuthorModel): Promise<AuthorDocument> {
     const createdAuthor = new this.authorModel(author);
     const newAuthor = await createdAuthor.save((error, createdauthor) => {
       createdauthor
@@ -39,7 +39,7 @@ export class AuthorRepository {
     return newAuthor;
   }
 
-  async update(id: string, author: CreateAuthor): Promise<AuthorDocument> {
+  async update(id: string, author: CreateAuthorModel): Promise<AuthorDocument> {
     const updAuthor = await this.authorModel
     .findByIdAndUpdate(id, author, { new: true })
     .populate('items')

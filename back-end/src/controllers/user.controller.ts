@@ -3,6 +3,7 @@ import { Roles } from 'src/common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
 import { UserService } from 'src/services/user.service';
+import { CreateUserModel } from 'src/models/create-user.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
@@ -27,16 +28,17 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() newUser: User): Promise<User> {
+  create(@Body() newUser: CreateUserModel): Promise<User> {
     const newuser = this.userService.create(newUser);
     return newuser;
   }
 
   @Put(':id')
-  update(@Body() updUser: User, @Param('id') id: string): Promise<User> {
-    const updatedUser = this.userService.update(id, updUser);
+  update(@Body() updateUser: CreateUserModel, @Param('id') id: string): Promise<User> {
+    const updatedUser = this.userService.update(id, updateUser);
     return updatedUser;
   }
+
   @Delete(':id')
   delete(@Param('id') id: string): Promise<User> {
     const deletedUser = this.userService.delete(id);

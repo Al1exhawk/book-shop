@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { CreateUser } from 'src/models/create-user.model';
+import { CreateUserModel } from 'src/models/create-user.model';
 import { UserDocument } from 'src/documents/db.data';
 import { Injectable, Inject } from '@nestjs/common';
 
@@ -28,14 +28,14 @@ export class UserRepository {
     return user;
   }
 
-  async create(user: CreateUser): Promise<UserDocument> {
+  async create(user: CreateUserModel): Promise<UserDocument> {
     const createdUser = new this.userModel(user);
     const newUser = await createdUser.save();
 
     return newUser;
   }
 
-  async update(id: string, user: CreateUser): Promise<UserDocument> {
+  async update(id: string, user: CreateUserModel): Promise<UserDocument> {
     const updUser = await this.userModel.findByIdAndUpdate(id, user, { new: true });
 
     return updUser;

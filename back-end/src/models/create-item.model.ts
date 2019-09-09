@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongoose';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class CreateItem {
+export class CreateItemModel {
     @ApiModelProperty()
     readonly title: string;
     @ApiModelProperty()

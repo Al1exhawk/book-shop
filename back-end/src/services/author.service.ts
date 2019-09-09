@@ -1,6 +1,6 @@
 import { Author } from 'src/models/author.model';
 import { Injectable } from '@nestjs/common';
-import { CreateAuthor } from 'src/models/create-aurhor.model';
+import { CreateAuthorModel } from 'src/models/create-aurhor.model';
 import { AuthorDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
 import { AuthorRepository } from 'src/repositories/author.repository';
@@ -43,7 +43,7 @@ export class AuthorService {
     return authorModel;
   }
 
-  async create(author: CreateAuthor): Promise<Author> {
+  async create(author: CreateAuthorModel): Promise<Author> {
     const newauthor: AuthorDocument = await this.authorRepository.create(author);
     const {id, items, firstName, lastName } = newauthor;
 
@@ -72,7 +72,7 @@ export class AuthorService {
     return deletedAuthorModel;
   }
 
-  async update(authorId: string, author: CreateAuthor): Promise<Author> {
+  async update(authorId: string, author: CreateAuthorModel): Promise<Author> {
     const updatedAuthor: AuthorDocument = await this.authorRepository.update(authorId, author);
     const {id, items, firstName, lastName } = updatedAuthor;
 

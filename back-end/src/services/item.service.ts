@@ -1,6 +1,6 @@
 import { Item } from 'src/models/item.model';
 import { Injectable } from '@nestjs/common';
-import { CreateItem } from 'src/models/create-item.model';
+import { CreateItemModel } from 'src/models/create-item.model';
 import { ItemDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
 import { AuthorRepository } from 'src/repositories/author.repository';
@@ -47,7 +47,7 @@ export class ItemService {
     return itemModel;
   }
 
-  async create(item: CreateItem): Promise<Item> {
+  async create(item: CreateItemModel): Promise<Item> {
     const newItem: ItemDocument = await this.itemRepository.create(item);
 
     const {id, title, type, price, authors} = newItem;
@@ -80,7 +80,7 @@ export class ItemService {
     return deletedItemModel;
   }
 
-  async update(itemId: string, item: CreateItem): Promise<Item> {
+  async update(itemId: string, item: CreateItemModel): Promise<Item> {
     const updatedItem = await this.itemRepository.update(itemId, item);
 
     const {id, title, type, price, authors} = updatedItem;

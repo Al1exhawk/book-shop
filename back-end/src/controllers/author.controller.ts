@@ -2,7 +2,7 @@ import { Roles } from 'src/common/decorators/role-decorator';
 import { Author } from 'src/models/author.model';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
-import { CreateAuthor } from 'src/models/create-aurhor.model';
+import { CreateAuthorModel } from 'src/models/create-aurhor.model';
 import { AuthorService } from 'src/services/author.service';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
@@ -30,7 +30,7 @@ export class AuthorController {
   }
 
   @Post()
-  create(@Body() newAuthor: CreateAuthor): Promise<Author> {
+  create(@Body() newAuthor: CreateAuthorModel): Promise<Author> {
     const newuAuthor = this.authorService.create(newAuthor);
 
     return newuAuthor;
@@ -44,8 +44,8 @@ export class AuthorController {
   }
 
   @Put(':id')
-  update(@Body() updAuthor: CreateAuthor, @Param('id') id: string): Promise<Author> {
-    const updatedAuthor = this.authorService.update(id, updAuthor);
+  update(@Body() updateAuthor: CreateAuthorModel, @Param('id') id: string): Promise<Author> {
+    const updatedAuthor = this.authorService.update(id, updateAuthor);
 
     return updatedAuthor;
   }

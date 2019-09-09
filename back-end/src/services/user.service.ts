@@ -1,9 +1,9 @@
 import { User } from 'src/models/user.model';
-import { CreateUser } from 'src/models/create-user.model';
 import { Injectable } from '@nestjs/common';
+import { UserDocument } from 'src/documents/db.data';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories/user.repository';
-import { UserDocument } from 'src/documents/db.data';
+import { CreateUserModel } from 'src/models/create-user.model';
 
 @Injectable()
 export class UserService {
@@ -61,11 +61,11 @@ export class UserService {
     return userModel;
   }
 
-  async create(newuser: CreateUser): Promise<User> {
+  async create(newuser: CreateUserModel): Promise<User> {
     const { userName, password, confirmPassword, role, email} = newuser;
     const salt = await genSalt(10);
 
-    const user: CreateUser = {
+    const user: CreateUserModel = {
       userName,
       password: await hash(password, salt),
       confirmPassword,
@@ -102,7 +102,7 @@ export class UserService {
     return deletedUserModel;
   }
 
-  async update(userId: string, user: CreateUser): Promise<User> {
+  async update(userId: string, user: CreateUserModel): Promise<User> {
     const updatedUser: UserDocument = await this.userRepository.update(userId, user);
     const { id, userName, role, password, email, confirmPassword } = updatedUser;
 
