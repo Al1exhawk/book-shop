@@ -1,6 +1,6 @@
 import { Item } from 'src/models/item.model';
 import { Injectable } from '@nestjs/common';
-import { CreateItemModel } from 'src/models/create-item.model';
+import { CreateItemModel } from 'src/models/item/create-item.model';
 import { ItemDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
 import { AuthorRepository } from 'src/repositories/author.repository';

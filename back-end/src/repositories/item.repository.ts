@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { CreateItemModel } from 'src/models/create-item.model';
+import { CreateItemModel } from 'src/models/item/create-item.model';
 import { ItemDocument } from 'src/documents/db.data';
 import { Injectable, Inject } from '@nestjs/common';
 

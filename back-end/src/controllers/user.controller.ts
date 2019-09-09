@@ -3,7 +3,7 @@ import { Roles } from 'src/common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
 import { UserService } from 'src/services/user.service';
-import { CreateUserModel } from 'src/models/create-user.model';
+import { CreateUserModel } from 'src/models/user/create-user.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 

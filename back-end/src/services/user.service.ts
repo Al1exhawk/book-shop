@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { UserDocument } from 'src/documents/db.data';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories/user.repository';
-import { CreateUserModel } from 'src/models/create-user.model';
+import { CreateUserModel } from 'src/models/user/create-user.model';
 
 @Injectable()
 export class UserService {

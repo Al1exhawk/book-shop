@@ -1,6 +1,6 @@
 import { Author } from 'src/models/author.model';
 import { Injectable } from '@nestjs/common';
-import { CreateAuthorModel } from 'src/models/create-aurhor.model';
+import { CreateAuthorModel } from 'src/models/author/create-aurhor.model';
 import { AuthorDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
 import { AuthorRepository } from 'src/repositories/author.repository';

@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { CreateUserModel } from 'src/models/create-user.model';
+import { CreateUserModel } from 'src/models/user/create-user.model';
 import { UserDocument } from 'src/documents/db.data';
 import { Injectable, Inject } from '@nestjs/common';
 
