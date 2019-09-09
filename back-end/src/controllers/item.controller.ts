@@ -5,7 +5,7 @@ import { RolesGuard } from 'src/common/guards/roles-guard';
 import { ItemService } from 'src/services/item.service';
 import { CreateItemModel } from 'src/models/item/create-item.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
-import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
+import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards, Query } from '@nestjs/common';
 
 @ApiUseTags('Items')
 @Controller('items')
@@ -13,8 +13,9 @@ export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Get()
-  findAll(): Promise<Item[]> {
-    const items = this.itemService.findAll();
+  findAll(@Query() query ): Promise<Item[]> {
+    const {minPrice, maxPrice, title, author, page} = query;
+    const items = this.itemService.findAll(query);
 
     return items;
   }

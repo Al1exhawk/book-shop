@@ -10,9 +10,9 @@ export class ItemRepository {
     private readonly itemModel: Model<ItemDocument>,
   ) {}
 
-  async findAll(quary: object = {}): Promise<ItemDocument[]> {
-    const items =  await this.itemModel
-    .find(quary)
+  async findAll(query): Promise<ItemDocument[]> {
+    const items = await this.itemModel
+    .find(query)
     .populate('authors')
     .exec();
 

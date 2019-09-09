@@ -12,8 +12,8 @@ export class ItemService {
     private readonly authorRepository: AuthorRepository,
     ) {}
 
-  async findAll(): Promise<Item[]> {
-    const items: ItemDocument[] = await this.itemRepository.findAll();
+  async findAll(query): Promise<Item[]> {
+    const items: ItemDocument[] = await this.itemRepository.findAll(query);
     const itemsmodel: Item[] = items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
 
