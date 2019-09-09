@@ -16,12 +16,12 @@ import {  ItemRepository } from 'src/repositories/item.repository';
 import {  UserRepository } from 'src/repositories/user.repository';
 import {  AuthorRepository } from 'src/repositories/author.repository';
 // Providers
-import { ItemProviders } from 'src/providers/item.providers';
-import { UserProviders } from 'src/providers/user.providers';
-import { AuthorProviders } from 'src/providers/author.providers';
-import { DatabaseProviders } from 'src/providers/database.providers';
+import { ItemProviders } from 'src/common/providers/item.providers';
+import { UserProviders } from 'src/common/providers/user.providers';
+import { AuthorProviders } from 'src/common/providers/author.providers';
+import { DatabaseProviders } from 'src/common/providers/database.providers';
 // Stategies
-import { JwtStrategy } from 'src/strategies/jwt.strategy';
+import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
 
 @Module({
   imports: [

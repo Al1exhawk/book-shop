@@ -1,7 +1,7 @@
-import { Roles } from 'src/decorators/role-decorator';
+import { Roles } from 'src/common/decorators/role-decorator';
 import { Author } from 'src/models/author.model';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/guards/roles-guard';
+import { RolesGuard } from 'src/common/guards/roles-guard';
 import { CreateAuthor } from 'src/models/create-aurhor.model';
 import { AuthorService } from 'src/services/author.service';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
