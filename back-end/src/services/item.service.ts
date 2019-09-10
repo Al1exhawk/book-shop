@@ -1,8 +1,9 @@
 import { Item } from 'src/models/item.model';
 import { Injectable } from '@nestjs/common';
-import { CreateItemModel } from 'src/models/item/create-item.model';
 import { ItemDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
+import { CreateItemModel } from 'src/models/item/create-item.model';
+import { QueryObjectModel } from 'src/models/query-object.model';
 import { AuthorRepository } from 'src/repositories/author.repository';
 
 @Injectable()
@@ -12,8 +13,8 @@ export class ItemService {
     private readonly authorRepository: AuthorRepository,
     ) {}
 
-  async findAll(query): Promise<Item[]> {
-    const items: ItemDocument[] = await this.itemRepository.findAll(query);
+  async findAll(queryObject: QueryObjectModel): Promise<Item[]> {
+    const items: ItemDocument[] = await this.itemRepository.findAll(queryObject);
     const itemsmodel: Item[] = items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
 

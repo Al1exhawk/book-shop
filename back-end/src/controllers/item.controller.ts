@@ -4,6 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
 import { ItemService } from 'src/services/item.service';
 import { CreateItemModel } from 'src/models/item/create-item.model';
+import { QueryObjectModel } from 'src/models/query-object.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards, Query } from '@nestjs/common';
 
@@ -14,8 +15,16 @@ export class ItemController {
 
   @Get()
   findAll(@Query() query ): Promise<Item[]> {
-    const {minPrice, maxPrice, title, author, page} = query;
-    const items = this.itemService.findAll(query);
+    const {min, max, title, author} = query;
+
+    const queryObject: QueryObjectModel = {
+      minPrice: min && (min >= 0) && (min < max) ? min  : 0,
+      maxPrice: max && (max >= 0) && (max > min) ? max  : Infinity,
+      titleSearchRegExp: title ? new RegExp(title, 'ig') : /\w/ ,
+      authorSearchRegExp: author ? new RegExp(author, 'ig') : /\w/,
+    };
+
+    const items = this.itemService.findAll(queryObject);
 
     return items;
   }
@@ -35,9 +44,9 @@ export class ItemController {
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   create(@Body() newItem: CreateItemModel): Promise<Item> {
-    const newI = this.itemService.create(newItem);
+    const newitem = this.itemService.create(newItem);
 
-    return newI;
+    return newitem;
   }
   @ApiBearerAuth()
 

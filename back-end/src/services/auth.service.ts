@@ -1,4 +1,4 @@
-import { Login } from 'src/models/login.model';
+import { LoginModel } from 'src/models/login.model';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JWTpayload } from 'src/models/jwt-payload.model';
@@ -19,7 +19,7 @@ export class AuthService {
     return user;
   }
 
-  async login(loginModel: Login): Promise<LoginResponse> {
+  async login(loginModel: LoginModel): Promise<LoginResponse> {
     const {userName, password} = loginModel;
     const user =  await this.userService.findByName(userName);
 

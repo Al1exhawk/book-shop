@@ -9,6 +9,7 @@ async function bootstrap() {
   .setTitle('Book-Store RESTfull API')
   .setDescription('Your book store')
   .setVersion('1.0.0')
+  .addBearerAuth()
   .build();
 
   const document = SwaggerModule.createDocument(app, options);

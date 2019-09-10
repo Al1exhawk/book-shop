@@ -1,10 +1,5 @@
-import { ApiModelProperty } from '@nestjs/swagger';
-
-export class LoginResponse {
-    @ApiModelProperty()
+export interface LoginResponse {
     readonly userName: string;
-    @ApiModelProperty()
     readonly role: string;
-    @ApiModelProperty()
     readonly token: string;
  }

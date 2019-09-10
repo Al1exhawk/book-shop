@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
-import { CreateAuthorModel } from 'src/models/author/create-aurhor.model';
 import { AuthorDocument } from 'src/documents/db.data';
+import { CreateAuthorModel } from 'src/models/author/create-aurhor.model';
 import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
@@ -63,5 +63,11 @@ export class AuthorRepository {
        {$pull: {items: id}});
 
     return updDatedItems;
+  }
+
+  async findByRegExp(regExp: RegExp): Promise<any> {
+    const author = await this.authorModel.findOne({firstName: { $regex: {regExp}}}, {items: 1});
+
+    return author;
   }
 }
