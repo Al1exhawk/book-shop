@@ -3,4 +3,8 @@ export interface QueryObjectModel {
     readonly maxPrice: number;
     readonly titleSearchRegExp: RegExp;
     readonly authorSearchRegExp: RegExp;
+    readonly itemType: string[];
+    readonly pageNumber: number;
+    readonly itemsPerPage: number;
+    itemsIdsFromSearchResult?: string[];
 }

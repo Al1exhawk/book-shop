@@ -1,4 +1,5 @@
 import { Item } from 'src/models/item.model';
+import { union } from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
@@ -14,6 +15,16 @@ export class ItemService {
     ) {}
 
   async findAll(queryObject: QueryObjectModel): Promise<Item[]> {
+    const { authorSearchRegExp } = queryObject;
+
+    const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchRegExp);
+    let itemsArr: string[] = [];
+    authorsSearchResult.forEach((author) => {
+      const itemFromSearchResult: string[] = author.items.map(item => String(item));
+      itemsArr = union(itemsArr, itemFromSearchResult );
+    });
+    queryObject.itemsIdsFromSearchResult = itemsArr;
+
     const items: ItemDocument[] = await this.itemRepository.findAll(queryObject);
     const itemsmodel: Item[] = items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;

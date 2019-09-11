@@ -12,16 +12,19 @@ export class ItemRepository {
   ) {}
 
   async findAll(queryObject: QueryObjectModel): Promise<ItemDocument[]> {
-    const {minPrice, maxPrice, titleSearchRegExp} = queryObject;
+      const {minPrice, maxPrice, titleSearchRegExp, itemType, itemsIdsFromSearchResult} = queryObject;
 
-    const items = await this.itemModel
-    .find({
+      const items = await this.itemModel
+      .find({
+      _id: {$in: itemsIdsFromSearchResult},
       price: {$gte: minPrice, $lte: maxPrice},
-      title: {$regex: titleSearchRegExp}} )
-    .populate('authors')
-    .exec();
+      title: {$regex: titleSearchRegExp},
+      type: {$in: itemType},
+      })
+      .populate('authors')
+      .exec();
+      return items;
 
-    return items;
   }
   async findOne(id: string): Promise<ItemDocument> {
     const item = await this.itemModel
@@ -63,8 +66,10 @@ export class ItemRepository {
 
   async deleteAuthorFromItems(id: string) {
     const updDatedItems = await this.itemModel.
-    updateMany({authors: id},
-       {$pull: {authors: id}});
+    updateMany(
+       {authors: id},
+       {$pull: {authors: id}},
+       );
 
     return updDatedItems;
   }

@@ -59,15 +59,17 @@ export class AuthorRepository {
 
   async deleteItemFromAuthors(id: string) {
     const updDatedItems = await this.authorModel.
-    updateMany({items: id},
-       {$pull: {items: id}});
+    updateMany(
+       {items: id},
+       {$pull: {items: id}},
+       );
 
     return updDatedItems;
   }
 
-  async findByRegExp(regExp: RegExp): Promise<any> {
-    const author = await this.authorModel.findOne({firstName: { $regex: {regExp}}}, {items: 1});
+  async findByRegExp(regExp: RegExp): Promise<AuthorDocument[]> {
+    const authorItems: AuthorDocument[] = await this.authorModel.find({firstName: {$regex: regExp}});
 
-    return author;
+    return authorItems;
   }
 }
