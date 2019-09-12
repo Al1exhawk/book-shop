@@ -1,8 +1,7 @@
 import { Model } from 'mongoose';
 import { ItemDocument } from 'src/documents/db.data';
-import { CreateItemModel } from 'src/models/item/create-item.model';
-import { QueryObjectModel } from 'src/models/query-object.model';
 import { Injectable, Inject } from '@nestjs/common';
+import { CreateItemModel } from 'src/models/item/create-item.model';
 
 @Injectable()
 export class ItemRepository {
@@ -11,8 +10,15 @@ export class ItemRepository {
     private readonly itemModel: Model<ItemDocument>,
   ) {}
 
-  async findAll(queryObject: QueryObjectModel): Promise<ItemDocument[]> {
-      const { minPrice, maxPrice, titleSearchRegExp, itemType, itemsIdsFromSearchResult, pageNumber, itemsPerPage } = queryObject;
+  async findAll(
+     minPrice: number,
+     maxPrice: number,
+     titleSearchRegExp: RegExp,
+     itemType: string[],
+     itemsIdsFromSearchResult: string[],
+     pageNumber: number,
+     itemsPerPage: number,
+     ): Promise<ItemDocument[]> {
 
       const items = await this.itemModel
       .find({

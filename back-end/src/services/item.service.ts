@@ -27,8 +27,17 @@ export class ItemService {
     });
     queryObject.itemsIdsFromSearchResult = itemsArr;
 
-    const items: ItemDocument[] = await this.itemRepository.findAll(queryObject);
+    const items: ItemDocument[] = await this.itemRepository.findAll(
+       queryObject.minPrice,
+       queryObject.maxPrice,
+       queryObject.titleSearchRegExp,
+       queryObject.itemType,
+       queryObject.itemsIdsFromSearchResult,
+       queryObject.pageNumber,
+       10,
+        );
     let numberOfModels: number = 0;
+// MAPPING
     const itemsModel: Item[] = items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
       ++numberOfModels;
@@ -43,6 +52,7 @@ export class ItemService {
 
       return itemModel;
     });
+
     const availableNumberOfPages: number = Math.ceil(numberOfModels / itemsPerPage);
     const itemFilterModel: ItemFilterModel = {
       pages: availableNumberOfPages,

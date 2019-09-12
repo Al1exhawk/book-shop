@@ -4,31 +4,19 @@ import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
 import { ItemService } from 'src/services/item.service';
 import { CreateItemModel } from 'src/models/item/create-item.model';
+import { ItemFilterModel } from 'src/models/items-filter.model';
 import { QueryObjectModel } from 'src/models/query-object.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
-import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards, Query } from '@nestjs/common';
-import { ItemFilterModel } from 'src/models/items-filter.model';
+import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards} from '@nestjs/common';
 
 @ApiUseTags('Items')
 @Controller('items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  @Get()
-  findAll(@Query() query ): Promise<ItemFilterModel> {
-    const { min, max, title, author, type, page } = query;
-
-    const queryObject: QueryObjectModel = {
-      minPrice: min && (min >= 0) && (min < max) ? min  : 0,
-      maxPrice: max && (max >= 0) && (max > min) ? max  : Infinity,
-      titleSearchRegExp: title ? new RegExp(title, 'ig') : /\w/ ,
-      authorSearchRegExp: author ? new RegExp(author, 'ig') : /\w/,
-      itemType: type ? [type] : ['magazine', 'book'],
-      pageNumber: page ? page : 1,
-      itemsPerPage: 10,
-    };
-
-    const items = this.itemService.findAll(queryObject);
+  @Post()
+  findByQuery(@Body() queryObject: QueryObjectModel): Promise<ItemFilterModel> {
+    const items: Promise<ItemFilterModel> = this.itemService.findAll(queryObject);
 
     return items;
   }
