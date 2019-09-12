@@ -7,6 +7,7 @@ import { CreateItemModel } from 'src/models/item/create-item.model';
 import { QueryObjectModel } from 'src/models/query-object.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards, Query } from '@nestjs/common';
+import { ItemFilterModel } from 'src/models/items-filter.model';
 
 @ApiUseTags('Items')
 @Controller('items')
@@ -14,8 +15,8 @@ export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
   @Get()
-  findAll(@Query() query ): Promise<Item[]> {
-    const {min, max, title, author, type, page, visibleItems} = query;
+  findAll(@Query() query ): Promise<ItemFilterModel> {
+    const { min, max, title, author, type, page } = query;
 
     const queryObject: QueryObjectModel = {
       minPrice: min && (min >= 0) && (min < max) ? min  : 0,
@@ -24,7 +25,7 @@ export class ItemController {
       authorSearchRegExp: author ? new RegExp(author, 'ig') : /\w/,
       itemType: type ? [type] : ['magazine', 'book'],
       pageNumber: page ? page : 1,
-      itemsPerPage: visibleItems ? visibleItems : 10,
+      itemsPerPage: 10,
     };
 
     const items = this.itemService.findAll(queryObject);

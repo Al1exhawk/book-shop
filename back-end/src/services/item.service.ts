@@ -3,6 +3,7 @@ import { union } from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from 'src/documents/db.data';
 import { ItemRepository } from 'src/repositories/item.repository';
+import { ItemFilterModel } from 'src/models/items-filter.model';
 import { CreateItemModel } from 'src/models/item/create-item.model';
 import { QueryObjectModel } from 'src/models/query-object.model';
 import { AuthorRepository } from 'src/repositories/author.repository';
@@ -14,8 +15,9 @@ export class ItemService {
     private readonly authorRepository: AuthorRepository,
     ) {}
 
-  async findAll(queryObject: QueryObjectModel): Promise<Item[]> {
-    const { authorSearchRegExp } = queryObject;
+  async findAll(queryObject: QueryObjectModel): Promise<ItemFilterModel> {
+
+    const { authorSearchRegExp, itemsPerPage } = queryObject;
 
     const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchRegExp);
     let itemsArr: string[] = [];
@@ -26,8 +28,10 @@ export class ItemService {
     queryObject.itemsIdsFromSearchResult = itemsArr;
 
     const items: ItemDocument[] = await this.itemRepository.findAll(queryObject);
-    const itemsmodel: Item[] = items.map((item: ItemDocument) => {
+    let numberOfModels: number = 0;
+    const itemsModel: Item[] = items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
+      ++numberOfModels;
 
       const itemModel: Item = {
         id,
@@ -39,8 +43,13 @@ export class ItemService {
 
       return itemModel;
     });
+    const availableNumberOfPages: number = Math.ceil(numberOfModels / itemsPerPage);
+    const itemFilterModel: ItemFilterModel = {
+      pages: availableNumberOfPages,
+      items: itemsModel,
+    };
 
-    return itemsmodel;
+    return itemFilterModel;
   }
 
   async findOne(itemId: string): Promise<Item> {

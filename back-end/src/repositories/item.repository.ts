@@ -12,20 +12,23 @@ export class ItemRepository {
   ) {}
 
   async findAll(queryObject: QueryObjectModel): Promise<ItemDocument[]> {
-      const {minPrice, maxPrice, titleSearchRegExp, itemType, itemsIdsFromSearchResult} = queryObject;
+      const { minPrice, maxPrice, titleSearchRegExp, itemType, itemsIdsFromSearchResult, pageNumber, itemsPerPage } = queryObject;
 
       const items = await this.itemModel
       .find({
       _id: {$in: itemsIdsFromSearchResult},
+      type: {$in: itemType},
       price: {$gte: minPrice, $lte: maxPrice},
       title: {$regex: titleSearchRegExp},
-      type: {$in: itemType},
       })
+      .skip(itemsPerPage * (pageNumber - 1))
+      .limit(itemsPerPage)
       .populate('authors')
       .exec();
-      return items;
 
+      return items;
   }
+
   async findOne(id: string): Promise<ItemDocument> {
     const item = await this.itemModel
     .findById(id)
