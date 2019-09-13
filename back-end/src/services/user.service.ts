@@ -1,4 +1,4 @@
-import { User } from 'src/models/user.model';
+import { User } from 'src/models/user/user.model';
 import { Injectable } from '@nestjs/common';
 import { UserDocument } from 'src/documents/db.data';
 import { hash, genSalt } from 'bcrypt';

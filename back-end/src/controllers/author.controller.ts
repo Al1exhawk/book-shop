@@ -1,5 +1,5 @@
 import { Roles } from 'src/common/decorators/role-decorator';
-import { Author } from 'src/models/author.model';
+import { Author } from 'src/models/author/author.model';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
 import { AuthorService } from 'src/services/author.service';

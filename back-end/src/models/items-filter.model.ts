@@ -1,4 +1,4 @@
-import {Item} from 'src/models/item.model';
+import { Item } from 'src/models/item/item.model';
 
 export interface ItemFilterModel {
     readonly pages: number;

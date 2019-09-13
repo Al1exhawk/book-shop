@@ -1,4 +1,4 @@
-import { User } from 'src/models/user.model';
+import { User } from 'src/models/user/user.model';
 import { Roles } from 'src/common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';

@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { ItemDocument } from 'src/documents/db.data';
-import { Injectable, Inject } from '@nestjs/common';
 import { CreateItemModel } from 'src/models/item/create-item.model';
+import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
 export class ItemRepository {

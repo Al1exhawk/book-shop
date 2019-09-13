@@ -1,4 +1,4 @@
-import { Author } from 'src/models/author.model';
+import { Author } from 'src/models/author/author.model';
 import { Injectable } from '@nestjs/common';
 import { CreateAuthorModel } from 'src/models/author/create-aurhor.model';
 import { AuthorDocument } from 'src/documents/db.data';

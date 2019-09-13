@@ -1,4 +1,4 @@
-import { Item } from 'src/models/item.model';
+import { Item } from 'src/models/item/item.model';
 import { Roles } from 'src/common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
@@ -7,14 +7,14 @@ import { CreateItemModel } from 'src/models/item/create-item.model';
 import { ItemFilterModel } from 'src/models/items-filter.model';
 import { QueryObjectModel } from 'src/models/query-object.model';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
-import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards} from '@nestjs/common';
+import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
 @ApiUseTags('Items')
 @Controller('items')
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  @Post()
+  @Post('')
   findByQuery(@Body() queryObject: QueryObjectModel): Promise<ItemFilterModel> {
     const items: Promise<ItemFilterModel> = this.itemService.findAll(queryObject);
 
