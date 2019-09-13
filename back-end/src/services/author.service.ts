@@ -13,9 +13,11 @@ export class AuthorService {
 
   async findAll(): Promise<Author[]> {
     const authors: AuthorDocument[] = await this.authorRepository.findAll();
+    // MAPPING
+    let numberOfModels: number = 0;
     const authorsModel: Author[] = authors.map((item: AuthorDocument) => {
       const { id, firstName, lastName, items } = item;
-
+      ++numberOfModels;
       const authorModel: Author = {
         id,
         firstName,

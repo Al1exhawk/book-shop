@@ -1,9 +1,9 @@
 import { compare } from 'bcrypt';
-import { LoginModel } from 'src/models';
 import { JwtService } from '@nestjs/jwt';
 import { JWTpayload } from 'src/models';
 import { UserService } from 'src/services/user.service';
 import { LoginResponse } from 'src/models';
+import { LoginModel, User } from 'src/models';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async validatePayload(payload: JWTpayload): Promise<any> {
+  async validatePayload(payload: JWTpayload): Promise<User|null> {
     const user = await this.userService.findByName(payload.userName);
 
     return user;

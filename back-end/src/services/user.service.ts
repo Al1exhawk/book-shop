@@ -1,4 +1,4 @@
-import { User } from 'src/models';
+import { User, RegistrationModel } from 'src/models';
 import { UserDocument } from 'src/documents';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories';
@@ -11,9 +11,11 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     const users: UserDocument[] = await this.userRepository.findAll();
+    // MAPPING
+    let numberOfModels: number = 0;
     const usersmodel: User[] = users.map((item: UserDocument) => {
       const { id, userName, role, password, email, confirmPassword } = item;
-
+      ++numberOfModels;
       const userModel: User = {
         id,
         userName,
