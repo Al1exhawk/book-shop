@@ -1,8 +1,11 @@
-import {Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const UserSchema = new Schema({
      userName: String,
-     role: String,
+     role: {
+          type: String,
+          default: 'user',
+     },
      password: String,
      confirmPassword: {
           type: Boolean,

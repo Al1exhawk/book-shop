@@ -22,7 +22,6 @@ export class ItemService {
        maxPrice,
        titleSearchString,
        itemType,
-       itemsIdsFromSearchResult,
        pageNumber,
        authorSearchString,
        itemsPerPage,
@@ -41,11 +40,11 @@ export class ItemService {
        maxPrice,
        titleSearchString,
        itemType,
-       itemsIdsFromSearchResult,
+       queryObject.itemsIdsFromSearchResult,
        pageNumber,
        itemsPerPage,
-        );
-        // MAPPING
+      );
+// MAPPING
     let numberOfModels: number = 0;
     const itemsModel: Item[] = items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;

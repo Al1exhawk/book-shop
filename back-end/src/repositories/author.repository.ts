@@ -72,7 +72,10 @@ export class AuthorRepository {
     if (searchString.length) {
       regExp = new RegExp(searchString, 'ig' );
     }
+    console.log(regExp);
+
     const authorItems: AuthorDocument[] = await this.authorModel.find({firstName: {$regex: regExp}});
+    console.log(authorItems);
 
     return authorItems;
   }

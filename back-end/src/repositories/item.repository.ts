@@ -19,7 +19,6 @@ export class ItemRepository {
      pageNumber: number,
      itemsPerPage: number,
      ): Promise<ItemDocument[]> {
-
       let regExp = /\w/ig;
       if (titleSearchString.length) {
         regExp = new RegExp(titleSearchString, 'ig' );
