@@ -2,24 +2,25 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 // Services
-import { ItemService } from 'src/services/item.service';
-import { UserService } from 'src/services/user.service';
-import { AuthService } from 'src/services/auth.service';
-import { AuthorService } from 'src/services/author.service';
+import { ItemService } from 'src/services';
+import { UserService } from 'src/services';
+import { AuthService } from 'src/services';
+import { AuthorService } from 'src/services';
+
 // Contrillers
-import { ItemController } from 'src/controllers/item.controller';
-import { UserController } from 'src/controllers/user.controller';
-import { AuthController } from 'src/controllers/auth.controller';
-import { AuthorController } from 'src/controllers/author.controller';
+import { ItemController } from 'src/controllers';
+import { UserController } from 'src/controllers';
+import { AuthController } from 'src/controllers';
+import { AuthorController } from 'src/controllers';
 // Repositories
-import {  ItemRepository } from 'src/repositories/item.repository';
-import {  UserRepository } from 'src/repositories/user.repository';
-import {  AuthorRepository } from 'src/repositories/author.repository';
+import {  ItemRepository } from 'src/repositories';
+import {  UserRepository } from 'src/repositories';
+import {  AuthorRepository } from 'src/repositories';
 // Providers
-import { ItemProviders } from 'src/common/providers/item.providers';
-import { UserProviders } from 'src/common/providers/user.providers';
-import { AuthorProviders } from 'src/common/providers/author.providers';
-import { DatabaseProviders } from 'src/common/providers/database.providers';
+import { ItemProviders } from 'src/common/providers';
+import { UserProviders } from 'src/common/providers';
+import { AuthorProviders } from 'src/common/providers';
+import { DatabaseProviders } from 'src/common/providers';
 // Stategies
 import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
 

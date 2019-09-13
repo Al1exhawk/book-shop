@@ -1,9 +1,9 @@
-import { User } from 'src/models/user/user.model';
+import { User } from 'src/models';
 import { Injectable } from '@nestjs/common';
-import { UserDocument } from 'src/documents/db.data';
+import { UserDocument } from 'src/documents';
 import { hash, genSalt } from 'bcrypt';
-import { UserRepository } from 'src/repositories/user.repository';
-import { CreateUserModel } from 'src/models/user/create-user.model';
+import { UserRepository } from 'src/repositories';
+import { CreateUserModel } from 'src/models';
 
 @Injectable()
 export class UserService {

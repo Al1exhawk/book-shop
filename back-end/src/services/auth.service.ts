@@ -1,9 +1,9 @@
-import { LoginModel } from 'src/models/login.model';
 import { compare } from 'bcrypt';
+import { LoginModel } from 'src/models';
 import { JwtService } from '@nestjs/jwt';
-import { JWTpayload } from 'src/models/jwt-payload.model';
-import { UserService } from 'src/services/user.service';
-import { LoginResponse } from 'src/models/login-response.model';
+import { JWTpayload } from 'src/models';
+import { UserService } from 'src/services';
+import { LoginResponse } from 'src/models';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()

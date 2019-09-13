@@ -1,12 +1,12 @@
-import { Item } from 'src/models/item/item.model';
+import { Item } from 'src/models';
 import { union } from 'lodash';
 import { Injectable } from '@nestjs/common';
-import { ItemDocument } from 'src/documents/db.data';
-import { ItemRepository } from 'src/repositories/item.repository';
-import { ItemFilterModel } from 'src/models/items-filter.model';
-import { CreateItemModel } from 'src/models/item/create-item.model';
-import { QueryObjectModel } from 'src/models/query-object.model';
-import { AuthorRepository } from 'src/repositories/author.repository';
+import { ItemDocument } from 'src/documents';
+import { ItemRepository } from 'src/repositories';
+import { ItemFilterModel } from 'src/models';
+import { CreateItemModel } from 'src/models';
+import { QueryObjectModel } from 'src/models';
+import { AuthorRepository } from 'src/repositories';
 
 @Injectable()
 export class ItemService {

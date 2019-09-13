@@ -1,7 +1,7 @@
-import { LoginModel } from 'src/models/login.model';
+import { LoginModel } from 'src/models';
 import { ApiUseTags } from '@nestjs/swagger';
-import { AuthService } from 'src/services/auth.service';
-import { LoginResponse } from 'src/models/login-response.model';
+import { AuthService } from 'src/services';
+import { LoginResponse } from 'src/models';
 import { Controller, Post, Body } from '@nestjs/common';
 
 @ApiUseTags('Login')

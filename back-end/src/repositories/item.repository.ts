@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
-import { ItemDocument } from 'src/documents/db.data';
-import { CreateItemModel } from 'src/models/item/create-item.model';
+import { ItemDocument } from 'src/documents';
+import { CreateItemModel } from 'src/models';
 import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()

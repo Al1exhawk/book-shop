@@ -1,9 +1,9 @@
-import { Author } from 'src/models/author/author.model';
+import { Author } from 'src/models';
 import { Injectable } from '@nestjs/common';
-import { CreateAuthorModel } from 'src/models/author/create-aurhor.model';
-import { AuthorDocument } from 'src/documents/db.data';
-import { ItemRepository } from 'src/repositories/item.repository';
-import { AuthorRepository } from 'src/repositories/author.repository';
+import { AuthorDocument } from 'src/documents';
+import { ItemRepository } from 'src/repositories';
+import { AuthorRepository } from 'src/repositories';
+import { CreateAuthorModel } from 'src/models';
 
 @Injectable()
 export class AuthorService {
