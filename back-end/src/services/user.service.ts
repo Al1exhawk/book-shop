@@ -47,18 +47,20 @@ export class UserService {
 
   async findByName(username: string): Promise<User|null> {
     const user: UserDocument = await this.userRepository.findByName(username);
-    const { id, userName, role, password, email, confirmPassword } = user;
+    if (user) {
+      const { id, userName, role, password, email, confirmPassword } = user;
 
-    const userModel: User = {
-      id,
-      userName,
-      role,
-      password,
-      email,
-      confirmPassword,
-     };
-
-    return userModel;
+      const userModel: User = {
+        id,
+        userName,
+        role,
+        password,
+        email,
+        confirmPassword,
+      };
+      return userModel;
+    }
+    return null;
   }
 
   async create(newuser: CreateUserModel): Promise<User> {

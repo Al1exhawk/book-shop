@@ -14,7 +14,7 @@ import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from
 export class ItemController {
   constructor(private readonly itemService: ItemService) {}
 
-  @Post('')
+  @Post()
   findByQuery(@Body() queryObject: QueryObjectModel): Promise<ItemFilterModel> {
     const items: Promise<ItemFilterModel> = this.itemService.findAll(queryObject);
 
@@ -32,7 +32,7 @@ export class ItemController {
   }
 
   @ApiBearerAuth()
-  @Post()
+  @Post('add')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   create(@Body() newItem: CreateItemModel): Promise<Item> {

@@ -67,7 +67,11 @@ export class AuthorRepository {
     return updDatedItems;
   }
 
-  async findByRegExp(regExp: RegExp): Promise<AuthorDocument[]> {
+  async findByRegExp(searchString: string): Promise<AuthorDocument[]> {
+    let regExp = /\w/ig;
+    if (searchString.length) {
+      regExp = new RegExp(searchString, 'ig' );
+    }
     const authorItems: AuthorDocument[] = await this.authorModel.find({firstName: {$regex: regExp}});
 
     return authorItems;

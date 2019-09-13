@@ -17,9 +17,18 @@ export class ItemService {
 
   async findAll(queryObject: QueryObjectModel): Promise<ItemFilterModel> {
 
-    const {minPrice, maxPrice, titleSearchRegExp, itemType, itemsIdsFromSearchResult, pageNumber, authorSearchRegExp, itemsPerPage } = queryObject;
+    const {
+       minPrice,
+       maxPrice,
+       titleSearchString,
+       itemType,
+       itemsIdsFromSearchResult,
+       pageNumber,
+       authorSearchString,
+       itemsPerPage,
+       } = queryObject;
 
-    const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchRegExp);
+    const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchString);
     let itemsArr: string[] = [];
     authorsSearchResult.forEach((author) => {
       const itemFromSearchResult: string[] = author.items.map(item => String(item));
@@ -30,7 +39,7 @@ export class ItemService {
     const items: ItemDocument[] = await this.itemRepository.findAll(
        minPrice,
        maxPrice,
-       titleSearchRegExp,
+       titleSearchString,
        itemType,
        itemsIdsFromSearchResult,
        pageNumber,

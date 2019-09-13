@@ -13,19 +13,24 @@ export class ItemRepository {
   async findAll(
      minPrice: number,
      maxPrice: number,
-     titleSearchRegExp: RegExp,
+     titleSearchString: string,
      itemType: string[],
      itemsIdsFromSearchResult: string[],
      pageNumber: number,
      itemsPerPage: number,
      ): Promise<ItemDocument[]> {
 
+      let regExp = /\w/ig;
+      if (titleSearchString.length) {
+        regExp = new RegExp(titleSearchString, 'ig' );
+      }
+
       const items = await this.itemModel
       .find({
       _id: {$in: itemsIdsFromSearchResult},
       type: {$in: itemType},
       price: {$gte: minPrice, $lte: maxPrice},
-      title: {$regex: titleSearchRegExp},
+      title: {$regex: regExp},
       })
       .skip(itemsPerPage * (pageNumber - 1))
       .limit(itemsPerPage)
