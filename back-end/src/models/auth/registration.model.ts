@@ -6,7 +6,5 @@ export class RegistrationModel  {
     @ApiModelProperty()
     readonly password: string;
     @ApiModelProperty()
-    readonly confirmPassword?: boolean;
-    @ApiModelProperty()
     readonly email: string;
 }

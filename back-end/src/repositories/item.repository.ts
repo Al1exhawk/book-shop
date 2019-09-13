@@ -15,10 +15,11 @@ export class ItemRepository {
      maxPrice: number,
      titleSearchString: string,
      itemType: string[],
-     itemsIdsFromSearchResult: string[],
+     itemsId: string[],
      pageNumber: number,
      itemsPerPage: number,
      ): Promise<ItemDocument[]> {
+
       let regExp = /\w/ig;
       if (titleSearchString.length) {
         regExp = new RegExp(titleSearchString, 'ig' );
@@ -26,7 +27,7 @@ export class ItemRepository {
 
       const items = await this.itemModel
       .find({
-      _id: {$in: itemsIdsFromSearchResult},
+      _id: {$in: itemsId},
       type: {$in: itemType},
       price: {$gte: minPrice, $lte: maxPrice},
       title: {$regex: regExp},

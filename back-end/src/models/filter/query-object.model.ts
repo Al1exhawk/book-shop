@@ -15,8 +15,7 @@ export class QueryObjectModel {
     readonly pageNumber: number;
     @ApiModelProperty()
     readonly itemsPerPage: number;
-    @ApiModelPropertyOptional()
-    itemsIdsFromSearchResult?: string[];
+
 }
 
 /*  VALIDATION EXEMPLE

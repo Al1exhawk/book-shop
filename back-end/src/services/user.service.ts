@@ -1,9 +1,9 @@
 import { User } from 'src/models';
-import { Injectable } from '@nestjs/common';
 import { UserDocument } from 'src/documents';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories';
 import { CreateUserModel } from 'src/models';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -58,14 +58,21 @@ export class UserService {
         email,
         confirmPassword,
       };
+
       return userModel;
     }
+
     return null;
   }
 
   async create(newuser: CreateUserModel): Promise<User> {
     const { userName, password, confirmPassword, role, email} = newuser;
     const salt = await genSalt(10);
+    const isUserExesist = await this.findByName(userName);
+
+    if (isUserExesist) {
+      throw new HttpException('User with this name already exist!', HttpStatus.FORBIDDEN);
+    }
 
     const user: CreateUserModel = {
       userName,

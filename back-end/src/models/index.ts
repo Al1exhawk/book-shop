@@ -1,5 +1,6 @@
 export * from 'src/models/auth/login.model';
 export * from 'src/models/auth/jwt-payload.model';
+export * from 'src/models/auth/registration.model';
 export * from 'src/models/auth/login-response.model';
 
 export * from 'src/models/author/author.model';
