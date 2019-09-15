@@ -1,4 +1,4 @@
-// import { ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 export class CreateAuthorModel {
@@ -7,5 +7,5 @@ export class CreateAuthorModel {
     @ApiModelProperty()
     readonly lastName: string;
     @ApiModelProperty()
-    readonly items: string[];
+    readonly items: [Types.ObjectId];
 }

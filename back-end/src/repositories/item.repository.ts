@@ -27,7 +27,7 @@ export class ItemRepository {
 
       const items = await this.itemModel
       .find({
-      _id: {$in: itemsId},
+      // _id: {$in: itemsId},
       type: {$in: itemType},
       price: {$gte: minPrice, $lte: maxPrice},
       title: {$regex: regExp},
@@ -51,13 +51,10 @@ export class ItemRepository {
 
   async create(item: CreateItemModel): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
-    const newItem: ItemDocument = await createdItem.save((error, createditem) => {
-      createditem
-      .populate('authors')
-      .execPopulate();
-    });
+    const newItem: ItemDocument = await createdItem.save();
+    const newItemWithPopulate = await newItem.populate('authors').execPopulate();
 
-    return newItem;
+    return newItemWithPopulate;
   }
 
   async update(id: string, item: CreateItemModel): Promise<ItemDocument> {

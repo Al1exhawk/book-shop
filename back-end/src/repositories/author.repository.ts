@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
 import { AuthorDocument } from 'src/documents';
-import { CreateAuthorModel } from 'src/models';
+import { CreateAuthorModel, Author } from 'src/models';
 import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
@@ -30,13 +30,10 @@ export class AuthorRepository {
 
   async create(author: CreateAuthorModel): Promise<AuthorDocument> {
     const createdAuthor = new this.authorModel(author);
-    const newAuthor = await createdAuthor.save((error, createdauthor) => {
-      createdauthor
-      .populate('items')
-      .execPopulate();
-      });
+    const newAuthor = await createdAuthor.save();
+    const newAuthorWithPopulate = await newAuthor.populate('authors').execPopulate();
 
-    return newAuthor;
+    return newAuthorWithPopulate;
   }
 
   async update(id: string, author: CreateAuthorModel): Promise<AuthorDocument> {
