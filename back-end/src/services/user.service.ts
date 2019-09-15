@@ -1,8 +1,8 @@
-import { User, RegistrationModel } from 'src/models';
 import { UserDocument } from 'src/documents';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories';
 import { CreateUserModel } from 'src/models';
+import { User, RegistrationModel } from 'src/models';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UserService {
     const users: UserDocument[] = await this.userRepository.findAll();
     // MAPPING
     let numberOfModels: number = 0;
-    const usersmodel: User[] = users.map((item: UserDocument) => {
+    const usersModel: User[] = users.map((item: UserDocument) => {
       const { id, userName, role, password, email, confirmPassword } = item;
       ++numberOfModels;
       const userModel: User = {
@@ -28,7 +28,7 @@ export class UserService {
       return userModel;
     });
 
-    return usersmodel;
+    return usersModel;
   }
 
   async findOne(userId: string): Promise<User> {
@@ -49,6 +49,7 @@ export class UserService {
 
   async findByName(username: string): Promise<User|null> {
     const user: UserDocument = await this.userRepository.findByName(username);
+
     if (user) {
       const { id, userName, role, password, email, confirmPassword } = user;
 
@@ -67,31 +68,28 @@ export class UserService {
     return null;
   }
 
-  async create(newuser: CreateUserModel): Promise<User> {
-    const { userName, password, confirmPassword, role, email} = newuser;
-    const salt = await genSalt(10);
-    const isUserExesist = await this.findByName(userName);
+  async create(newuser: CreateUserModel|RegistrationModel): Promise<User> {
+    const isUserExesist = await this.findByName(newuser.userName);
 
     if (isUserExesist) {
       throw new HttpException('User with this name already exist!', HttpStatus.FORBIDDEN);
     }
 
-    const user: CreateUserModel = {
-      userName,
-      password: await hash(password, salt),
-      confirmPassword,
-      role,
-      email,
+    const salt = await genSalt(10);
+    const user: CreateUserModel|RegistrationModel = {
+      ...newuser,
+      password: await hash(newuser.password, salt),
     };
 
     const newUser: UserDocument = await this.userRepository.create(user);
-
+    const {id, userName, password, role, email, confirmPassword} = newUser;
     const newUserModel: User = {
-      id: newUser.id,
-      userName: newUser.userName,
-      password: newUser.password,
-      role: newUser.role,
-      email: newUser.email,
+      id,
+      userName,
+      password,
+      role,
+      email,
+      confirmPassword,
     };
 
     return  newUserModel;

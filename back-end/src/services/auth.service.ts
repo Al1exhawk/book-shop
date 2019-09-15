@@ -20,15 +20,14 @@ export class AuthService {
   }
 
   async login(loginModel: LoginModel): Promise<LoginResponse> {
-    const {userName, password} = loginModel;
-    const user =  await this.userService.findByName(userName);
+    const { userName, password } = loginModel;
+    const user: User|null =  await this.userService.findByName(userName);
 
     if (!user) {
       throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
 
     const isMath: boolean = await compare(password, user.password);
-
     if (!isMath) {
       throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }

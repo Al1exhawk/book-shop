@@ -1,9 +1,9 @@
-import { ObjectId, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const ItemSchema = new Schema({
   title: String,
   authors: [{
-      type: ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Author',
     }],
   type: String,

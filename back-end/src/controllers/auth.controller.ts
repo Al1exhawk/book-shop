@@ -7,7 +7,7 @@ import { LoginResponse } from 'src/models';
 import { RegistrationModel } from 'src/models';
 import { Controller, Post, Body } from '@nestjs/common';
 
-@ApiUseTags('Login')
+@ApiUseTags('Auth')
 
 @Controller('')
 export class AuthController {

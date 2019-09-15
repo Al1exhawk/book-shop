@@ -33,7 +33,7 @@ import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
       },
     }),
   ],
-  controllers: [ ItemController, UserController, AuthController, AuthorController],
+  controllers: [AuthController, ItemController, UserController, AuthorController],
   providers: [
     ItemService,
     UserService,

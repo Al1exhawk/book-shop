@@ -1,14 +1,14 @@
-import { ApiModelProperty, ApiModelPropertyOptional } from '@nestjs/swagger';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class CreateUserModel {
     @ApiModelProperty()
     readonly userName: string;
-    @ApiModelPropertyOptional()
-    readonly role?: string;
+    @ApiModelProperty()
+    readonly role: string;
     @ApiModelProperty()
     readonly password: string;
     @ApiModelProperty()
-    readonly confirmPassword?: boolean;
+    readonly confirmPassword: boolean;
     @ApiModelProperty()
     readonly email: string;
 }
