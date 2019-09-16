@@ -1,5 +1,4 @@
 import { Item } from 'src/models';
-import { union } from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from 'src/documents';
 import { ItemRepository } from 'src/repositories';
@@ -16,34 +15,23 @@ export class ItemService {
     ) {}
 
   async findAll(queryObject: QueryObjectModel): Promise<ItemFilterModel> {
-
-    const {
-       minPrice,
-       maxPrice,
-       titleSearchString,
-       itemType,
-       pageNumber,
-       authorSearchString,
-       itemsPerPage,
-       } = queryObject;
-
     const authorsId: string[] = [];
-    const isAuthorSearchStringEmpty: boolean = !authorSearchString.length;
+    const isAuthorSearchStringEmpty: boolean = !queryObject.authorSearchString.length;
     if ( !isAuthorSearchStringEmpty ) {
-      const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchString);
+      const authorsSearchResult = await this.authorRepository.findByRegExp(queryObject.authorSearchString);
       authorsSearchResult.forEach((author) => {
         authorsId.push(author._id);
       });
     }
 
     const items: ItemDocument[] = await this.itemRepository.findAll(
-       minPrice,
-       maxPrice,
-       titleSearchString,
-       itemType,
+       queryObject.minPrice,
+       queryObject.maxPrice,
+       queryObject.titleSearchString,
+       queryObject.itemType,
        authorsId,
-       pageNumber,
-       itemsPerPage,
+       queryObject.pageNumber,
+       queryObject.itemsPerPage,
        isAuthorSearchStringEmpty,
       );
 
@@ -64,7 +52,7 @@ export class ItemService {
       return itemModel;
     });
 
-    const availableNumberOfPages: number = Math.ceil(numberOfModels / itemsPerPage);
+    const availableNumberOfPages: number = Math.ceil(numberOfModels / queryObject.itemsPerPage);
     const itemFilterModel: ItemFilterModel = {
       pages: availableNumberOfPages,
       items: itemsModel,
