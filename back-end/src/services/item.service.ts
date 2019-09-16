@@ -27,21 +27,24 @@ export class ItemService {
        itemsPerPage,
        } = queryObject;
 
-    const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchString);
-    let itemsId: string[] = [];
-    authorsSearchResult.forEach((author) => {
-      const itemFromSearchResult: string[] = author.items.map(item => String(item));
-      itemsId = union(itemsId, itemFromSearchResult );
-    });
+    const authorsId: string[] = [];
+    const isAuthorSearchStringEmpty: boolean = !authorSearchString.length;
+    if ( !isAuthorSearchStringEmpty ) {
+      const authorsSearchResult = await this.authorRepository.findByRegExp(authorSearchString);
+      authorsSearchResult.forEach((author) => {
+        authorsId.push(author._id);
+      });
+    }
 
     const items: ItemDocument[] = await this.itemRepository.findAll(
        minPrice,
        maxPrice,
        titleSearchString,
        itemType,
-       itemsId,
+       authorsId,
        pageNumber,
        itemsPerPage,
+       isAuthorSearchStringEmpty,
       );
 
 // MAPPING

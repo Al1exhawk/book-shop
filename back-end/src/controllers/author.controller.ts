@@ -16,7 +16,7 @@ export class AuthorController {
   constructor(private readonly authorService: AuthorService) {}
 
   @Get()
-  findAll(@Query('page') query): Promise<Author[]> {
+  findAll(): Promise<Author[]> {
     const authors = this.authorService.findAll();
 
     return authors;

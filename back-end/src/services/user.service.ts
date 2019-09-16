@@ -12,10 +12,8 @@ export class UserService {
   async findAll(): Promise<User[]> {
     const users: UserDocument[] = await this.userRepository.findAll();
     // MAPPING
-    let numberOfModels: number = 0;
     const usersModel: User[] = users.map((item: UserDocument) => {
       const { id, userName, role, password, email, confirmPassword } = item;
-      ++numberOfModels;
       const userModel: User = {
         id,
         userName,
