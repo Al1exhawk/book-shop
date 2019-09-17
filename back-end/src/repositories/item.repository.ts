@@ -21,7 +21,7 @@ export class ItemRepository {
      isAuthorSearchStringEmpty: boolean,
      ): Promise<ItemDocument[]> {
 
-        let query = this.itemModel
+        const query = this.itemModel
         .find({
         type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
         price: {
@@ -32,19 +32,30 @@ export class ItemRepository {
           ? new RegExp(titleSearchString, 'ig' )
           : /\w/ig},
         });
+
+        const countQuery = this.itemModel
+        .find({
+        type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
+        price: {
+          $gte: minPrice && (minPrice >= 0) && (minPrice < maxPrice) ? minPrice  : 0,
+          $lte: maxPrice && (maxPrice > minPrice) && (maxPrice > 0) ? maxPrice : Infinity },
+        title: {
+          $regex: titleSearchString.length
+          ? new RegExp(titleSearchString, 'ig' )
+          : /\w/ig},
+        });
+
         if (!isAuthorSearchStringEmpty) {
-          query = query.find({ authors: { $in: authorsId }});
+          query.find({ authors: { $in: authorsId }});
+          countQuery.find({ authors: { $in: authorsId }});
         }
-        const amountQuery = query.countDocuments();
 
+        query.skip(itemsPerPage * (pageNumber - 1)).limit(itemsPerPage);
 
-        const amount = await amountQuery.exec();
+        const amount: number = await countQuery.countDocuments().exec();
+        const items = await query.populate('authors').exec();
+        const pages = Math.ceil(amount / itemsPerPage);
 
-        console.log('amount', amount);
-        query = query.skip(itemsPerPage * (pageNumber - 1)).limit(itemsPerPage);
-
-        const items = await query.exec();
-        console.log('items', items);
         return items;
   }
 
