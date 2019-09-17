@@ -38,12 +38,9 @@ export class ItemRepository {
         const amountQuery = query.countDocuments();
 
 
-        const amount = await amountQuery.exec();
-
-        console.log('amount', amount);
         query = query.skip(itemsPerPage * (pageNumber - 1)).limit(itemsPerPage);
 
-        const items = await query.exec();
+        const items = await query.populate('authors').exec();
         console.log('items', items);
         return items;
   }
