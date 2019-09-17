@@ -1,5 +1,5 @@
-import { Item } from 'src/models';
 import { Roles } from 'src/common/decorators/role-decorator';
+import { ItemModel } from 'src/models';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from 'src/common/guards/roles-guard';
 import { ItemService } from 'src/services/item.service';
@@ -25,7 +25,7 @@ export class ItemController {
   @Get(':id')
   @Roles('user', 'admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  findOne(@Param('id') id: string): Promise<Item> {
+  findOne(@Param('id') id: string): Promise<ItemModel> {
     const item = this.itemService.findOne(id);
 
     return item;
@@ -35,7 +35,7 @@ export class ItemController {
   @Post('add')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  create(@Body() newItem: CreateItemModel): Promise<Item> {
+  create(@Body() newItem: CreateItemModel): Promise<ItemModel> {
     const newitem = this.itemService.create(newItem);
 
     return newitem;
@@ -45,7 +45,7 @@ export class ItemController {
   @Delete(':id')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  delete(@Param('id') id: string): Promise<Item> {
+  delete(@Param('id') id: string): Promise<ItemModel> {
     const deletedItem = this.itemService.delete(id);
 
     return deletedItem;
@@ -55,7 +55,7 @@ export class ItemController {
   @Put(':id')
   @Roles('admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  update(@Body() updateItem: CreateItemModel, @Param('id') id: string): Promise<Item> {
+  update(@Body() updateItem: CreateItemModel, @Param('id') id: string): Promise<ItemModel> {
     const updatedItem = this.itemService.update(id, updateItem);
 
     return updatedItem;

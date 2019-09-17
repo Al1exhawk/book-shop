@@ -1,20 +1,20 @@
+import User from 'src/documents/user/db.data';
 import { UserDocument } from 'src/documents';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from 'src/repositories';
-import { CreateUserModel } from 'src/models';
-import { User, RegistrationModel } from 'src/models';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { UserModel, RegistrationModel, CreateUserModel } from 'src/models';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<UserModel[]> {
     const users: UserDocument[] = await this.userRepository.findAll();
     // MAPPING
-    const usersModel: User[] = users.map((item: UserDocument) => {
+    const usersModel: UserModel[] = users.map((item: UserDocument) => {
       const { id, userName, role, password, email, confirmPassword } = item;
-      const userModel: User = {
+      const userModel: UserModel = {
         id,
         userName,
         role,
@@ -29,11 +29,11 @@ export class UserService {
     return usersModel;
   }
 
-  async findOne(userId: string): Promise<User> {
+  async findOne(userId: string): Promise<UserModel> {
     const user: UserDocument = await this.userRepository.findOne(userId);
     const { id, userName, role, password, email, confirmPassword } = user;
 
-    const userModel: User = {
+    const userModel: UserModel = {
        id,
        userName,
        role,
@@ -45,13 +45,13 @@ export class UserService {
     return userModel;
   }
 
-  async findByName(username: string): Promise<User|null> {
+  async findByName(username: string): Promise<UserModel|null> {
     const user: UserDocument = await this.userRepository.findByName(username);
 
     if (user) {
       const { id, userName, role, password, email, confirmPassword } = user;
 
-      const userModel: User = {
+      const userModel: UserModel = {
         id,
         userName,
         role,
@@ -66,7 +66,7 @@ export class UserService {
     return null;
   }
 
-  async create(newuser: CreateUserModel|RegistrationModel): Promise<User> {
+  async create(newuser: CreateUserModel|RegistrationModel): Promise<UserModel> {
     const isUserExesist = await this.findByName(newuser.userName);
 
     if (isUserExesist) {
@@ -74,14 +74,14 @@ export class UserService {
     }
 
     const salt = await genSalt(10);
-    const user: CreateUserModel|RegistrationModel = {
+    const user: UserDocument = new User({
       ...newuser,
       password: await hash(newuser.password, salt),
-    };
+    });
 
-    const newUser: UserDocument = await this.userRepository.create(user);
-    const {id, userName, password, role, email, confirmPassword} = newUser;
-    const newUserModel: User = {
+    const createdUser: UserDocument = await this.userRepository.create(user);
+    const {id, userName, password, role, email, confirmPassword} = createdUser;
+    const createdUserModel: UserModel = {
       id,
       userName,
       password,
@@ -90,14 +90,14 @@ export class UserService {
       confirmPassword,
     };
 
-    return  newUserModel;
+    return  createdUserModel;
   }
 
-  async delete(userId: string): Promise<User> {
+  async delete(userId: string): Promise<UserModel> {
     const deletedUser: UserDocument = await this.userRepository.delete(userId);
     const { id, userName, role, password, email, confirmPassword } = deletedUser;
 
-    const deletedUserModel: User = {
+    const deletedUserModel: UserModel = {
       id,
       userName,
       role,
@@ -109,11 +109,20 @@ export class UserService {
     return deletedUserModel;
   }
 
-  async update(userId: string, user: CreateUserModel): Promise<User> {
-    const updatedUser: UserDocument = await this.userRepository.update(userId, user);
+  async update(userId: string, user: CreateUserModel): Promise<UserModel> {
+
+    const newUser: UserDocument = new User({
+      userName: user.userName,
+      role: user.role,
+      password: user.password,
+      confirmPassword: user.confirmPassword,
+      email: user.email,
+    });
+
+    const updatedUser: UserDocument = await this.userRepository.update(userId, newUser);
     const { id, userName, role, password, email, confirmPassword } = updatedUser;
 
-    const updatedUserModel: User = {
+    const updatedUserModel: UserModel = {
       id,
       userName,
       role,

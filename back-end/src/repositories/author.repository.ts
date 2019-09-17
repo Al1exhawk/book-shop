@@ -28,7 +28,7 @@ export class AuthorRepository {
     return author;
   }
 
-  async create(author: CreateAuthorModel): Promise<AuthorDocument> {
+  async create(author: AuthorDocument): Promise<AuthorDocument> {
     const createdAuthor = new this.authorModel(author);
     const newAuthor = await createdAuthor.save();
     const newAuthorWithPopulate = await newAuthor.populate('authors').execPopulate();
@@ -36,7 +36,7 @@ export class AuthorRepository {
     return newAuthorWithPopulate;
   }
 
-  async update(id: string, author: CreateAuthorModel): Promise<AuthorDocument> {
+  async update(id: string, author: AuthorDocument): Promise<AuthorDocument> {
     const updAuthor = await this.authorModel
     .findByIdAndUpdate(id, author, { new: true })
     .populate('items')

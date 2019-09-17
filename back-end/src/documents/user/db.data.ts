@@ -1,4 +1,4 @@
-import { Document} from 'mongoose';
+import { Document, model, Schema} from 'mongoose';
 
 export interface UserDocument extends Document {
     readonly  id: string;
@@ -8,3 +8,19 @@ export interface UserDocument extends Document {
     readonly  confirmPassword: boolean;
     readonly  email: string;
 }
+
+export const UserSchema = new Schema({
+    userName: String,
+    role: {
+         type: String,
+         default: 'user',
+    },
+    password: String,
+    confirmPassword: {
+         type: Boolean,
+         default: false,
+    },
+    email: String,
+});
+
+export default model<UserDocument>('User', UserSchema);

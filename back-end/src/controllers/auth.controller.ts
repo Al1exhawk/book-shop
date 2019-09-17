@@ -1,4 +1,4 @@
-import { User } from 'src/models';
+import { UserModel } from 'src/models';
 import { LoginModel } from 'src/models';
 import { ApiUseTags } from '@nestjs/swagger';
 import { UserService } from 'src/services';
@@ -24,8 +24,8 @@ export class AuthController {
   }
 
   @Post('registration')
-  async registration(@Body() user: RegistrationModel): Promise<User> {
-    const newUser: User = await this.userService.create(user);
+  async registration(@Body() user: RegistrationModel): Promise<UserModel> {
+    const newUser: UserModel = await this.userService.create(user);
 
     return newUser;
   }

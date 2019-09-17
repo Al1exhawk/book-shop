@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { JWTpayload } from 'src/models';
 import { UserService } from 'src/services/user.service';
 import { LoginResponse } from 'src/models';
-import { LoginModel, User } from 'src/models';
+import { LoginModel, UserModel } from 'src/models';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async validatePayload(payload: JWTpayload): Promise<User|null> {
+  async validatePayload(payload: JWTpayload): Promise<UserModel|null> {
     const user = await this.userService.findByName(payload.userName);
 
     return user;
@@ -21,7 +21,7 @@ export class AuthService {
 
   async login(loginModel: LoginModel): Promise<LoginResponse> {
     const { userName, password } = loginModel;
-    const user: User|null =  await this.userService.findByName(userName);
+    const user: UserModel|null =  await this.userService.findByName(userName);
 
     if (!user) {
       throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);

@@ -20,6 +20,7 @@ export class ItemRepository {
     itemsPerPage: number,
     isAuthorSearchStringEmpty: boolean,
   ): Promise<{ items: ItemDocument[]; pagesCount: number }> {
+
     const query: any = {
       type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
       price: {
@@ -62,7 +63,7 @@ export class ItemRepository {
     return item;
   }
 
-  async create(item: CreateItemModel): Promise<ItemDocument> {
+  async create(item: ItemDocument): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
     const newItem: ItemDocument = await createdItem.save();
     const newItemWithPopulate = await newItem
@@ -72,7 +73,7 @@ export class ItemRepository {
     return newItemWithPopulate;
   }
 
-  async update(id: string, item: CreateItemModel): Promise<ItemDocument> {
+  async update(id: string, item: ItemDocument): Promise<ItemDocument> {
     const updItem = await this.itemModel
       .findByIdAndUpdate(id, item, { new: true })
       .populate('authors')

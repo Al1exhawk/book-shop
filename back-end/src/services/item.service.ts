@@ -1,4 +1,5 @@
-import { Item } from 'src/models';
+import Item from 'src/documents/item/db.data';
+import { ItemModel } from 'src/models';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from 'src/documents';
 import { ItemRepository } from 'src/repositories';
@@ -35,11 +36,10 @@ export class ItemService {
        isAuthorSearchStringEmpty,
       );
 
-// MAPPING
-    const itemsModel: Item[] = reposirotyResponse.items.map((item: ItemDocument) => {
+    const itemsModel: ItemModel[] = reposirotyResponse.items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
 
-      const itemModel: Item = {
+      const itemModel: ItemModel = {
         id,
         title,
         type,
@@ -58,12 +58,12 @@ export class ItemService {
     return itemFilterModel;
   }
 
-  async findOne(itemId: string): Promise<Item> {
+  async findOne(itemId: string): Promise<ItemModel> {
     const item: ItemDocument = await this.itemRepository.findOne(itemId);
 
     const {id, title, type, price, authors} = item;
 
-    const itemModel: Item = {
+    const itemModel: ItemModel = {
       id,
       title,
       type,
@@ -74,12 +74,18 @@ export class ItemService {
     return itemModel;
   }
 
-  async create(item: CreateItemModel): Promise<Item> {
-    const newItem: ItemDocument = await this.itemRepository.create(item);
+  async create(item: CreateItemModel): Promise<ItemModel> {
+    const newItem: ItemDocument = new Item({
+      title: item.title,
+      price: item.price,
+      type: item.type,
+      authors: item.authors,
+    });
 
-    const {id, title, type, price, authors} = newItem;
+    const createdItem: ItemDocument = await this.itemRepository.create(newItem);
 
-    const newItemModel: Item = {
+    const {id, title, type, price, authors} = createdItem;
+    const createdItemModel: ItemModel = {
       id,
       title,
       type,
@@ -87,16 +93,16 @@ export class ItemService {
       authors,
     };
 
-    return  newItemModel;
+    return  createdItemModel;
   }
 
-  async delete(itemId: string): Promise<Item> {
+  async delete(itemId: string): Promise<ItemModel> {
     const deletedItem: ItemDocument = await  this.itemRepository.delete(itemId);
     this.authorRepository.deleteItemFromAuthors(itemId);
 
     const {id, title, type, price, authors} = deletedItem;
 
-    const deletedItemModel: Item = {
+    const deletedItemModel: ItemModel = {
       id,
       title,
       type,
@@ -107,12 +113,19 @@ export class ItemService {
     return deletedItemModel;
   }
 
-  async update(itemId: string, item: CreateItemModel): Promise<Item> {
-    const updatedItem = await this.itemRepository.update(itemId, item);
+  async update(itemId: string, item: CreateItemModel): Promise<ItemModel> {
+    const newItem: ItemDocument = new Item({
+      title: item.title,
+      price: item.price,
+      type: item.type,
+      authors: item.authors,
+    });
+
+    const updatedItem = await this.itemRepository.update(itemId, newItem);
 
     const {id, title, type, price, authors} = updatedItem;
 
-    const updatedItemModel: Item = {
+    const updatedItemModel: ItemModel = {
       id,
       title,
       type,
