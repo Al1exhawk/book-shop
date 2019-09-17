@@ -11,59 +11,53 @@ export class ItemRepository {
   ) {}
 
   async findAll(
-     minPrice: number,
-     maxPrice: number,
-     titleSearchString: string,
-     itemType: string[],
-     authorsId: string[],
-     pageNumber: number,
-     itemsPerPage: number,
-     isAuthorSearchStringEmpty: boolean,
-     ): Promise<ItemDocument[]> {
+    minPrice: number,
+    maxPrice: number,
+    titleSearchString: string,
+    itemType: string[],
+    authorsId: string[],
+    pageNumber: number,
+    itemsPerPage: number,
+    isAuthorSearchStringEmpty: boolean,
+  ): Promise<{ items: ItemDocument[]; pagesCount: number }> {
+    const query: any = {
+      type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
+      price: {
+        $gte: minPrice && minPrice >= 0 && minPrice < maxPrice ? minPrice : 0,
+        $lte:
+          maxPrice && maxPrice > minPrice && maxPrice > 0 ? maxPrice : Infinity,
+      },
+      title: {
+        $regex: titleSearchString.length
+          ? new RegExp(titleSearchString, 'ig')
+          : /\w/gi,
+      },
+    };
 
-        const query = this.itemModel
-        .find({
-        type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
-        price: {
-          $gte: minPrice && (minPrice >= 0) && (minPrice < maxPrice) ? minPrice  : 0,
-          $lte: maxPrice && (maxPrice > minPrice) && (maxPrice > 0) ? maxPrice : Infinity },
-        title: {
-          $regex: titleSearchString.length
-          ? new RegExp(titleSearchString, 'ig' )
-          : /\w/ig},
-        });
+    if (authorsId && !isAuthorSearchStringEmpty) {
+      query.authors = { $in: authorsId };
+    }
 
-        const countQuery = this.itemModel
-        .find({
-        type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
-        price: {
-          $gte: minPrice && (minPrice >= 0) && (minPrice < maxPrice) ? minPrice  : 0,
-          $lte: maxPrice && (maxPrice > minPrice) && (maxPrice > 0) ? maxPrice : Infinity },
-        title: {
-          $regex: titleSearchString.length
-          ? new RegExp(titleSearchString, 'ig' )
-          : /\w/ig},
-        });
+    const amount: number = await this.itemModel
+      .find(query)
+      .countDocuments()
+      .exec();
+    const items = await this.itemModel
+      .find(query)
+      .skip(itemsPerPage * (pageNumber - 1))
+      .limit(itemsPerPage)
+      .populate('authors')
+      .exec();
+    const pages = Math.ceil(amount / itemsPerPage);
 
-        if (!isAuthorSearchStringEmpty) {
-          query.find({ authors: { $in: authorsId }});
-          countQuery.find({ authors: { $in: authorsId }});
-        }
-
-        query.skip(itemsPerPage * (pageNumber - 1)).limit(itemsPerPage);
-
-        const amount: number = await countQuery.countDocuments().exec();
-        const items = await query.populate('authors').exec();
-        const pages = Math.ceil(amount / itemsPerPage);
-
-        return items;
+    return { items, pagesCount: pages };
   }
 
   async findOne(id: string): Promise<ItemDocument> {
     const item = await this.itemModel
-    .findById(id)
-    .populate('authors')
-    .exec();
+      .findById(id)
+      .populate('authors')
+      .exec();
 
     return item;
   }
@@ -71,35 +65,36 @@ export class ItemRepository {
   async create(item: CreateItemModel): Promise<ItemDocument> {
     const createdItem = new this.itemModel(item);
     const newItem: ItemDocument = await createdItem.save();
-    const newItemWithPopulate = await newItem.populate('authors').execPopulate();
+    const newItemWithPopulate = await newItem
+      .populate('authors')
+      .execPopulate();
 
     return newItemWithPopulate;
   }
 
   async update(id: string, item: CreateItemModel): Promise<ItemDocument> {
     const updItem = await this.itemModel
-    .findByIdAndUpdate(id, item, { new: true })
-    .populate('authors')
-    .exec();
+      .findByIdAndUpdate(id, item, { new: true })
+      .populate('authors')
+      .exec();
 
     return updItem;
   }
 
   async delete(id: string): Promise<ItemDocument> {
     const deletedItem = await this.itemModel
-    .findByIdAndRemove(id)
-    .populate('authors')
-    .exec();
+      .findByIdAndRemove(id)
+      .populate('authors')
+      .exec();
 
     return deletedItem;
   }
 
   async deleteAuthorFromItems(id: string) {
-    const updDatedItems = await this.itemModel.
-    updateMany(
-       {authors: id},
-       {$pull: {authors: id}},
-       );
+    const updDatedItems = await this.itemModel.updateMany(
+      { authors: id },
+      { $pull: { authors: id } },
+    );
 
     return updDatedItems;
   }

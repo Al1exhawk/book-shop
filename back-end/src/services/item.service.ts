@@ -24,7 +24,7 @@ export class ItemService {
       });
     }
 
-    const items: ItemDocument[] = await this.itemRepository.findAll(
+    const reposirotyResponse = await this.itemRepository.findAll(
        queryObject.minPrice,
        queryObject.maxPrice,
        queryObject.titleSearchString,
@@ -36,10 +36,8 @@ export class ItemService {
       );
 
 // MAPPING
-    let numberOfModels: number = 0;
-    const itemsModel: Item[] = items.map((item: ItemDocument) => {
+    const itemsModel: Item[] = reposirotyResponse.items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
-      ++numberOfModels;
 
       const itemModel: Item = {
         id,
@@ -52,9 +50,8 @@ export class ItemService {
       return itemModel;
     });
 
-    const availableNumberOfPages: number = Math.ceil(numberOfModels / queryObject.itemsPerPage);
     const itemFilterModel: ItemFilterModel = {
-      pages: availableNumberOfPages,
+      pages: reposirotyResponse.pagesCount,
       items: itemsModel,
     };
 
