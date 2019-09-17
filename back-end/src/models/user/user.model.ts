@@ -1,4 +1,4 @@
-export interface User {
+export interface UserModel {
   readonly id: string;
   readonly userName: string;
   readonly role: string;

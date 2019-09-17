@@ -1,4 +1,5 @@
-import { Item } from 'src/models';
+import Item from 'src/documents/item/db.data';
+import { ItemModel } from 'src/models';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from 'src/documents';
 import { ItemRepository } from 'src/repositories';
@@ -16,7 +17,7 @@ export class ItemService {
 
   async findAll(queryObject: QueryObjectModel): Promise<ItemFilterModel> {
     const authorsId: string[] = [];
-    const isAuthorSearchStringEmpty: boolean = !queryObject.authorSearchString.length;
+    const isAuthorSearchStringEmpty: boolean = !queryObject.authorSearchString.length; // 0 - true, not 0 - false
     if ( !isAuthorSearchStringEmpty ) {
       const authorsSearchResult = await this.authorRepository.findByRegExp(queryObject.authorSearchString);
       authorsSearchResult.forEach((author) => {
@@ -24,7 +25,7 @@ export class ItemService {
       });
     }
 
-    const items: ItemDocument[] = await this.itemRepository.findAll(
+    const reposirotyResponse = await this.itemRepository.findAll(
        queryObject.minPrice,
        queryObject.maxPrice,
        queryObject.titleSearchString,
@@ -35,13 +36,10 @@ export class ItemService {
        isAuthorSearchStringEmpty,
       );
 
-// MAPPING
-    let numberOfModels: number = 0;
-    const itemsModel: Item[] = items.map((item: ItemDocument) => {
+    const itemsModel: ItemModel[] = reposirotyResponse.items.map((item: ItemDocument) => {
       const { id, title, type , price, authors } = item;
-      ++numberOfModels;
 
-      const itemModel: Item = {
+      const itemModel: ItemModel = {
         id,
         title,
         type,
@@ -52,21 +50,20 @@ export class ItemService {
       return itemModel;
     });
 
-    const availableNumberOfPages: number = Math.ceil(numberOfModels / queryObject.itemsPerPage);
     const itemFilterModel: ItemFilterModel = {
-      pages: availableNumberOfPages,
+      pages: reposirotyResponse.pagesCount,
       items: itemsModel,
     };
 
     return itemFilterModel;
   }
 
-  async findOne(itemId: string): Promise<Item> {
+  async findOne(itemId: string): Promise<ItemModel> {
     const item: ItemDocument = await this.itemRepository.findOne(itemId);
 
     const {id, title, type, price, authors} = item;
 
-    const itemModel: Item = {
+    const itemModel: ItemModel = {
       id,
       title,
       type,
@@ -77,12 +74,18 @@ export class ItemService {
     return itemModel;
   }
 
-  async create(item: CreateItemModel): Promise<Item> {
-    const newItem: ItemDocument = await this.itemRepository.create(item);
+  async create(item: CreateItemModel): Promise<ItemModel> {
+    const newItem: ItemDocument = new Item({
+      title: item.title,
+      price: item.price,
+      type: item.type,
+      authors: item.authors,
+    });
 
-    const {id, title, type, price, authors} = newItem;
+    const createdItem: ItemDocument = await this.itemRepository.create(newItem);
 
-    const newItemModel: Item = {
+    const {id, title, type, price, authors} = createdItem;
+    const createdItemModel: ItemModel = {
       id,
       title,
       type,
@@ -90,16 +93,16 @@ export class ItemService {
       authors,
     };
 
-    return  newItemModel;
+    return  createdItemModel;
   }
 
-  async delete(itemId: string): Promise<Item> {
+  async delete(itemId: string): Promise<ItemModel> {
     const deletedItem: ItemDocument = await  this.itemRepository.delete(itemId);
     this.authorRepository.deleteItemFromAuthors(itemId);
 
     const {id, title, type, price, authors} = deletedItem;
 
-    const deletedItemModel: Item = {
+    const deletedItemModel: ItemModel = {
       id,
       title,
       type,
@@ -110,12 +113,19 @@ export class ItemService {
     return deletedItemModel;
   }
 
-  async update(itemId: string, item: CreateItemModel): Promise<Item> {
-    const updatedItem = await this.itemRepository.update(itemId, item);
+  async update(itemId: string, item: CreateItemModel): Promise<ItemModel> {
+    const newItem: ItemDocument = new Item({
+      title: item.title,
+      price: item.price,
+      type: item.type,
+      authors: item.authors,
+    });
+
+    const updatedItem = await this.itemRepository.update(itemId, newItem);
 
     const {id, title, type, price, authors} = updatedItem;
 
-    const updatedItemModel: Item = {
+    const updatedItemModel: ItemModel = {
       id,
       title,
       type,

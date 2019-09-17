@@ -28,14 +28,14 @@ export class UserRepository {
     return user;
   }
 
-  async create(user: CreateUserModel|RegistrationModel): Promise<UserDocument> {
+  async create(user: UserDocument): Promise<UserDocument> {
     const createdUser = new this.userModel(user);
     const newUser = await createdUser.save();
 
     return newUser;
   }
 
-  async update(id: string, user: CreateUserModel): Promise<UserDocument> {
+  async update(id: string, user: UserDocument): Promise<UserDocument> {
     const updUser = await this.userModel.findByIdAndUpdate(id, user, { new: true });
 
     return updUser;

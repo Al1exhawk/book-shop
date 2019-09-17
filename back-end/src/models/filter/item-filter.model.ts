@@ -1,7 +1,6 @@
-import { Item } from 'src/models';
-import { ItemDocument } from 'src/documents';
+import { ItemModel } from 'src/models';
 
 export interface ItemFilterModel {
     readonly pages: number;
-    readonly items: Item[]|ItemDocument[];
+    readonly items: ItemModel[];
 }
