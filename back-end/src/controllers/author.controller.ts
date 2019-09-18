@@ -1,10 +1,9 @@
-import { Roles } from 'src/common/decorators/role-decorator';
-import { AuthorModel } from 'src/models';
+import { Roles } from '../common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
-import { RolesGuard } from 'src/common/guards/roles-guard';
-import { AuthorService } from 'src/services';
-import { CreateAuthorModel } from 'src/models';
+import { RolesGuard } from '../common/guards/roles-guard';
+import { AuthorService } from '../services';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
+import { CreateAuthorModel, AuthorModel, PagingModel, FilterModel } from '../models';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
 @ApiUseTags('Authors')
@@ -15,9 +14,9 @@ import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from
 export class AuthorController {
   constructor(private readonly authorService: AuthorService) {}
 
-  @Get()
-  findAll(): Promise<AuthorModel[]> {
-    const authors = this.authorService.findAll();
+  @Post()
+  findAll(@Body() pagingModel: PagingModel): Promise<FilterModel> {
+    const authors = this.authorService.findAll(pagingModel.page, pagingModel.contentPerPage);
 
     return authors;
   }
@@ -29,7 +28,7 @@ export class AuthorController {
     return author;
   }
 
-  @Post()
+  @Post('add')
   create(@Body() newAuthor: CreateAuthorModel): Promise<AuthorModel> {
     const newuAuthor = this.authorService.create(newAuthor);
 

@@ -1,6 +1,5 @@
 import { Reflector } from '@nestjs/core';
 import { CanActivate, ExecutionContext, Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { Collection } from 'mongoose';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

@@ -1,5 +1,5 @@
 import { Connection } from 'mongoose';
-import { AuthorSchema } from 'src/documents';
+import { AuthorSchema } from '../../documents';
 
 export const AuthorProviders = [
     {

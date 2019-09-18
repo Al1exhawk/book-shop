@@ -2,26 +2,15 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 // Services
-import { ItemService } from 'src/services';
-import { UserService } from 'src/services';
-import { AuthService } from 'src/services';
-import { AuthorService } from 'src/services';
+import { ItemService, AuthorService, UserService, AuthService } from './services';
 // Contrillers
-import { ItemController } from 'src/controllers';
-import { UserController } from 'src/controllers';
-import { AuthController } from 'src/controllers';
-import { AuthorController } from 'src/controllers';
+import { UserController, AuthorController, ItemController, AuthController   } from './controllers';
 // Repositories
-import {  ItemRepository } from 'src/repositories';
-import {  UserRepository } from 'src/repositories';
-import {  AuthorRepository } from 'src/repositories';
+import {  ItemRepository, AuthorRepository, UserRepository } from './repositories';
 // Providers
-import { ItemProviders } from 'src/common/providers';
-import { UserProviders } from 'src/common/providers';
-import { AuthorProviders } from 'src/common/providers';
-import { DatabaseProviders } from 'src/common/providers';
+import { ItemProviders,  DatabaseProviders, UserProviders, AuthorProviders  } from './common/providers';
 // Stategies
-import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
+import { JwtStrategy } from './common/strategies/jwt.strategy';
 
 @Module({
   imports: [

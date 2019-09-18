@@ -1,7 +1,6 @@
 import { Model } from 'mongoose';
-import { UserDocument } from 'src/documents';
+import { UserDocument } from '../documents';
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateUserModel, RegistrationModel } from 'src/models';
 
 @Injectable()
 export class UserRepository {
@@ -10,10 +9,19 @@ export class UserRepository {
     private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async findAll(): Promise<UserDocument[]> {
-    const users = await this.userModel.find();
+  async findAll(page: number, usersPerPage: number): Promise<{pages: number, users: UserDocument[] }> {
 
-    return users;
+    const amount = await this.userModel
+    .find()
+    .countDocuments();
+
+    const users = await this.userModel.find()
+    .skip(usersPerPage * (page - 1))
+    .limit(usersPerPage);
+
+    const pages = Math.ceil(amount / usersPerPage);
+
+    return {pages, users};
   }
 
   async findOne(id: string): Promise<UserDocument> {

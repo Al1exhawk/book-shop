@@ -1,18 +1,18 @@
-import User from 'src/documents/user/db.data';
-import { UserDocument } from 'src/documents';
+import User from '../documents/user/db.data';
+import { UserDocument } from '../documents';
 import { hash, genSalt } from 'bcrypt';
-import { UserRepository } from 'src/repositories';
+import { UserRepository } from '../repositories';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
-import { UserModel, RegistrationModel, CreateUserModel } from 'src/models';
+import { UserModel, RegistrationModel, CreateUserModel, FilterModel } from '../models';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async findAll(): Promise<UserModel[]> {
-    const users: UserDocument[] = await this.userRepository.findAll();
-    // MAPPING
-    const usersModel: UserModel[] = users.map((item: UserDocument) => {
+  async findAll(page: number, usersPerPage: number): Promise<FilterModel> {
+    const reposirotyResponse = await this.userRepository.findAll(page, usersPerPage);
+
+    const usersModel: UserModel[] = reposirotyResponse.users.map((item: UserDocument) => {
       const { id, userName, role, password, email, confirmPassword } = item;
       const userModel: UserModel = {
         id,
@@ -26,7 +26,12 @@ export class UserService {
       return userModel;
     });
 
-    return usersModel;
+    const userFilterModel: FilterModel = {
+      pages: reposirotyResponse.pages,
+      content: usersModel,
+    };
+
+    return userFilterModel;
   }
 
   async findOne(userId: string): Promise<UserModel> {
@@ -66,8 +71,8 @@ export class UserService {
     return null;
   }
 
-  async create(newuser: CreateUserModel|RegistrationModel): Promise<UserModel> {
-    const isUserExesist = await this.findByName(newuser.userName);
+  async create(newUser: CreateUserModel|RegistrationModel): Promise<UserModel> {
+    const isUserExesist = await this.findByName(newUser.userName);
 
     if (isUserExesist) {
       throw new HttpException('User with this name already exist!', HttpStatus.FORBIDDEN);
@@ -75,8 +80,8 @@ export class UserService {
 
     const salt = await genSalt(10);
     const user: UserDocument = new User({
-      ...newuser,
-      password: await hash(newuser.password, salt),
+      ...newUser,
+      password: await hash(newUser.password, salt),
     });
 
     const createdUser: UserDocument = await this.userRepository.create(user);

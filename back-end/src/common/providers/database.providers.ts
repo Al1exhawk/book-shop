@@ -1,5 +1,5 @@
-import constants from 'src/environment/constants';
 import * as mongoose from 'mongoose';
+import constants from '../../environment/constants';
 
 export const DatabaseProviders = [
   {

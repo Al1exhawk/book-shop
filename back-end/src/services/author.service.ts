@@ -1,9 +1,8 @@
-import Author from 'src/documents/author/db.data';
+import Author from '../documents/author/db.data';
 import { Injectable } from '@nestjs/common';
-import { AuthorDocument } from 'src/documents';
-import { ItemRepository } from 'src/repositories';
-import { AuthorRepository } from 'src/repositories';
-import { CreateAuthorModel, AuthorModel } from 'src/models';
+import { AuthorDocument } from '../documents';
+import { ItemRepository, AuthorRepository } from '../repositories';
+import { CreateAuthorModel, AuthorModel, FilterModel } from '../models';
 
 @Injectable()
 export class AuthorService {
@@ -11,10 +10,10 @@ export class AuthorService {
     private readonly authorRepository: AuthorRepository,
     private readonly itemRepository: ItemRepository) {}
 
-  async findAll(): Promise<AuthorModel[]> {
-    const authors: AuthorDocument[] = await this.authorRepository.findAll();
+  async findAll(page: number, authorsPerPage: number): Promise<FilterModel> {
+    const reposirotyResponse = await this.authorRepository.findAll(page, authorsPerPage);
 
-    const authorsModel: AuthorModel[] = authors.map((item: AuthorDocument) => {
+    const authorsModel: AuthorModel[] = reposirotyResponse.authors.map((item: AuthorDocument) => {
       const { id, firstName, lastName, items } = item;
       const authorModel: AuthorModel = {
         id,
@@ -26,7 +25,12 @@ export class AuthorService {
       return authorModel;
     });
 
-    return authorsModel;
+    const authorFilterModel: FilterModel = {
+      pages: reposirotyResponse.pages,
+      content: authorsModel,
+    };
+
+    return authorFilterModel;
   }
 
   async findOne(authorId: string): Promise<AuthorModel> {

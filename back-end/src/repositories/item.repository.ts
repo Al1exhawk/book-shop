@@ -1,6 +1,5 @@
 import { Model } from 'mongoose';
-import { ItemDocument } from 'src/documents';
-import { CreateItemModel } from 'src/models';
+import { ItemDocument } from '../documents';
 import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
@@ -19,10 +18,10 @@ export class ItemRepository {
     pageNumber: number,
     itemsPerPage: number,
     isAuthorSearchStringEmpty: boolean,
-  ): Promise<{ items: ItemDocument[]; pagesCount: number }> {
+  ): Promise<{ items: ItemDocument[]; pages: number }> {
 
     const query: any = {
-      type: { $in: itemType.length ? itemType : ['book', 'magazine'] },
+      type: { $in: itemType && itemType.length ? itemType : ['book', 'magazine'] },
       price: {
         $gte: minPrice && minPrice >= 0 && minPrice < maxPrice ? minPrice : 0,
         $lte:
@@ -51,7 +50,7 @@ export class ItemRepository {
       .exec();
     const pages = Math.ceil(amount / itemsPerPage);
 
-    return { items, pagesCount: pages };
+    return { items, pages };
   }
 
   async findOne(id: string): Promise<ItemDocument> {

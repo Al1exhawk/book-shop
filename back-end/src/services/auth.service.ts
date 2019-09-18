@@ -1,10 +1,8 @@
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { JWTpayload } from 'src/models';
-import { UserService } from 'src/services/user.service';
-import { LoginResponse } from 'src/models';
-import { LoginModel, UserModel } from 'src/models';
+import { UserService } from './user.service';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { LoginModel, UserModel, LoginResponse, JWTpayload } from '../models';
 
 @Injectable()
 export class AuthService {

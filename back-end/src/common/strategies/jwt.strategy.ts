@@ -1,6 +1,6 @@
-import constants from 'src/environment/constants';
-import { JWTpayload } from 'src/models/auth/jwt-payload.model';
-import { AuthService } from 'src/services/auth.service';
+import constants from '../../environment/constants';
+import { JWTpayload } from '../..//models';
+import { AuthService } from '../../services';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';

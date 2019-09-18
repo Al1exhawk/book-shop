@@ -1,16 +1,17 @@
-export * from 'src/models/auth/login.model';
-export * from 'src/models/auth/jwt-payload.model';
-export * from 'src/models/auth/registration.model';
-export * from 'src/models/auth/login-response.model';
+export * from './auth/login.model';
+export * from './auth/jwt-payload.model';
+export * from './auth/registration.model';
+export * from './auth/login-response.model';
 
-export * from 'src/models/author/author.model';
-export * from 'src/models/author/create-aurhor.model';
+export * from './author/author.model';
+export * from './author/create-aurhor.model';
 
-export * from 'src/models/item/item.model';
-export * from 'src/models/item/create-item.model';
+export * from './item/item.model';
+export * from './item/create-item.model';
 
-export * from 'src/models/user/user.model';
-export * from 'src/models/user/create-user.model';
+export * from './user/user.model';
+export * from './user/create-user.model';
 
-export * from 'src/models/filter/item-filter.model';
-export * from 'src/models/filter/query-object.model';
+export * from './filter/paging.model';
+export * from './filter/filter.model';
+export * from './filter/query-object.model';

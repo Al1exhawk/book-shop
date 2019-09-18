@@ -1,6 +1,5 @@
 import { Model } from 'mongoose';
-import { AuthorDocument } from 'src/documents';
-import { CreateAuthorModel } from 'src/models';
+import { AuthorDocument } from '../documents';
 import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
@@ -10,13 +9,19 @@ export class AuthorRepository {
     private readonly authorModel: Model<AuthorDocument>,
   ) {}
 
-  async findAll(): Promise<AuthorDocument[]> {
+  async findAll(page: number, authorsPerPage: number): Promise<{pages: number, authors: AuthorDocument[] }> {
+    const amount = await this.authorModel
+    .find()
+    .countDocuments();
     const authors = await this.authorModel
     .find()
     .populate('items')
+    .skip(authorsPerPage * (page - 1))
+    .limit(authorsPerPage)
     .exec();
+    const pages = Math.ceil(amount / authorsPerPage);
 
-    return authors;
+    return { pages, authors };
   }
 
   async findOne(id: string): Promise<AuthorDocument> {
@@ -31,7 +36,9 @@ export class AuthorRepository {
   async create(author: AuthorDocument): Promise<AuthorDocument> {
     const createdAuthor = new this.authorModel(author);
     const newAuthor = await createdAuthor.save();
-    const newAuthorWithPopulate = await newAuthor.populate('authors').execPopulate();
+    const newAuthorWithPopulate = await newAuthor
+    .populate('authors')
+    .execPopulate();
 
     return newAuthorWithPopulate;
   }

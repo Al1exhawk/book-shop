@@ -1,3 +1,3 @@
-export * from 'src/repositories/user.repository';
-export * from 'src/repositories/item.repository';
-export * from 'src/repositories/author.repository';
+export * from './user.repository';
+export * from './item.repository';
+export * from './author.repository';

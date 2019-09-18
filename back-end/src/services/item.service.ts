@@ -1,12 +1,8 @@
-import Item from 'src/documents/item/db.data';
-import { ItemModel } from 'src/models';
+import Item from '../documents/item/db.data';
 import { Injectable } from '@nestjs/common';
-import { ItemDocument } from 'src/documents';
-import { ItemRepository } from 'src/repositories';
-import { ItemFilterModel } from 'src/models';
-import { CreateItemModel } from 'src/models';
-import { QueryObjectModel } from 'src/models';
-import { AuthorRepository } from 'src/repositories';
+import { ItemDocument } from '../documents';
+import { ItemRepository, AuthorRepository } from '../repositories';
+import { FilterModel, QueryObjectModel, CreateItemModel, ItemModel } from '../models';
 
 @Injectable()
 export class ItemService {
@@ -15,7 +11,7 @@ export class ItemService {
     private readonly authorRepository: AuthorRepository,
     ) {}
 
-  async findAll(queryObject: QueryObjectModel): Promise<ItemFilterModel> {
+  async findAll(queryObject: QueryObjectModel): Promise<FilterModel> {
     const authorsId: string[] = [];
     const isAuthorSearchStringEmpty: boolean = !queryObject.authorSearchString.length; // 0 - true, not 0 - false
     if ( !isAuthorSearchStringEmpty ) {
@@ -50,9 +46,9 @@ export class ItemService {
       return itemModel;
     });
 
-    const itemFilterModel: ItemFilterModel = {
-      pages: reposirotyResponse.pagesCount,
-      items: itemsModel,
+    const itemFilterModel: FilterModel = {
+      pages: reposirotyResponse.pages,
+      content: itemsModel,
     };
 
     return itemFilterModel;
