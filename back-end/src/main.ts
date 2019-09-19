@@ -18,7 +18,6 @@ async function bootstrap() {
   SwaggerModule.setup('swaggerAPI', app, document);
 
   app.useGlobalFilters(new ExceptionFilter(), new ApplicationExceptionFilter());
-  await app.init();
   await app.listen(3000);
 }
 bootstrap();
