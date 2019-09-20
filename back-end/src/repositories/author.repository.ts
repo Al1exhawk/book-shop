@@ -9,7 +9,7 @@ export class AuthorRepository {
     private readonly authorModel: Model<AuthorDocument>,
   ) {}
 
-  async findAll(page: number, authorsPerPage: number): Promise<{pages: number, authors: AuthorDocument[] }> {
+  async findAll(page: number, authorsPerPage: number): Promise<{pages: number, authors: AuthorDocument[]}> {
     const amount = await this.authorModel
     .find()
     .countDocuments();

@@ -9,7 +9,7 @@ export class UserRepository {
     private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async findAll(page: number, usersPerPage: number): Promise<{pages: number, users: UserDocument[] }> {
+  async findAll(page: number, usersPerPage: number): Promise<{pages: number, users: UserDocument[]}> {
 
     const amount = await this.userModel
     .find()

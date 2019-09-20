@@ -1,6 +1,5 @@
 book-shop.code-workspace
-.vscode
-
+*.env
 
 # compiled output
 back-end/dist
@@ -31,7 +30,7 @@ lerna-debug.log*
 *.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
+*/.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

@@ -18,14 +18,12 @@ export class ItemRepository {
     pageNumber: number,
     itemsPerPage: number,
     isAuthorSearchStringEmpty: boolean,
-  ): Promise<{ items: ItemDocument[]; pages: number }> {
+  ): Promise<{items: ItemDocument[]; pages: number}> {
 
     const query: any = {
       type: { $in: itemType && itemType.length ? itemType : ['book', 'magazine'] },
       price: {
         $gte: minPrice && minPrice >= 0 && minPrice < maxPrice ? minPrice : 0,
-        $lte:
-          maxPrice && maxPrice > minPrice && maxPrice > 0 ? maxPrice : Infinity,
       },
       title: {
         $regex: titleSearchString.length
@@ -33,6 +31,10 @@ export class ItemRepository {
           : /\w/gi,
       },
     };
+
+    if (maxPrice && maxPrice > minPrice && maxPrice > 0) {
+      query.price = {...query.price, $lte: maxPrice};
+    }
 
     if (authorsId && !isAuthorSearchStringEmpty) {
       query.authors = { $in: authorsId };
