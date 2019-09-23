@@ -1,5 +1,5 @@
-export default {
-  secret: 'secretKey',
-  mongoURI:
-    'mongodb+srv://AlexHawk:Alex3695@cluster0-zxky1.mongodb.net/test1?retryWrites=true&w=majority',
-};
+export const DEFAULT_ENV = 'development';
+export const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
+export const AUTHOR_MODEL = 'AUTHOR_MODEL';
+export const ITEM_MODEL = 'ITEM_MODEL';
+export const USER_MODEL = 'USER_MODEL';

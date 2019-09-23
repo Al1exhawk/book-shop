@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 // Services
-import { ItemService, AuthorService, UserService, AuthService } from './services';
+import { ItemService, AuthorService, UserService, AuthService, ConfigService } from './services';
 // Contrillers
 import { UserController, AuthorController, ItemController, AuthController   } from './controllers';
 // Repositories
@@ -12,13 +12,15 @@ import { ItemProviders,  DatabaseProviders, UserProviders, AuthorProviders  } fr
 // Stategies
 import { JwtStrategy } from './common/strategies/jwt.strategy';
 
+const config = new ConfigService();
+
 @Module({
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: 'secretKey',
+      secret: config.JWT_SECRET,
       signOptions: {
-        expiresIn: '1h',
+        expiresIn: config.EXPIRES_IN,
       },
     }),
   ],
@@ -27,6 +29,7 @@ import { JwtStrategy } from './common/strategies/jwt.strategy';
     ItemService,
     UserService,
     AuthService,
+    ConfigService,
     AuthorService,
     JwtStrategy,
     ItemRepository,

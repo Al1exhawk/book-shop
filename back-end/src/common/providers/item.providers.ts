@@ -1,9 +1,10 @@
 import { Connection } from 'mongoose';
 import { ItemSchema } from '../../documents';
+import { ITEM_MODEL } from '../../environment/constants';
 
 export const ItemProviders = [
     {
-        provide: 'ITEM_MODEL',
+        provide: ITEM_MODEL,
         useFactory: (connection: Connection) => connection.model('Item', ItemSchema),
         inject: ['DATABASE_CONNECTION'],
     },
