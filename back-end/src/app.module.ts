@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
 // Services
 import { ItemService, AuthorService, UserService, AuthService, ConfigService } from './services';
 // Contrillers
@@ -16,7 +15,6 @@ const config = new ConfigService();
 
 @Module({
   imports: [
-    PassportModule,
     JwtModule.register({
       secret: config.JWT_SECRET,
       signOptions: {
