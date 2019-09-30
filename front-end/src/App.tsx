@@ -1,13 +1,15 @@
-import './App.css';
+import store from './store'
 import React from 'react';
+import LoginForm from './containers/headerContainer'
+import { Provider } from 'react-redux'
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-       <h1>Hello</h1>
-      </header>
-    </div>
+    <Provider store={store}>
+        <div className="App">     
+          <LoginForm />   
+        </div>
+    </Provider>
   );
 }
 

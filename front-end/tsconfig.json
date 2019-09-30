@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "baseUrl": "src",
-    "outDir": "./dist",
+    "rootDir": "src",
+    "outDir": "build/dist",
     "sourceMap": true,
     "noImplicitAny": true,
     "allowJs": true,
@@ -25,5 +25,13 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts"
+  ],
+  "types": [
+    "typePatches"
   ]
 }
