@@ -17,6 +17,6 @@ export const CREATE_USER = 'CREATE_USER'
 export const DELETE_USER = 'DELETE_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 // Auth
-export const LOG_IN = "LOG_IN";
-export const LOG_OUT = "LOG_OUT";
-
+export const LOG_IN = 'LOG_IN';
+export const LOG_OUT = 'LOG_OUT';
+export const AUTH_ERROR = 'AUTH_ERROR';

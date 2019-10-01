@@ -9,7 +9,9 @@ export class ApplicationExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const status = exception.getStatus();
 
-    response.status(status).json({
+    response
+    .status(status)
+    .json({
       message: exception.message,
     });
   }

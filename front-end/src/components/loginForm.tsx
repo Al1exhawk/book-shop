@@ -13,7 +13,7 @@ const LoginForm: React.FC<Props> = props => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 
     const {name, value} = e.target;
-    hanldeChange({...inputsState, [name]:value});
+    hanldeChange({...inputsState, [name]: value});
     
     
 }

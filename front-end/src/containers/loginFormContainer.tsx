@@ -4,6 +4,10 @@ import LoginForm from '../components/loginForm';
 
 
 
+// const mapStateToProps = (state) => {
+    
+// }
+
 const mapDispathToProps = {
     onLoginClick: logIn
 }

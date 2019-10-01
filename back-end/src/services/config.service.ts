@@ -12,11 +12,11 @@ export class ConfigService {
 
     constructor() {
         const filePath: string = `src/environment/${process.env.NODE_ENV || DEFAULT_ENV}.env`;
-        const envCongig = parse(readFileSync(filePath));
+        const envConfig = parse(readFileSync(filePath));
 
-        this.JWT_SECRET = envCongig.JWT_SECRET;
-        this.EXPIRES_IN = envCongig.EXPIRES_IN;
-        this.MONGO_DB_CONNECTION_STRING = envCongig.MONGO_DB_CONNECTION_STRING;
-        this.SEND_GRID_API = envCongig.SEND_GRID_API;
+        this.JWT_SECRET = envConfig.JWT_SECRET;
+        this.EXPIRES_IN = envConfig.EXPIRES_IN;
+        this.MONGO_DB_CONNECTION_STRING = envConfig.MONGO_DB_CONNECTION_STRING;
+        this.SEND_GRID_API = envConfig.SEND_GRID_API;
     }
 }

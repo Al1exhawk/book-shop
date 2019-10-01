@@ -1,14 +1,9 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-// Services
 import { ItemService, AuthorService, UserService, AuthService, ConfigService } from './services';
-// Contrillers
 import { UserController, AuthorController, ItemController, AuthController   } from './controllers';
-// Repositories
 import {  ItemRepository, AuthorRepository, UserRepository } from './repositories';
-// Providers
 import { ItemProviders,  DatabaseProviders, UserProviders, AuthorProviders  } from './common/providers';
-// Stategies
 import { JwtStrategy } from './common/strategies/jwt.strategy';
 
 const config = new ConfigService();

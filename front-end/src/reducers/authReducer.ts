@@ -1,34 +1,31 @@
-import { LOG_OUT, LOG_IN } from '../constants/action-types';
-import { ActionTemplate  } from '../constants/types';
+import { LOG_OUT, LOG_IN, AUTH_ERROR } from '../constants/action-types';
+import { ActionTemplate, AuthState  } from '../constants/types';
 import { Reducer } from 'redux'
 
-export interface AuthState {
-    readonly userName: string;
-    readonly role: string;
-    readonly token: string;
-}
-
 const initialState: AuthState = {
-    userName: "",
-    role: "",
-    token: ""
+    userName: '',
+    role: '',
+    token: '',
+    errorMassage: ''
 }
 
 export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState = initialState, action: ActionTemplate): AuthState => {
     switch(action.type) {
         case LOG_IN: {
-            const logedInUserInform: AuthState = {
+            const logedInUserForm: AuthState = {
                 userName: action.payload.userName,
                 role: action.payload.role,
-                token: action.payload.token
+                token: action.payload.token,
+                errorMassage: ''
             } 
-          return logedInUserInform; 
+          return logedInUserForm; 
         }
         case LOG_OUT: {
-            return {                
-                userName: "",
-                role: "",
-                token: ""
+            return initialState;
+        }
+        case AUTH_ERROR: {
+            return {
+                ...initialState, errorMassage: action.payload
             }
         }
         default: {
