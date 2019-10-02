@@ -20,11 +20,21 @@
     border-radius: .7rem;
 }
 
-.loginFormInput {
-    width: 12rem;
-    height: 2.3rem;        
-    margin-bottom: 0.7rem;
+
+.loginForm * {
+    width: 12rem;     
+    margin-bottom: .7rem;
 }
 .loginFormInput:last-child {
     margin-bottom: 0;
+}
+
+.warningMassange {
+    width: auto;
+    padding: 0.3rem;
+    background-color: rgb(243, 118, 87);
+    color: black;   
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: inherit;
+
 }

@@ -1,6 +1,6 @@
 import thunk from 'redux-thunk';
 import { authReducer } from './reducers/authReducer';
-import {createStore, applyMiddleware, compose, Store} from 'redux';
+import { createStore, applyMiddleware, compose, Store } from 'redux';
 
 const store: Store = createStore(authReducer, compose(
 applyMiddleware(thunk),
