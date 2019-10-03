@@ -1,15 +1,15 @@
+import { History } from "history";
 import { Dispatch } from "redux";
 import axios, { AxiosResponse } from "axios";
 import { LOG_IN, LOG_OUT, AUTH_ERROR } from "../constants/action-types";
 import { ActionTemplate, LoginPayload } from "../constants/types";
-import { History } from "history";
 
 export const logIn = (loginPayload: LoginPayload, history: History) =>
  async (dispatch: Dispatch<ActionTemplate>) => {
   let serverResponse;
   try {
 
-    serverResponse = await axios.post<LoginPayload, AxiosResponse>("http://localhost:80/login", loginPayload, {responseType: "json"});
+    serverResponse = await axios.post<LoginPayload, AxiosResponse>("http://localhost:80/login", loginPayload, { responseType: "json" });
 
   } catch(e) {  
     return dispatch({
