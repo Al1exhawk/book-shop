@@ -12,12 +12,12 @@ export const logIn = (loginPayload: LoginPayload) =>
   let serverResponse;
   try {
 
-    serverResponse = await axios.post<LoginPayload, AxiosResponse>("http://localhost:8080/login", loginPayload, {responseType: "json"});
+    serverResponse = await axios.post<LoginPayload, AxiosResponse>("http://localhost:80/login", loginPayload, {responseType: "json"});
 
   } catch(e) {  
     return dispatch({
         type: AUTH_ERROR,
-        payload: e.response ? e.response.data.message :'Network Error'
+        payload: e.response && e.response.data.message ? e.response.data.message: e.message
     })
   }
     const data = serverResponse.data;

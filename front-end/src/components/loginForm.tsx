@@ -1,5 +1,5 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { LoginPayload } from '../constants/types';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 
 interface Props {
   onLoginClick: Function,
@@ -10,6 +10,7 @@ interface Props {
 const LoginForm: React.FC<Props> = props => {
  
   const [loginFormState, hanldeChange] = useState<LoginPayload>(() => ({"userName": "", "password": ""}));
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
 
@@ -21,13 +22,13 @@ const LoginForm: React.FC<Props> = props => {
      props.onLoginClick(loginFormState);
   }
 
-  const warningMassangeStyles = {
-    display: props.errorMassage.length? 'inline': 'none'
-  };
+  const isError: boolean = props.errorMassage.length!? true : false;
+  
 
   return (    
       <form className ="form-group loginForm" onSubmit = { onFormSbmit }>
-            <span className = "warningMassange " style = {warningMassangeStyles}>{props.errorMassage}</span>
+        
+           { isError ? <span className = "warningMassange">{props.errorMassage}</span> : null}
             <input className ="form-control loginFormInput" placeholder="UserName..." name="userName" value={loginFormState.userName} onChange={handleInputChange}/>
             <input className ="form-control loginFormInput" placeholder="Password..." name="password" value={loginFormState.password} type="password" onChange={handleInputChange}/>
             <button className ="form-control btn btn-primary loginFormInput"> LogIn</button>

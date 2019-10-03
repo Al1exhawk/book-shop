@@ -1,19 +1,16 @@
 import store from './store'
 import React from 'react';
-import LoginForm from './containers/loginFormContainer'
-import { Provider } from 'react-redux'
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
+import Main from './components/main';
+import Header from './components/header';
+
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-        <div className="App">
-          <Router >     
-            <Switch>
-              <Route path='/' component = { LoginForm }/>
-              <Route path='/login' component = { LoginForm }/>
-            </Switch>
-          </Router>   
+        <div className="constainer App">
+            <Header/>
+            <Main/>            
         </div>
     </Provider>
   );
