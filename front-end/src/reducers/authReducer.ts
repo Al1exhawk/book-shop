@@ -20,14 +20,17 @@ export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState
             } 
           return logedInUserForm; 
         }
+        
         case LOG_OUT: {
             return initialState;
         }
+
         case AUTH_ERROR: {
             return {
                 ...initialState, errorMassage: action.payload
             }
         }
+
         default: {
             return state;
         }

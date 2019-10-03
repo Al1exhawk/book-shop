@@ -1,3 +1,5 @@
+import { History, Location } from 'history';
+
 export interface ActionTemplate  {
     readonly type: string;
     readonly payload?: any;
@@ -13,4 +15,10 @@ export interface AuthState  {
     readonly role: string;
     readonly token: string;
     readonly errorMassage: string;
+}
+
+export interface IRoutProps {
+    readonly location: Location,
+    readonly history: History,
+    readonly match: Math
 }

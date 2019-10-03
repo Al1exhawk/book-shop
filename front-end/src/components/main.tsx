@@ -4,9 +4,11 @@ import { Switch, Route } from "react-router-dom";
 
 const Main: React.FC = () => {
     return (
-        <Switch>
-            <Route exact path='/login' component = { LoginForm }/>
-        </Switch>
+        <div className ="container">
+            <Switch>
+                <Route exact path='/login' component = { LoginForm }/>
+            </Switch>
+        </div>
     )
 }
 
