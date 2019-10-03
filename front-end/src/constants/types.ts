@@ -1,4 +1,5 @@
-import { History, Location } from 'history';
+import { match } from 'react-router';
+import { History, Location,  } from 'history';
 
 export interface ActionTemplate  {
     readonly type: string;
@@ -20,5 +21,5 @@ export interface AuthState  {
 export interface IRoutProps {
     readonly location: Location,
     readonly history: History,
-    readonly match: Math
+    readonly match: match
 }

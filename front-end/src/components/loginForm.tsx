@@ -17,10 +17,10 @@ const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, location, match
 
     hanldeChange({...loginFormState, [name]: value});    
 }
-
+  
   const onFormSbmit = (e: FormEvent<HTMLFormElement>) => {
      e.preventDefault();
-     onLoginClick(loginFormState);
+     onLoginClick(loginFormState, history);
   }
 
   const isError: boolean = errorMassage.length!? true : false;

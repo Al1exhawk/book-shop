@@ -1,13 +1,10 @@
-import axios, { AxiosResponse } from "axios";
-import { ActionTemplate, LoginPayload } from "../constants/types";
-import { LOG_IN, LOG_OUT, AUTH_ERROR } from "../constants/action-types";
 import { Dispatch } from "redux";
+import axios, { AxiosResponse } from "axios";
+import { LOG_IN, LOG_OUT, AUTH_ERROR } from "../constants/action-types";
+import { ActionTemplate, LoginPayload } from "../constants/types";
+import { History } from "history";
 
-
-
-
-
-export const logIn = (loginPayload: LoginPayload) =>
+export const logIn = (loginPayload: LoginPayload, history: History) =>
  async (dispatch: Dispatch<ActionTemplate>) => {
   let serverResponse;
   try {
@@ -20,6 +17,8 @@ export const logIn = (loginPayload: LoginPayload) =>
         payload: e.response && e.response.data.message ? e.response.data.message: e.message
     })
   }
+
+    history.push('/');
     const data = serverResponse.data;
      return dispatch({
           type: LOG_IN,
