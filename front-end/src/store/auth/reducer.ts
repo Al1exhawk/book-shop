@@ -1,6 +1,14 @@
-import { LOG_OUT, LOG_IN, AUTH_ERROR } from '../constants/action-types';
-import { ActionTemplate, AuthState  } from '../constants/types';
 import { Reducer } from 'redux'
+import { ActionTemplate } from '../../constants/types';
+import { LOG_OUT, LOG_IN, AUTH_ERROR } from './actions';
+
+
+export interface AuthState  {
+    readonly userName: string;
+    readonly role: string;
+    readonly token: string;
+    readonly errorMassage: string;
+}
 
 const initialState: AuthState = {
     userName: '',
