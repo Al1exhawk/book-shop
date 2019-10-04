@@ -19,7 +19,7 @@ const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, location, match
     hanldeChange({...loginFormState, [name]: value});    
 }
   
-  const onFormSbmit = (e: FormEvent<HTMLFormElement>) => {
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
      e.preventDefault();
      onLoginClick(loginFormState, history);
   }
@@ -28,7 +28,7 @@ const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, location, match
   
 
   return (    
-      <form className ="form-group loginForm" onSubmit = { onFormSbmit }>
+      <form className ="form-group loginForm" onSubmit = { onFormSubmit }>
         
            { isError ? <span className = "warningMassange">{errorMassage}</span> : null}
             <input className ="form-control loginFormInput" placeholder="UserName..." name="userName" value={loginFormState.userName} onChange={handleInputChange}/>

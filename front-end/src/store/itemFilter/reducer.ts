@@ -7,18 +7,18 @@ export interface ItemFilterState  {
     readonly minPrice: number,
     readonly maxPrice: number,
     readonly type: string[],
-    readonly title: string,
-    readonly authorName: string,
+    readonly titleSearchString: string,
+    readonly authorSearchString: string,
     readonly pageNumber: number,
     readonly itemsPerPage: number,
 }
 
 const initialState: ItemFilterState = {
     minPrice: 0,
-    maxPrice: 0,
+    maxPrice: Infinity,
     type: ['book', 'magazine'],
-    title: '',
-    authorName: '',
+    titleSearchString: '',
+    authorSearchString: '',
     pageNumber: 1,
     itemsPerPage: 10,
 }
@@ -31,8 +31,8 @@ export const ItemFilterReducer: Reducer<ItemFilterState, ActionTemplate> = (stat
               minPrice: action.payload.minPrice,
               maxPrice: action.payload.maxPrice,
               type: action.payload.type,
-              title: action.payload.title,
-              authorName: action.payload.authorName,
+              titleSearchString: action.payload.titleSearchString,
+              authorSearchString: action.payload.authorSearchString,
             } 
           return newItemFilter; 
         }
