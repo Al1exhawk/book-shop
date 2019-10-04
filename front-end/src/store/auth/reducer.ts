@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { ActionTemplate } from '../../constants/types';
-import { LOG_OUT, LOG_IN, AUTH_ERROR } from './actions';
+import { LOG_OUT, LOG_IN, AUTH_ERROR } from './';
 
 
 export interface AuthState  {
