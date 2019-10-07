@@ -11,9 +11,7 @@ export const logIn = (loginPayload: LoginPayload, history: History) =>
  async (dispatch: Dispatch<ActionTemplate>) => {
   let serverResponse;
   try {
-
     serverResponse = await axios.post<LoginPayload, AxiosPromise>("http://localhost:80/login", loginPayload, { responseType: "json" });
-
   } catch(e) {  
     return dispatch({
         type: AUTH_ERROR,

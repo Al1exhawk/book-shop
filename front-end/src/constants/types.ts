@@ -18,3 +18,10 @@ export interface IRoutProps {
     readonly match: match
 }
 
+export interface FilterForm {
+    readonly minPrice: number,
+    readonly maxPrice: number,
+    readonly titleSearchString:string,
+    readonly authorSearchString: string,
+    readonly type: string[]
+}
