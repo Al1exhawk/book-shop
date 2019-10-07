@@ -28,8 +28,7 @@ const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, location, match
   
 
   return (    
-      <form className ="form-group loginForm" onSubmit = { onFormSubmit }>
-        
+      <form className ="form-group loginForm" onSubmit = { onFormSubmit }>        
            { isError ? <span className = "warningMassange">{errorMassage}</span> : null}
             <input className ="form-control loginFormInput" placeholder="UserName..." name="userName" value={loginFormState.userName} onChange={handleInputChange}/>
             <input className ="form-control loginFormInput" placeholder="Password..." name="password" value={loginFormState.password} type="password" onChange={handleInputChange}/>

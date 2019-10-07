@@ -6,19 +6,19 @@ import { UPDATE_FILTER } from './'
 export interface ItemFilterState  {
     readonly minPrice: number,
     readonly maxPrice: number,
-    readonly type: string[],
     readonly titleSearchString: string,
     readonly authorSearchString: string,
+    readonly itemType: string[],
     readonly pageNumber: number,
     readonly itemsPerPage: number,
 }
 
 const initialState: ItemFilterState = {
     minPrice: 0,
-    maxPrice: Infinity,
-    type: ['book', 'magazine'],
+    maxPrice: 0,
     titleSearchString: '',
     authorSearchString: '',
+    itemType: ['book', 'magazine'],
     pageNumber: 1,
     itemsPerPage: 10,
 }
@@ -30,9 +30,9 @@ export const ItemFilterReducer: Reducer<ItemFilterState, ActionTemplate> = (stat
               ...state,
               minPrice: action.payload.minPrice,
               maxPrice: action.payload.maxPrice,
-              type: action.payload.type,
               titleSearchString: action.payload.titleSearchString,
               authorSearchString: action.payload.authorSearchString,
+              itemType: action.payload.itemType,
             } 
           return newItemFilter; 
         }

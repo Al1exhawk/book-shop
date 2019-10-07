@@ -23,5 +23,5 @@ export interface FilterForm {
     readonly maxPrice: number,
     readonly titleSearchString:string,
     readonly authorSearchString: string,
-    readonly type: string[]
+    readonly itemType: string[]
 }

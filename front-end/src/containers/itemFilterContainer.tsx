@@ -7,14 +7,11 @@ import {updateFilter} from '../store'
 interface Props {
     update: Function
 }
-
-
-
   const ItemFilter: React.FC<Props> = (props) => {
         const [itemFilterState, hanldeChange] = useState<FilterForm>(
             {minPrice: 0,
              maxPrice: 0,
-             type: ['book', 'magazine'],
+             itemType: ['book', 'magazine'],
              authorSearchString: '',
              titleSearchString: '' 
             })
@@ -26,7 +23,7 @@ interface Props {
         }
 
         const handleSelectChange = (selectedOption: any) => {
-            hanldeChange({...itemFilterState, 'type': selectedOption.value});
+            hanldeChange({...itemFilterState, 'itemType': selectedOption.value});
            
         }
 
@@ -46,7 +43,7 @@ interface Props {
         }
 
          const options = [
-         { value: ['magazine', 'book'], label: 'All' },
+         { value: ['book', 'magazine'], label: 'All' },
          { value: ['book'], label: 'Book' },
          { value: ['magazine'], label: 'Magazine' }];
 
@@ -62,7 +59,7 @@ interface Props {
       )
   }
   
-  const mapDispathToProps = {
+const mapDispathToProps = {
     update: updateFilter
  }
 
