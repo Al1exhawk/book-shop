@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthButton from './authButton'
-import ItemFilter from '../containers/itemFilterContainer'
+import ItemFilter from '../containers/itemFilter/itemFilterContainer'
 
 const Header: React.FC = () => {
 

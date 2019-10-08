@@ -1,7 +1,7 @@
-import { logIn } from '../store';
+import { logIn } from '../../store';
 import { connect } from 'react-redux';
-import { GenericState } from '../store';
-import { LoginPayload, IRoutProps } from '../constants/types';
+import { GenericState } from '../../store';
+import { LoginPayload, IRoutProps } from '../../constants/types';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 
 interface Props extends IRoutProps{
