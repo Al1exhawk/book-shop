@@ -8,13 +8,17 @@ export interface AuthState  {
     readonly role: string;
     readonly token: string;
     readonly errorMassage: string;
+    readonly isModalOpem: boolean;
 }
 
 const initialState: AuthState = {
     userName: '',
     role: '',
     token: '',
-    errorMassage: ''
+    errorMassage: '',
+    isModalOpem: false
+
+
 }
 
 export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState = initialState, action: ActionTemplate): AuthState => {
@@ -24,7 +28,10 @@ export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState
                 userName: action.payload.userName,
                 role: action.payload.role,
                 token: action.payload.token,
-                errorMassage: ''
+                errorMassage: '',
+                isModalOpem: false
+
+
             } 
           return logedInUserForm; 
         }

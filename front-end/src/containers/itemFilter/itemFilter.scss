@@ -1,13 +1,13 @@
 .ItemFilter {
-    width: 345px;
-    height: 556px;
-    background-color: #F8F8F8;
-    padding: 47px 34px 178px;
+    background-color: rgba(248, 248, 248, 0.726);
+    width: 100%;
+    padding: 47px 34px ;
     font-family: Poppins;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 24px;
+    border: 2px solid rgb(64, 204, 9);
 }
 
 .headerText {
@@ -18,5 +18,15 @@
     line-height: 24px;
     align-items: center;
     letter-spacing: 1px;
+    text-transform: uppercase;
+
+}
+
+.SearchButton {    
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
     text-transform: uppercase;
 }

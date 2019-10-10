@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "rootDir": "src",
+    
     "outDir": "build/dist",
     "sourceMap": true,
     "noImplicitAny": true,

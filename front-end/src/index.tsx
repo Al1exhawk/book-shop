@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-import './App.scss';
 import { BrowserRouter } from 'react-router-dom';
+import { Container } from '@material-ui/core';
+import './App.scss';
+
 
 ReactDOM.render(
-        <BrowserRouter >
+    <Container style={{padding:0}} maxWidth="xl">
+        <BrowserRouter>
             <App />
-        </BrowserRouter>,
+        </BrowserRouter>
+    </Container>,
 document.getElementById('root'));
 
 serviceWorker.unregister();

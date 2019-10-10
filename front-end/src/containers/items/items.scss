@@ -1,0 +1,15 @@
+.items {
+    border: 2px solid red;
+  
+}
+
+
+.item {
+    margin: 2rem;
+}
+
+.item:hover {
+    -webkit-box-shadow: -16px 13px 44px 0px rgba(34,214,184,0.55);
+    -moz-box-shadow: -16px 13px 44px 0px rgba(34,214,184,0.55);
+    box-shadow: -16px 13px 44px 0px rgba(34,214,184,0.55);
+}

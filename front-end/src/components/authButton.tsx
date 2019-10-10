@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Grid, Button } from '@material-ui/core';
 
-  const AuthButton: React.FC = props => {
+  const AuthButton: React.FC = () => {
       return (          
-        <div className='row'>
-            <Link to='/login'>
-                <button className="btn btn-primary">LogIn</button>
-            </Link>
-        </div>
+        <Grid xl={2} xs={4}  item container justify='flex-end'>
+            <Button variant='contained' color='secondary'>LogIn</Button>
+        </Grid>
       )
   }
   

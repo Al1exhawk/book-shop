@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { ActionTemplate } from '../../constants/types';
-import { UPDATE_FILTER } from './'
+import { UPDATE_FILTER, SET_NEW_PAGE } from './'
 
 
 export interface ItemFilterState  {
@@ -35,6 +35,13 @@ export const ItemFilterReducer: Reducer<ItemFilterState, ActionTemplate> = (stat
               itemType: action.payload.itemType,
             } 
           return newItemFilter; 
+        }
+
+        case SET_NEW_PAGE: {
+            return {
+                ...state,
+                pageNumber: action.payload
+            }
         }
 
         default: {

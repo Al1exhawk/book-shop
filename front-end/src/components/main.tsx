@@ -1,16 +1,15 @@
 import React from 'react';
-import LoginForm from '../containers/loginForm/loginFormContainer'
-import { Switch, Route } from "react-router-dom";
-import ItemsContainer from '../containers/itemsContainer'
+import ItemContainer from '../containers/items/itemsContainer'
+import ItemFilter from '../containers/itemFilter/itemFilterContainer'
+import { Grid } from '@material-ui/core';
 
 const Main: React.FC = () => {
     return (
-        <div className ="container">
-            <Switch>
-                <Route exact path='/items' component = { ItemsContainer }/>
-                <Route exact path='/login' component = { LoginForm }/>
-            </Switch>
-        </div>
+        <Grid item container direction='column' >
+            <ItemFilter/>
+            <ItemContainer/>
+        </Grid>
+
     )
 }
 

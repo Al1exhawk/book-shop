@@ -1,15 +1,16 @@
 import { logIn } from '../../store';
 import { connect } from 'react-redux';
 import { GenericState } from '../../store';
-import { LoginPayload, IRoutProps } from '../../constants/types';
+import { LoginPayload } from '../../constants/types';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 
-interface Props extends IRoutProps{
+
+interface Props{
   readonly onLoginClick: Function,
   readonly errorMassage: string,
 }
 
-const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, location, match, history}) => {
+const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage}) => {
  
   const [loginFormState, hanldeChange] = useState<LoginPayload>(() => ({"userName": "", "password": ""}));
   
@@ -21,18 +22,18 @@ const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, location, match
   
   const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
      e.preventDefault();
-     onLoginClick(loginFormState, history);
+     onLoginClick(loginFormState);
   }
 
   const isError: boolean = errorMassage.length!? true : false;
   
 
   return (    
-      <form className ="form-group loginForm" onSubmit = { onFormSubmit }>        
+      <form className ="" onSubmit = { onFormSubmit }>        
            { isError ? <span className = "warningMassange">{errorMassage}</span> : null}
-            <input className ="form-control loginFormInput" placeholder="UserName..." name="userName" value={loginFormState.userName} onChange={handleInputChange}/>
-            <input className ="form-control loginFormInput" placeholder="Password..." name="password" value={loginFormState.password} type="password" onChange={handleInputChange}/>
-            <button className ="form-control btn btn-primary loginFormInput"> LogIn</button>
+            <input className ="" placeholder="UserName..." name="userName" value={loginFormState.userName} onChange={handleInputChange}/>
+            <input className ="" placeholder="Password..." name="password" value={loginFormState.password} type="password" onChange={handleInputChange}/>
+            <button className =""> LogIn</button>
       </form>  
   );
 }
