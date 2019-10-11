@@ -22,7 +22,7 @@ const Items: React.FC<Props> = (props) => {
     const fetchItems = async () =>{
        const serverResponse = await axios.post("http://localhost:80/items", props.itemFilter, { responseType: "json" });
        const pagingModel = serverResponse.data;
-       const itemsArr:ItemModel[] = pagingModel.content;
+       const itemsArr: ItemModel[] = pagingModel.content;
        const pagesNumber: number = pagingModel.pages;
     
        setItems(itemsArr);
@@ -42,8 +42,7 @@ const Items: React.FC<Props> = (props) => {
             <Grid item container direction='row' wrap='wrap' className='items'>
                 {items.length? items.map((item: ItemModel) => {       
                     const authorsString: string = item.authors.length? item.authors.reduce((prev:string,author)=>{
-                    const string = `${prev} ${author.firstName}`;
-                    
+                    const string = `${prev} ${author.firstName}`;                    
                     return string;  
                     },'by'): 'without author';                    
                 return <Item key={item.id} price={item.price} type={item.type} id={item.id} title={item.title} authors={authorsString}/>

@@ -8,9 +8,10 @@ import React, { useState, FormEvent, ChangeEvent } from 'react';
 interface Props{
   readonly onLoginClick: Function,
   readonly errorMassage: string,
+  readonly isOpen: boolean
 }
 
-const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage}) => {
+const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage, isOpen}) => {
  
   const [loginFormState, hanldeChange] = useState<LoginPayload>(() => ({"userName": "", "password": ""}));
   
@@ -39,7 +40,8 @@ const LoginForm: React.FC<Props> = ({onLoginClick, errorMassage}) => {
 }
 
 const mapStateToProps = (state: GenericState) => ({
-    errorMassage: state.auth.errorMassage
+    errorMassage: state.auth.errorMassage,
+    isOpen: state.auth.isModalOpem
 })
 
 const mapDispathToProps = {

@@ -7,6 +7,7 @@ interface ItemProp {
     readonly id: string,
     readonly price: number,
     readonly type: string
+    
 }
 
 export const Item: React.FC<ItemProp> = (prop) => {
@@ -25,7 +26,7 @@ export const Item: React.FC<ItemProp> = (prop) => {
                         <Typography paragraph>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, maxime!</Typography>
                     </CardContent>
                     <CardActions>
-                        <button className='addToCardButton'>add to card</button>
+                        <button className='addToCardButton' onClick={(e:React.MouseEvent<HTMLButtonElement>)=>{}}>add to card</button>
                     </CardActions>
                 </Card>
         </Grid>

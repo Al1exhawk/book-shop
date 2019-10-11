@@ -12,13 +12,19 @@ const initialState: BagState = {
     items: []
 }
 
-export const BagReducer: Reducer<BagState, ActionTemplate> = (state: BagState = initialState, action:ActionTemplate): BagState => {    
+export const BagReducer: Reducer<BagState, ActionTemplate> = (state: BagState = initialState, action: ActionTemplate): BagState => {    
     switch(action.type) {
         case ADD_ITEM_TO_BAG: {
-            return initialState;
+            const bag: BagState = state.items.includes(action.payload) ?
+                {...state,
+                items: [...state.items, action.payload]}: state;
+            return bag;
         }
         case REMOVE_ITEM_FROM_BAG: {
-            return initialState;
+            return {...state,
+                items: state.items.filter((item)=>{
+                    return item.id!==action.payload;
+                })};
         }
 
         default:{

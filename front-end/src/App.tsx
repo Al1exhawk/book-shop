@@ -4,7 +4,7 @@ import store from './store'
 import Header from './components/header/header';
 import { Provider } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import LoginForm from './containers/loginForm/loginFormContainer';
+import LoginForm from './containers/loginForm/loginForm';
 
 const App: React.FC = () => {
   return (
