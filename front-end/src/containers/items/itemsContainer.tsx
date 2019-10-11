@@ -28,9 +28,8 @@ const Items: React.FC<Props> = (props) => {
        setItems(itemsArr);
         const pageButtonsArr: number[] = [] 
        for(let i: number = 0; i<pagesNumber; i++) {
-            pageButtonsArr.push(i)
+            pageButtonsArr.push(i+1)
        }
-       console.log('pageButtonsArr', pageButtonsArr);
        setPages(pageButtonsArr)
     }
 
@@ -39,19 +38,20 @@ const Items: React.FC<Props> = (props) => {
         }, [props.itemFilter]);
        
     return(
-        <Grid item container  direction='column'>
+        <Grid item container spacing={1} direction='column'>
             <Grid item container direction='row' wrap='wrap' className='items'>
                 {items.length? items.map((item: ItemModel) => {       
-                    const authorsString: string = item.authors.reduce((prev:string,author)=>{
-                    const string = ` ${prev} ${author.firstName}`;
+                    const authorsString: string = item.authors.length? item.authors.reduce((prev:string,author)=>{
+                    const string = `${prev} ${author.firstName}`;
+                    
                     return string;  
-                    },'');                    
+                    },'by'): 'without author';                    
                 return <Item key={item.id} price={item.price} type={item.type} id={item.id} title={item.title} authors={authorsString}/>
                 }): null}
             </Grid>
-            <Grid item container direction='row'>         
+            <Grid item container spacing={1} justify='center' wrap='wrap' direction='row'>         
                 {pages.map((page) => {
-                return <PageButton key={page} value={page} onCl={props.setPage}/>
+                    return <PageButton key={page} value={page} onClick={props.setPage}/>
                 })}
             </Grid>
         </Grid>

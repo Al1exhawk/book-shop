@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Card, CardMedia, CardHeader, CardContent, Typography } from '@material-ui/core';
+import { Grid, Card, CardMedia, CardHeader, CardContent, Typography, CardActions } from '@material-ui/core';
 
 interface ItemProp {
     readonly title: string,
@@ -18,12 +18,15 @@ export const Item: React.FC<ItemProp> = (prop) => {
                         image='https://www.ppf.co.uk/sites/default/files/image-2018-12/purple-book-default-image-final-two.jpg'/>                    
                     <CardHeader
                         title={prop.title}
-                        subheader={`by${prop.authors}`}/>
+                        subheader={`${prop.authors}`}/>
                     <CardContent>                        
                         <Typography paragraph>Type: {prop.type}</Typography>
                         <Typography paragraph>Price: {prop.price}$</Typography>
                         <Typography paragraph>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, maxime!</Typography>
                     </CardContent>
+                    <CardActions>
+                        <button className='addToCardButton'>add to card</button>
+                    </CardActions>
                 </Card>
         </Grid>
     )

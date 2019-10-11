@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 const Main: React.FC = () => {
     return (
-        <Grid item container direction='column' >
+        <Grid item container spacing={3} direction='column' >
             <ItemFilter/>
             <ItemContainer/>
         </Grid>

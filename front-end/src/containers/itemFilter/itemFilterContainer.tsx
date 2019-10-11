@@ -39,7 +39,7 @@ interface Props  {
         }    
 
         return (      
-            <Grid item container>  
+            <Grid item container justify='center'>  
                 <form className='ItemFilter' onSubmit={onFilterSubmit} >  
                     <Grid container  direction='row'  justify='center' alignItems='center' spacing={2}>      
                         <Grid item>

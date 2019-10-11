@@ -1,10 +1,9 @@
-.items {
-    border: 2px solid red;
-  
+%animation {
+    transition: transform 500ms linear;
 }
 
-
 .item {
+    @extend %animation; 
     margin: 2rem;
 }
 
@@ -12,4 +11,32 @@
     -webkit-box-shadow: -16px 13px 44px 0px rgba(34,214,184,0.55);
     -moz-box-shadow: -16px 13px 44px 0px rgba(34,214,184,0.55);
     box-shadow: -16px 13px 44px 0px rgba(34,214,184,0.55);
+  
+}
+
+.pageButtton {
+    @extend %animation; 
+    padding: .5rem;
+    background-color: blueviolet;
+    border: 1px solid black;
+    color:white;
+    border: none;
+}
+
+.addToCardButton {
+    @extend %animation; 
+    background-color: blueviolet;
+    color: white;
+    border: 0;
+    padding: 0.3rem 0.6rem;
+    text-transform: uppercase;
+}
+
+.pageButtton:hover, .addToCardButton:hover {
+    background-color: rgb(27, 167, 185);
+    cursor: pointer;
+}
+
+.pageButtton:active, .addToCardButton:active {
+    transform: scale(0.9);    
 }
