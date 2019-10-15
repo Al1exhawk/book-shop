@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { ActionTemplate } from '../../constants/types';
-import { LOG_OUT, LOG_IN, AUTH_ERROR } from './';
+import { LOG_OUT, LOG_IN, AUTH_ERROR, OPEN_LOGIN_MODAL, CLOSE_LOGIN_MODAL } from './';
 
 
 export interface AuthState  {
@@ -8,7 +8,7 @@ export interface AuthState  {
     readonly role: string;
     readonly token: string;
     readonly errorMassage: string;
-    readonly isModalOpem: boolean;
+    readonly isModalOpen: boolean;
 }
 
 const initialState: AuthState = {
@@ -16,7 +16,7 @@ const initialState: AuthState = {
     role: '',
     token: '',
     errorMassage: '',
-    isModalOpem: false
+    isModalOpen: false
 
 
 }
@@ -24,16 +24,14 @@ const initialState: AuthState = {
 export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState = initialState, action: ActionTemplate): AuthState => {
     switch(action.type) {
         case LOG_IN: {
-            const logedInUserForm: AuthState = {
+            const logedInUser: AuthState = {
                 userName: action.payload.userName,
                 role: action.payload.role,
                 token: action.payload.token,
                 errorMassage: '',
-                isModalOpem: false
-
-
-            } 
-          return logedInUserForm; 
+                isModalOpen: false
+            }
+          return logedInUser; 
         }
         
         case LOG_OUT: {
@@ -42,7 +40,22 @@ export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState
 
         case AUTH_ERROR: {
             return {
-                ...initialState, errorMassage: action.payload
+                ...state,
+                errorMassage: action.payload
+            }
+        }
+
+        case OPEN_LOGIN_MODAL: {
+            return {
+                ...state,
+                isModalOpen: true
+            }
+        }
+
+        case CLOSE_LOGIN_MODAL: {
+            return {
+                ...state,
+                isModalOpen: false
             }
         }
 

@@ -25,3 +25,4 @@ const store: Store<GenericState, ActionTemplate> = createStore(genericReducer, c
 export default store;
 export * from './itemFilter';
 export * from './auth'
+export * from './bag'

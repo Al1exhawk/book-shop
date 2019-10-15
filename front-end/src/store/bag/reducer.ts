@@ -15,10 +15,18 @@ const initialState: BagState = {
 export const BagReducer: Reducer<BagState, ActionTemplate> = (state: BagState = initialState, action: ActionTemplate): BagState => {    
     switch(action.type) {
         case ADD_ITEM_TO_BAG: {
-            const bag: BagState = state.items.includes(action.payload) ?
-                {...state,
-                items: [...state.items, action.payload]}: state;
-            return bag;
+           const alreadyInBag =  state.items.some(item=>{
+                return item.id === action.payload.id 
+            });
+
+            if(alreadyInBag) {
+                return state;
+            }
+            
+            const bag: BagState = {...state,
+                items: [...state.items, action.payload]}
+
+            return bag; 
         }
         case REMOVE_ITEM_FROM_BAG: {
             return {...state,

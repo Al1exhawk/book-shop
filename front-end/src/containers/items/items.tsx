@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
+import {setNewPage, addItemToBag, GenericState} from '../../store'
 import { ItemModel } from '../../../../back-end/src/models';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { GenericState } from '../../store'
 import { Grid } from '@material-ui/core';
-import {Item} from '../../components/item';
-import {setNewPage} from '../../store'
-import './items.scss';
+import { Item } from '../../components/item';
 import { PageButton } from '../../components/pagesButton';
+import './items.scss';
 
 
 interface Props{  
     readonly itemFilter: any,
-    readonly setPage: Function
+    readonly isAuthorized: boolean
+    readonly setPage: Function,
+    readonly addtoBag: Function,
 }
 
 const Items: React.FC<Props> = (props) => {
@@ -45,7 +46,16 @@ const Items: React.FC<Props> = (props) => {
                     const string = `${prev} ${author.firstName}`;                    
                     return string;  
                     },'by'): 'without author';                    
-                return <Item key={item.id} price={item.price} type={item.type} id={item.id} title={item.title} authors={authorsString}/>
+                return <Item 
+                            key={item.id} 
+                            price={item.price} 
+                            type={item.type} 
+                            id={item.id} 
+                            title={item.title} 
+                            authors={authorsString} 
+                            item={item} 
+                            addtoBag={props.addtoBag} 
+                            isAuthorized={props.isAuthorized}/>
                 }): null}
             </Grid>
             <Grid item container spacing={1} justify='center' wrap='wrap' direction='row'>         
@@ -58,11 +68,13 @@ const Items: React.FC<Props> = (props) => {
 }
 
 const mapStateToProps = (state: GenericState) => ({
-    itemFilter: state.itemFilter
+    itemFilter: state.itemFilter,
+    isAuthorized: state.auth.userName.length!==0
 })
 
 const mapDispatch = {
-    setPage: setNewPage 
+    setPage: setNewPage,
+    addtoBag: addItemToBag
 }
 
 export default connect(mapStateToProps, mapDispatch)(Items);
