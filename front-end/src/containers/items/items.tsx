@@ -8,7 +8,6 @@ import { Item } from '../../components/item';
 import { PageButton } from '../../components/pagesButton';
 import './items.scss';
 
-
 interface Props{  
     readonly itemFilter: any,
     readonly isAuthorized: boolean

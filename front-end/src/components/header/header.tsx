@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthArea from '../../containers/loginForm/loginForm'
+import AuthArea from '../../containers/authArea/authArea'
 import { Grid } from '@material-ui/core';
 import'./header.scss';
 

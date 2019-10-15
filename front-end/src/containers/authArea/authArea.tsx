@@ -4,7 +4,7 @@ import { GenericState } from '../../store';
 import { LoginPayload } from '../../constants/types';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { Grid, Modal, Button } from '@material-ui/core';
-import './loginForm.scss'
+import './authArea.scss'
 
 
 interface Props{
