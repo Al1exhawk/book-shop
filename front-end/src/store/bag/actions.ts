@@ -27,6 +27,7 @@ export const openBagModal = () => (dispatch: Dispatch<ActionTemplate>) => {
     })
 
 }
+
 export const closeBagModal = () => (dispatch: Dispatch<ActionTemplate>) => {
     return dispatch({
         type: CLOSE_BAG_MODAL

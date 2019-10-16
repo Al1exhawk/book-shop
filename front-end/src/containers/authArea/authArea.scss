@@ -1,6 +1,22 @@
-.loginForm {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.loginForm {   
+    width: 20rem;
+    padding: 2rem;    
+}
+
+.loginForm * {
+    width: 12rem;
+    margin-bottom: 1rem;
+}
+
+.loginForm *:last-child {
+    margin-bottom: 0;
+}
+
+.warningMassange {
+    padding: 0.3rem;
+    background-color: rgb(243, 118, 87);
+    color: black;   
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: inherit;
+    text-align: center;
 }

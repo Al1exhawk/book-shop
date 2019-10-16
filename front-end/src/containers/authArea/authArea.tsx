@@ -35,18 +35,16 @@ const AuthArea: React.FC<Props> = ({onLogin, errorMassage, isOpen, onClose, onOp
   
 
   return (
-    <Grid xl={2} xs={4} item container  justify='flex-end' >     
+    <Grid xl={1}  xs={4} item container spacing={0} justify='flex-end' >     
       <Button variant='contained' color='secondary'onClick={()=>{isAuthorized? onLogOut():onOpen()}} >{isAuthorized? 'LogOut':'LogIn'}</Button>
       <Modal
       open={isOpen}
-      onClose={()=>{onClose()}}
-      >
-       
-          <form className='loginForm' onSubmit = { onFormSubmit }>        
-            { isError ? <span className = "warningMassange">{errorMassage}</span> : null}
-              <input placeholder="UserName..." name="userName" required value={loginFormState.userName} onChange={handleInputChange}/>
-              <input placeholder="Password..." name="password" required value={loginFormState.password} type="password" onChange={handleInputChange}/>
-              <button>Sign In</button>
+      onClose={()=>{onClose()}}>
+          <form style={{backgroundColor:'#3F3F3F'}} className='modalForm loginForm' onSubmit = { onFormSubmit }> 
+              { isError ? <span className = "warningMassange">{errorMassage}</span> : null}
+                <input placeholder="UserName..." name="userName" required value={loginFormState.userName} onChange={handleInputChange}/>
+                <input placeholder="Password..." name="password" required value={loginFormState.password} type="password" onChange={handleInputChange}/>
+                <button>Sign In</button>
           </form>
       </Modal>
     </Grid>
@@ -60,10 +58,10 @@ const mapStateToProps = (state: GenericState) => ({
 })
 
 const mapDispathToProps = {
-    onLogin: logIn,
-    onClose: closeLoginModal,
-    onOpen: openLoginModal,
-    onLogOut: logout
+  onOpen: openLoginModal,
+  onLogin: logIn,
+  onClose: closeLoginModal,
+  onLogOut: logout
 }
 
 export default connect(

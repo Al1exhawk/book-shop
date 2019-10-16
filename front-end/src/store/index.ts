@@ -4,9 +4,11 @@ import { ItemFilterState, ItemFilterReducer} from './itemFilter';
 import { ActionTemplate } from '../constants/types';
 import { createStore, applyMiddleware, compose, Store, combineReducers } from 'redux';
 import {BagReducer, BagState} from './bag'
+import {RegistrationState, RegistrationReducer} from './registration'
 
 export interface GenericState {
     auth: AuthState,
+    signIn: RegistrationState,
     itemFilter: ItemFilterState,
     bag: BagState,
 } 
@@ -14,7 +16,8 @@ export interface GenericState {
 const genericReducer = combineReducers<GenericState>({
     auth: authReducer,
     itemFilter: ItemFilterReducer,
-    bag: BagReducer
+    bag: BagReducer,
+    signIn: RegistrationReducer
 });
 
 const store: Store<GenericState, ActionTemplate> = createStore(genericReducer, compose(
@@ -26,3 +29,4 @@ export default store;
 export * from './itemFilter';
 export * from './auth'
 export * from './bag'
+export * from './registration'
