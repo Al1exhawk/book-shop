@@ -8,7 +8,7 @@ import './authArea.scss'
 
 
 interface Props{
-  readonly errorMassage: string,
+  readonly errorMessage: string,
   readonly isAuthorized: boolean
   readonly isOpen: boolean,
   readonly onOpen: Function,
@@ -17,7 +17,7 @@ interface Props{
   readonly onLogOut: Function
 }
 
-const AuthArea: React.FC<Props> = ({onLogin, errorMassage, isOpen, onClose, onOpen, isAuthorized, onLogOut}) => {
+const AuthArea: React.FC<Props> = ({onLogin, errorMessage, isOpen, onClose, onOpen, isAuthorized, onLogOut}) => {
  
   const [loginFormState, hanldeChange] = useState<LoginPayload>(() => ({"userName": "", "password": ""}));
   
@@ -31,17 +31,17 @@ const AuthArea: React.FC<Props> = ({onLogin, errorMassage, isOpen, onClose, onOp
      onLogin(loginFormState);
   }
 
-  const isError: boolean = errorMassage.length!? true : false;
+  const isError: boolean = errorMessage.length!? true : false;
   
 
   return (
-    <Grid xl={1}  xs={4} item container spacing={0} justify='flex-end' >     
+    <Grid   xs={4} item container spacing={0} justify='flex-end' >     
       <Button variant='contained' color='secondary'onClick={()=>{isAuthorized? onLogOut():onOpen()}} >{isAuthorized? 'LogOut':'LogIn'}</Button>
       <Modal
       open={isOpen}
       onClose={()=>{onClose()}}>
-          <form style={{backgroundColor:'#3F3F3F'}} className='modalForm loginForm' onSubmit = { onFormSubmit }> 
-              { isError ? <span className = "warningMassange">{errorMassage}</span> : null}
+          <form  className='modalForm loginForm' onSubmit = { onFormSubmit }> 
+              { isError ? <span className = "warningMassange">{errorMessage}</span> : null}
                 <input placeholder="UserName..." name="userName" required value={loginFormState.userName} onChange={handleInputChange}/>
                 <input placeholder="Password..." name="password" required value={loginFormState.password} type="password" onChange={handleInputChange}/>
                 <button>Sign In</button>
@@ -52,15 +52,15 @@ const AuthArea: React.FC<Props> = ({onLogin, errorMassage, isOpen, onClose, onOp
 }
 
 const mapStateToProps = (state: GenericState) => ({
-    errorMassage: state.auth.errorMassage,
+    errorMessage: state.auth.errorMessage,
     isOpen: state.auth.isModalOpen,
     isAuthorized: state.auth.userName.length!==0
 })
 
 const mapDispathToProps = {
   onOpen: openLoginModal,
-  onLogin: logIn,
   onClose: closeLoginModal,
+  onLogin: logIn,
   onLogOut: logout
 }
 

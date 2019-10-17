@@ -7,7 +7,7 @@ export interface AuthState  {
     readonly userName: string;
     readonly role: string;
     readonly token: string;
-    readonly errorMassage: string;
+    readonly errorMessage: string;
     readonly isModalOpen: boolean;
 }
 
@@ -15,10 +15,8 @@ const initialState: AuthState = {
     userName: '',
     role: '',
     token: '',
-    errorMassage: '',
+    errorMessage: '',
     isModalOpen: false
-
-
 }
 
 export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState = initialState, action: ActionTemplate): AuthState => {
@@ -28,7 +26,7 @@ export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState
                 userName: action.payload.userName,
                 role: action.payload.role,
                 token: action.payload.token,
-                errorMassage: '',
+                errorMessage: '',
                 isModalOpen: false
             }
           return logedInUser; 
@@ -41,7 +39,7 @@ export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState
         case AUTH_ERROR: {
             return {
                 ...state,
-                errorMassage: action.payload
+                errorMessage: action.payload
             }
         }
 

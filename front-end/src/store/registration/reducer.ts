@@ -1,12 +1,14 @@
-import {OPEN_REGISTRATION_MODAL, CLOSE_REGISTRATION_MODAL} from './';
+import {OPEN_REGISTRATION_MODAL, CLOSE_REGISTRATION_MODAL, REGISTRATION_ERROR} from './';
 import { ActionTemplate } from "../../constants/types";
 import { Reducer } from 'redux';
 
 export interface RegistrationState {
-    isModalOpen: boolean
+    isModalOpen: boolean,
+    errorMessage: string
 }
 const initialState:RegistrationState = {
-    isModalOpen: false
+    isModalOpen: false,
+    errorMessage:''
 }
 
 export const RegistrationReducer: Reducer<RegistrationState,ActionTemplate> = (state=initialState , action) => {
@@ -14,13 +16,22 @@ export const RegistrationReducer: Reducer<RegistrationState,ActionTemplate> = (s
     case OPEN_REGISTRATION_MODAL: {
         return {
             ...state,
-            isModalOpen: true
+            isModalOpen: true,
+            errorMessage: ''
         }
     }
     case CLOSE_REGISTRATION_MODAL: {
         return {
             ...state,
-            isModalOpen: false
+            isModalOpen: false,
+            errorMessage: ''
+        }
+    }
+
+    case REGISTRATION_ERROR: {
+        return{
+            ...state, 
+            errorMessage: action.payload
         }
     }
 

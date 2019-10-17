@@ -8,7 +8,7 @@ import {RegistrationState, RegistrationReducer} from './registration'
 
 export interface GenericState {
     auth: AuthState,
-    signIn: RegistrationState,
+    signUp: RegistrationState,
     itemFilter: ItemFilterState,
     bag: BagState,
 } 
@@ -17,7 +17,7 @@ const genericReducer = combineReducers<GenericState>({
     auth: authReducer,
     itemFilter: ItemFilterReducer,
     bag: BagReducer,
-    signIn: RegistrationReducer
+    signUp: RegistrationReducer
 });
 
 const store: Store<GenericState, ActionTemplate> = createStore(genericReducer, compose(

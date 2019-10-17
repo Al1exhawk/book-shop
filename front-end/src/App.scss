@@ -8,11 +8,12 @@
 }
 
 .App {
-    height: 100vh;  
+    min-height: 100vh;  
 }
 
 .modalForm {
     position: absolute;
+    padding: 2rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -21,7 +22,15 @@
     align-items: center;
     justify-content: center;
     border-radius: .7rem;
+    background-color: #3F3F3F;
 }
 
+.modalForm * {
+    
+    margin-bottom: 1rem;
+}
 
+.modalForm *:last-child {
+    margin-bottom: 0;
+}
 
