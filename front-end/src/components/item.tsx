@@ -3,6 +3,7 @@ import { ItemModel } from '../../../back-end/src/models';
 import { Grid, Card, CardMedia, CardHeader, CardContent, Typography, CardActions } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
+
 interface ItemProp {
     readonly title: string,
     readonly authors: string,
@@ -14,7 +15,12 @@ interface ItemProp {
     readonly addtoBag: Function
 }
 
-export const Item: React.FC<ItemProp> = (prop) => {
+export const Item: React.FC<ItemProp> = ({item, id , authors, isAuthorized, addtoBag, price,title, type}) => {
+
+    const onAddClick = async (e:React.MouseEvent<HTMLButtonElement>)=> {
+        e.preventDefault();
+        addtoBag({item:item, amount:1});
+    }
     return (
         <Grid item xl={3} lg={4} xs={12} sm={6}>
                 <Card className="item">                        
@@ -22,17 +28,17 @@ export const Item: React.FC<ItemProp> = (prop) => {
                         style={{padding: '50%'}}
                         image='https://www.iwillteachyoutoberich.com/wp-content/themes/iwt/assets/img/book/book_v2.JPG'/>                    
                     <CardHeader
-                        title={prop.title}
-                        subheader={`${prop.authors}`}/>
+                        title={title}
+                        subheader={`${authors}`}/>
                     <CardContent>                        
-                        <Typography paragraph>Type: {prop.type}</Typography>
-                        <Typography paragraph>Price: {prop.price}$</Typography>
+                        <Typography paragraph>Type: {type}</Typography>
+                        <Typography paragraph>Price: {price}$</Typography>
                         <Typography paragraph>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, maxime!</Typography>
                     </CardContent>
 
-                    {prop.isAuthorized? <CardActions>
-                        <button className='addToCardButton' onClick={(e:React.MouseEvent<HTMLButtonElement>)=>{prop.addtoBag(prop.item)}}><AddShoppingCartIcon/></button>
-                    </CardActions>: null}
+                    <CardActions>
+                        <button className='addToCardButton' onClick={onAddClick}><AddShoppingCartIcon/></button>
+                    </CardActions>
                 </Card>
         </Grid>
     )

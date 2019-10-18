@@ -16,7 +16,7 @@ interface Props  {
              itemType: ['book', 'magazine'],
              authorSearchString: '',
              titleSearchString: '' 
-            })
+            });
             
         const hanleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
                 const {name, value, type} = e.target;
@@ -24,7 +24,7 @@ interface Props  {
                 hanldeChange({...itemFilterState, [name]: type === 'number'? +value: value});    
         }
             
-        const [ selectValue, Change] = useState('All');
+        const [ selectValue, Change] = useState<string>('All');
        
         const handleSelectChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {   
             const {name, value} = event.target;

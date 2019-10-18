@@ -7,9 +7,12 @@ interface Prop {
 }
 
 export const PageButton: React.FC<Prop> = (props) => {
+    const onclick = (e:React.MouseEvent<HTMLButtonElement>)=>{
+        props.onClick(props.value)
+    }
     return (
         <Grid item>
-            <button className='pageButtton' onClick={(e:React.MouseEvent<HTMLButtonElement>)=>{props.onClick(props.value)}}>{props.value}</button>
+            <button className='pageButtton' onClick={onclick}>{props.value}</button>
         </Grid>
     )
 }

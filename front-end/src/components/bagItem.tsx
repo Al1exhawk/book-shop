@@ -1,18 +1,29 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core';
-import { ItemModel } from '../../../back-end/src/models';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 interface Props {
-    item: ItemModel
-    onChange: Function
+    item: {title: string, price: number, id: string, qty:number },   
+    onDeleteClick: Function,
 }
 
-export const BagItem: React.FC<Props> = (props) => {
+
+export const BagItem: React.FC<Props> = ({ item, onDeleteClick}) => {
     return (
       <TableRow>
-          <TableCell>{props.item.title}</TableCell>
-          <TableCell><input min={1} defaultValue='1' type="number"/></TableCell>
-          <TableCell>{props.item.price}</TableCell>
+          <TableCell>{item.title}</TableCell>
+          <TableCell>
+          {item.qty}        
+          </TableCell>
+          <TableCell>{item.price}$</TableCell>
+          <TableCell>
+            {item.qty*item.price}
+          </TableCell>
+          <TableCell>
+            <button onClick={() =>{onDeleteClick(item.id);}}>
+              <HighlightOffIcon/>
+            </button>
+          </TableCell>
       </TableRow>
 
     )

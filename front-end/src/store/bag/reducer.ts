@@ -5,7 +5,7 @@ import { Reducer } from 'redux';
 
 
 export interface BagState {
-    readonly items: ItemModel[];
+    readonly items: {item: ItemModel, amount: number}[];
     readonly isModalOpen: boolean
 }
 
@@ -17,12 +17,18 @@ const initialState: BagState = {
 export const BagReducer: Reducer<BagState, ActionTemplate> = (state: BagState = initialState, action: ActionTemplate): BagState => {    
     switch(action.type) {
         case ADD_ITEM_TO_BAG: {
-           const alreadyInBag =  state.items.some(item=>{
-                return item.id === action.payload.id 
+           const alreadyInBagIndex = state.items.findIndex(item=>{
+                return item.item.id === action.payload.item.id 
             });
 
-            if(alreadyInBag) {
-                return state;
+            if(alreadyInBagIndex!==-1) {
+                const newItems = [...state.items]
+                newItems[alreadyInBagIndex] = {...newItems[alreadyInBagIndex],
+                    amount: newItems[alreadyInBagIndex].amount+1}
+                    
+                return {...state,
+                    items: newItems  
+                };
             }
             
             const bag: BagState = {...state,
@@ -33,7 +39,7 @@ export const BagReducer: Reducer<BagState, ActionTemplate> = (state: BagState = 
         case REMOVE_ITEM_FROM_BAG: {
             return {...state,
                 items: state.items.filter((item)=>{
-                    return item.id!==action.payload;
+                    return item.item.id!==action.payload;
             })};
         }
 

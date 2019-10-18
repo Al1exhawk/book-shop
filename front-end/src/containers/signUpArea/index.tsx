@@ -27,9 +27,8 @@ const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorM
 
     const onFormSubmit = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
-        let serverResponse;
         try {
-            serverResponse = await axios.post('http://localhost:80/registration', signUpState);            
+            await axios.post('http://localhost:80/registration', signUpState);            
         } catch (e) {
            
            return onError(e.response && e.response.data.message ? e.response.data.message: e.message)
