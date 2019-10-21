@@ -1,0 +1,1 @@
+export { default as RegistrationArea } from './registration-area';

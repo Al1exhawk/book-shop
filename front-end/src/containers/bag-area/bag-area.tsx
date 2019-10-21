@@ -1,10 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, Paper, TableFooter } from '@material-ui/core';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import {openBagModal, closeBagModal, GenericState, removeItemFromBag} from '../../store'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { ItemModel } from '../../../../back-end/src/models';
 import { BagItem } from '../../components/bagItem';
+import { StripeService } from '../../services'
 
 interface Props {
     readonly bagItems: {item: ItemModel, amount: number}[],
@@ -14,10 +15,15 @@ interface Props {
     readonly onClose: Function,
     readonly onDelete: Function
 }
+const stripeService = new StripeService();
 
-const BagArea: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => {
+const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => {
 
     const [totalPrice, changeTotalPrice] = React.useState<number>(0);
+
+    React.useEffect(()=>{
+        stripeService.loadStrpe();
+    },[])
 
     React.useEffect(() => {
         changeTotalPrice(+bagItems.reduce((previousValue,item)=>{
@@ -25,7 +31,10 @@ const BagArea: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete})
         }, 0).toFixed(2));
     
         }, [bagItems]);  
-    
+    const onPayClick = ()=>{
+        stripeService.checkout(totalPrice);
+        onClose();
+    }
     return (
         <Grid  xs={4} item container justify='flex-end'>
             <button onClick={()=>{ onOpen()}}><ShoppingCartIcon/></button>
@@ -69,7 +78,7 @@ const BagArea: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete})
                                 </TableRow>
                             </TableFooter>
                         </Table>
-                        <button>Check Out</button>
+                        <button onClick={onPayClick}>Check Out</button>
                     </Paper>
                 </div>
             </Modal>
@@ -89,4 +98,4 @@ const mapDipatchToProps = {
     onDelete: removeItemFromBag
 }
 
-export default connect(mapStateToProps, mapDipatchToProps)(BagArea)
+export default connect(mapStateToProps, mapDipatchToProps)(Bag)

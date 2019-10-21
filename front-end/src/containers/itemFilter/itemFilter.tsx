@@ -92,5 +92,5 @@ const mapDispathToProps = {
     update: updateFilter
  }
 
-  export default connect(null, mapDispathToProps)(ItemFilter);
+export default connect(null, mapDispathToProps)(ItemFilter);
   

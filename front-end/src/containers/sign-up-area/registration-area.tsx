@@ -68,4 +68,4 @@ const mapDipatchToProps = {
     onError: registrationError 
 }
 
-export const RegistrationArea = connect(mapStatetoProps, mapDipatchToProps)(Registration)
+export default connect(mapStatetoProps, mapDipatchToProps)(Registration)

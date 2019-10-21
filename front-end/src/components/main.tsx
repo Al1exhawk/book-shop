@@ -1,6 +1,5 @@
 import React from 'react';
-import ItemContainer from '../containers/items/items'
-import ItemFilter from '../containers/itemFilter/itemFilter'
+import { ItemContainer, ItemFilter } from '../containers'
 import { Grid } from '@material-ui/core';
 const Main: React.FC = () => {
     return (

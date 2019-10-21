@@ -23,7 +23,7 @@ export class ItemRepository {
     const query: any = {
       type: { $in: itemType && itemType.length ? itemType : ['book', 'magazine'] },
       price: {
-        $gte: minPrice && minPrice >= 0 && minPrice < maxPrice ? minPrice : 0,
+        $gte: minPrice && minPrice >= 0  ? minPrice : 0,
       },
       title: {
         $regex: titleSearchString.length

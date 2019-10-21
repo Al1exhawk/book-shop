@@ -14,22 +14,21 @@ const authService = new AuthService();
 
 export const logIn = (loginPayload: LoginPayload) =>
  async (dispatch: Dispatch<ActionTemplate>) => {
-  let serverResponse;
   try {
-    serverResponse = await authService.logIn(loginPayload);
-  } catch(e) {  
-    return dispatch({
-        type: AUTH_ERROR,
-        payload: e.response && e.response.data.message ? e.response.data.message: e.message
-    })
-  }
-      
-    const data =  serverResponse.data;
-    
-     return dispatch({
+    const serverResponse = await authService.logIn(loginPayload);
+    const data =  serverResponse.data;    
+    dispatch({
           type: LOG_IN,
           payload: data
      })
+  } catch(e) {
+      dispatch({
+        type: AUTH_ERROR,
+        payload: e.response && e.response.data.message ? e.response.data.message: e.message
+      })
+  }
+      
+    
 };
 
 export const logout = () => (dispatch: Dispatch<ActionTemplate>) => {

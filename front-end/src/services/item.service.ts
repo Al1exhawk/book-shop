@@ -1,10 +1,9 @@
 import axios,{ AxiosPromise } from "axios";
-import { FilterForm } from "../constants/types";
+import { ItemFilterState } from "../store";
 
 export class ItemService {
-    async getItems(payload: FilterForm) {
-        const serverResponse = await axios.post<FilterForm, AxiosPromise>("http://localhost:80/items", payload, { responseType: "json" });
+    async getItems(payload: ItemFilterState) {
+        const serverResponse = await axios.post<ItemFilterState, AxiosPromise>("http://localhost:80/items", payload, { responseType: "json" });
         return serverResponse;
     }
-
 }

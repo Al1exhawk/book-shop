@@ -33,6 +33,7 @@ export const ItemFilterReducer: Reducer<ItemFilterState, ActionTemplate> = (stat
               titleSearchString: action.payload.titleSearchString,
               authorSearchString: action.payload.authorSearchString,
               itemType: action.payload.itemType,
+              pageNumber: 1
             } 
           return newItemFilter; 
         }
