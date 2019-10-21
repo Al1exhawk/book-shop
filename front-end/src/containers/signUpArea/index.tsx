@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { Grid, Modal } from '@material-ui/core';
 import {openRegistrationModal, closeRegistrationModal, registrationError, GenericState} from '../../store'
 import { RegistrationModel } from '../../../../back-end/src/models';
-import axios from 'axios';
+import { AuthService } from '../../services/auth.service';
 
 
 
@@ -19,7 +19,7 @@ interface Props {
 const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorMessage, isAuthorized}) => {
 
     const [signUpState, changeState] = React.useState<RegistrationModel>(() => ({'userName':'', 'password': '', 'email': '' }));
-    
+    const authServices = new AuthService()
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
         changeState({...signUpState, [name]: value});
@@ -28,7 +28,7 @@ const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorM
     const onFormSubmit = async (e: FormEvent<HTMLFormElement>) =>{
         e.preventDefault();
         try {
-            await axios.post('http://localhost:80/registration', signUpState);            
+            authServices.registration(signUpState);
         } catch (e) {
            
            return onError(e.response && e.response.data.message ? e.response.data.message: e.message)

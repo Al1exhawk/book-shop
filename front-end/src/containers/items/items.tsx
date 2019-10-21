@@ -1,7 +1,7 @@
+import { ItemService } from '../../services/item.service';
 import React, {useEffect, useState} from 'react';
 import {setNewPage, addItemToBag, GenericState} from '../../store'
 import { ItemModel } from '../../../../back-end/src/models';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import { Item } from '../../components/item';
@@ -18,9 +18,10 @@ interface Props{
 const Items: React.FC<Props> = (props) => {
     const [items, setItems] = useState<ItemModel[]>([]);
     const [pages, setPages] = useState([1]);
+    const itemServices = new ItemService();
     
-    const fetchItems = async () =>{
-       const serverResponse = await axios.post("http://localhost:80/items", props.itemFilter, { responseType: "json" });
+    const fetchItems = async () => {
+       const serverResponse = await itemServices.getItems(props.itemFilter);
        const pagingModel = serverResponse.data;
        const itemsArr: ItemModel[] = pagingModel.content;
        const pagesNumber: number = pagingModel.pages;

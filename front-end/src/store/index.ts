@@ -22,8 +22,8 @@ const genericReducer = combineReducers<GenericState>({
 
 const store: Store<GenericState, ActionTemplate> = createStore(genericReducer, compose(
     applyMiddleware(thunk),
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__() )
+    (window as any)['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] &&
+    (window as any)['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']())
 ) 
 export default store;
 export * from './itemFilter';
