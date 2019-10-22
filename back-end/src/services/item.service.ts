@@ -54,6 +54,38 @@ export class ItemService {
     return itemFilterModel;
   }
 
+  async findForBag(bagitems: Array<{id: string, amount: number}>): Promise<{
+    items: Array<{item: ItemModel, amount: number}>,
+    totalPrice: number }> {
+    const idArray: string[] = bagitems.map((item) => {
+      return item.id;
+    });
+    const items =  await this.itemRepository.findForBag(idArray);
+    let totalPrice: number = 0;
+
+    const BItems = items.map((item) => {
+      const { id, title, type , price, authors } = item;
+
+      const itemModel: ItemModel = {
+        id,
+        title,
+        type,
+        price,
+        authors,
+      };
+
+      const amount = bagitems.find((BagItem) => {
+        return BagItem.id === id;
+      }).amount;
+
+      totalPrice += amount * price;
+
+      return {item: itemModel, amount };
+    });
+
+    return {items: BItems, totalPrice: +totalPrice.toFixed(2) };
+  }
+
   async findOne(itemId: string): Promise<ItemModel> {
     const item: ItemDocument = await this.itemRepository.findOne(itemId);
 

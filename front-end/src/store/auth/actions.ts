@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { ActionTemplate, LoginPayload } from "../../constants/types";
-import { AuthService } from "../../services/auth.service";
+import { authService } from "../../services/auth.service";
 
 
 export const LOG_IN = 'LOG_IN';
@@ -9,14 +9,15 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const OPEN_LOGIN_MODAL = 'OPEN_LOGIN_MODAL';
 export const CLOSE_LOGIN_MODAL = 'CLOSE_LOGIN_MODAL';
 
-const authService = new AuthService();
 
 
 export const logIn = (loginPayload: LoginPayload) =>
  async (dispatch: Dispatch<ActionTemplate>) => {
   try {
     const serverResponse = await authService.logIn(loginPayload);
-    const data =  serverResponse.data;    
+    const data =  serverResponse.data;
+    localStorage.setItem('user', JSON.stringify(data));
+
     dispatch({
           type: LOG_IN,
           payload: data
@@ -32,6 +33,7 @@ export const logIn = (loginPayload: LoginPayload) =>
 };
 
 export const logout = () => (dispatch: Dispatch<ActionTemplate>) => {
+  localStorage.removeItem('user');
   dispatch({
     type: LOG_OUT
   });

@@ -3,11 +3,11 @@ import { StripeService } from '../services';
 
 @Controller('checkout')
 
-export class StripeCustomerController {
+export class StripeController {
 
     constructor(private readonly stripeService: StripeService) {}
 
-    @Post('')
+    @Post()
     create(@Body() data) {
         const customer = this.stripeService.checkout(data);
         return customer;

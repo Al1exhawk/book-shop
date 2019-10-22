@@ -5,7 +5,7 @@ import { RegistrationArea, BagArea, AuthArea } from '../../containers'
 
 const Header: React.FC = () => {
     return (   
-        <Grid className='header' item container direction='row'justify='flex-end'>       
+        <Grid className='header' item container direction='row' justify='flex-end'>       
             <RegistrationArea/>
             <BagArea/>
             <AuthArea/>

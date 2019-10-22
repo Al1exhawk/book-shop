@@ -1,6 +1,6 @@
-import axios,{ AxiosPromise } from "axios";
+import axios from "axios";
 
-export class StripeService {
+class StripeService {
 
     loadStrpe() {
         if(!window.document.getElementById('stripe-script')) {
@@ -16,8 +16,13 @@ export class StripeService {
         const handler = (window as any).StripeCheckout.configure({
             key: 'pk_test_7ggPhvQ5Kh3opZ6h358HGXjK00qyZOOH7D',
             locale: 'auto',
-            token:  (token: any) => {             
-              console.log(token);
+            token:  (token: any) => {   
+              const data = {  
+                amount,
+                token
+              }
+              console.log('data', data);
+              this.send(data);          
             }
           });
         
@@ -28,5 +33,12 @@ export class StripeService {
           })
     }
 
+    async send(data: any) {
+      const charge =  await axios.post('http://localhost:80/checkout', data);
+     
+      return charge;
+    }
 
 }
+
+export const stripeService = new StripeService();

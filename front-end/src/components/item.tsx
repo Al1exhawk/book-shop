@@ -15,11 +15,11 @@ interface ItemProp {
     readonly addtoBag: Function
 }
 
-export const Item: React.FC<ItemProp> = ({item, id , authors, isAuthorized, addtoBag, price,title, type}) => {
+export const Item: React.FC<ItemProp> = ({ id , authors, isAuthorized, addtoBag, price, title, type}) => {
 
     const onAddClick = async (e:React.MouseEvent<HTMLButtonElement>)=> {
         e.preventDefault();
-        addtoBag({item:item, amount:1});
+        addtoBag(id);
     }
     return (
         <Grid item xl={3} lg={4} xs={12} sm={6}>

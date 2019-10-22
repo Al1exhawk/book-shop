@@ -1,5 +1,5 @@
 export * from './auth-area'
 export * from './bag-area'
 export * from './item-container'
-export * from './itemFilter'
+export * from './item-filter'
 export * from './sign-up-area'

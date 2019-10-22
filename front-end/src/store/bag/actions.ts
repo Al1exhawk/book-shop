@@ -1,4 +1,3 @@
-import { ItemModel } from "../../../../back-end/src/models";
 import { Dispatch } from "redux";
 import { ActionTemplate } from "../../constants/types";
 
@@ -8,11 +7,11 @@ export const CLOSE_BAG_MODAL = 'CLOSE_BAG_MODAL';
 export const OPEN_BAG_MODAL = 'OPEN_BAG_MODAL';
 export const CHANGE_QTY = 'CHANGE_QTY';
 
-export const addItemToBag = (item: ItemModel) => (dispatch:Dispatch<ActionTemplate>) => {
+export const addItemToBag = (id: string) => (dispatch:Dispatch<ActionTemplate>) => {
 
     return dispatch({
         type: ADD_ITEM_TO_BAG,
-        payload: item
+        payload: id
     })
 }
 

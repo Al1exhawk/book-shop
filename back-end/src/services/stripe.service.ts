@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '../services';
+import { ConfigService } from '.';
 import * as Stripe from 'stripe';
 
 @Injectable()
@@ -8,11 +8,10 @@ export class StripeService {
 
     private stripe = new Stripe(this.configService.STRIPE_SECRET_API_KEY);
 
-    async checkout(data): Promise<void> {
+    async checkout(data) {
         const customer = await this.stripe.customers.create({
            email: data.token.email,
         });
-
         const source = await this.stripe.customers.createSource(customer.id, {source: data.token.id});
 
         const charge = await this.stripe.charges.create({
@@ -20,7 +19,8 @@ export class StripeService {
             currency: 'usd',
             customer: source.customer,
           });
-        console.log('charge', charge);
+
+        return charge;
 
     }
 }

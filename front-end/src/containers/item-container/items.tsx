@@ -1,4 +1,4 @@
-import { ItemService } from '../../services/item.service';
+import { itemService } from '../../services';
 import React, {useEffect, useState} from 'react';
 import {setNewPage, addItemToBag, GenericState} from '../../store'
 import { ItemModel } from '../../../../back-end/src/models';
@@ -18,10 +18,9 @@ interface Props{
 const Items: React.FC<Props> = (props) => {
     const [items, setItems] = useState<ItemModel[]>([]);
     const [pages, setPages] = useState([1]);
-    const itemServices = new ItemService();
     
     const fetchItems = async () => {
-       const serverResponse = await itemServices.getItems(props.itemFilter);
+       const serverResponse = await itemService.getItems(props.itemFilter);
        const pagingModel = serverResponse.data;
        const itemsArr: ItemModel[] = pagingModel.content;
        const pagesNumber: number = pagingModel.pages;

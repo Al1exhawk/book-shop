@@ -11,10 +11,15 @@ export interface AuthState  {
     readonly isModalOpen: boolean;
 }
 
+
+
+
+const userS = localStorage.getItem('user');
+const user = userS? JSON.parse(userS): null;
 const initialState: AuthState = {
-    userName: '',
-    role: '',
-    token: '',
+    userName: user? user.userName :'',
+    role: user? user.role: '',
+    token: user? user.token: '',
     errorMessage: '',
     isModalOpen: false
 }
@@ -33,7 +38,12 @@ export const authReducer: Reducer<AuthState, ActionTemplate> = (state: AuthState
         }
         
         case LOG_OUT: {
-            return initialState;
+
+            return {...initialState,
+                userName: '',
+                role: '',
+                token: ''
+            };
         }
 
         case AUTH_ERROR: {

@@ -55,6 +55,14 @@ export class ItemRepository {
     return { items, pages };
   }
 
+  async findForBag(id: string[]): Promise<ItemDocument[]> {
+    const items = await this.itemModel
+    .find({_id: {$in: id}})
+    .populate('authors')
+    .exec();
+    return items;
+  }
+
   async findOne(id: string): Promise<ItemDocument> {
     const item = await this.itemModel
       .findById(id)

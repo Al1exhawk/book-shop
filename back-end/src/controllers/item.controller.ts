@@ -18,6 +18,15 @@ export class ItemController {
     return items;
   }
 
+  @Post('bag')
+  findbyBag(@Body() bagitems: Array<{id: string, amount: number}>): Promise<{
+    items: Array<{item: ItemModel, amount: number}>,
+    totalPrice: number }> {
+
+    const bagModel =  this.itemService.findForBag(bagitems);
+    return bagModel;
+  }
+
   @ApiBearerAuth()
   @Get(':id')
   @Roles('user', 'admin')
