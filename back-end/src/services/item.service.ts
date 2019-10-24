@@ -121,7 +121,7 @@ export class ItemService {
       authors,
     };
 
-    return  createdItemModel;
+    return createdItemModel;
   }
 
   async delete(itemId: string): Promise<ItemModel> {

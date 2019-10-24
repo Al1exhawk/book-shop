@@ -2,12 +2,16 @@ import User from '../documents/user/db.data';
 import { UserDocument } from '../documents';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from '../repositories';
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Inject, forwardRef } from '@nestjs/common';
 import { UserModel, RegistrationModel, CreateUserModel, FilterModel } from '../models';
+import { AuthService } from './';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService) {}
 
   async findAll(page: number, usersPerPage: number): Promise<FilterModel> {
     const reposirotyResponse = await this.userRepository.findAll(page, usersPerPage);
@@ -67,7 +71,6 @@ export class UserService {
 
       return userModel;
     }
-
     return null;
   }
 
@@ -94,6 +97,8 @@ export class UserService {
       email,
       confirmPassword,
     };
+
+    this.authService.sendmail(createdUserModel.userName, createdUserModel.confirmPassword);
 
     return  createdUserModel;
   }

@@ -7,10 +7,10 @@ import {BagReducer, BagState} from './bag'
 import {RegistrationState, RegistrationReducer} from './registration'
 
 export interface GenericState {
-    auth: AuthState,
-    signUp: RegistrationState,
-    itemFilter: ItemFilterState,
-    bag: BagState,
+  readonly  auth: AuthState,
+   readonly signUp: RegistrationState,
+   readonly itemFilter: ItemFilterState,
+   readonly bag: BagState,
 } 
 
 const genericReducer = combineReducers<GenericState>({

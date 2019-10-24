@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { ActionTemplate, LoginPayload } from "../../constants/types";
-import { authService } from "../../services/auth.service";
+import { authService } from "../../services";
 
 
 export const LOG_IN = 'LOG_IN';

@@ -2,15 +2,25 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import'./header.scss';
 import { RegistrationArea, BagArea, AuthArea } from '../../containers'
+import { connect } from 'react-redux';
+import { GenericState } from '../../store';
 
-const Header: React.FC = () => {
+
+  
+interface Props {
+    readonly userRole?: string;
+  }
+
+const Header: React.FC<Props> = ({userRole}) => {
     return (   
-        <Grid className='header' item container direction='row' justify='flex-end'>       
-            <RegistrationArea/>
-            <BagArea/>
+        <Grid className='header' item container direction='row' justify='flex-end'>
+            { userRole? <BagArea/>: <RegistrationArea/>}
             <AuthArea/>
         </Grid>
     );
 }
+const mapStateToProps = (state: GenericState) =>({
+    userRole: state.auth.role,
+  });
 
-export default Header;
+export default connect(mapStateToProps, null)(Header);

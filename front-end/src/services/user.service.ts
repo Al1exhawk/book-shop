@@ -1,25 +1,21 @@
 import axios from "axios";
 import { ItemFilterState } from "../store";
-import { CreateItemModel } from "../../../back-end/src/models";
+import { CreateUserModel } from "../../../back-end/src/models";
 
-class ItemService {
-    async getItems(payload: ItemFilterState) {
-        const serverResponse = await axios.post("http://localhost:80/items", payload, { responseType: "json" });
+class UserService {
+
+    async getUsers(payload: ItemFilterState) {
+        const serverResponse = await axios.post("http://localhost:80/users", payload, { responseType: "json" });
         return serverResponse;
     }
 
-    async getBagItems(payload: Array<{id: string, amount: number}>) {
-        const serverResponse = await axios.post("http://localhost:80/items/bag", payload, { responseType: "json" });
-        return serverResponse.data;
-    }
-
-    async createItem (payload: CreateItemModel) {
+    async createUser (payload: CreateUserModel) {
         const userS = localStorage.getItem('user');
         const user = userS? JSON.parse(userS): null;
         const adminToken = user? user.token: null;
         if(adminToken){
             try{
-                const serverResponse = await axios.post("http://localhost:80/items/add", payload, { responseType: "json",
+                const serverResponse = await axios.post("http://localhost:80/users/add", payload, { responseType: "json",
                 headers: {'Authorization': `Bearer ${adminToken}`}});
                 return serverResponse.data;
             } catch(e){
@@ -27,13 +23,13 @@ class ItemService {
             }
         }
     }
-    async deleteItem (id: string) {
+    async deleteUser (id: string) {
         const userS = localStorage.getItem('user');
         const user = userS? JSON.parse(userS): null;
         const adminToken = user? user.token: null;
         if(adminToken){
             try{
-                const serverResponse = await axios.delete(`http://localhost:80/items/${id}`, { responseType: "json",
+                const serverResponse = await axios.delete(`http://localhost:80/users/${id}`, { responseType: "json",
                 headers: {'Authorization': `Bearer ${adminToken}`}});
                 return serverResponse.data;
             } catch(e){
@@ -41,13 +37,13 @@ class ItemService {
             }
         }
     }
-    async updateItem (id: string, payload: CreateItemModel) {
+    async updateUser (id: string, payload: CreateUserModel) {
         const userS = localStorage.getItem('user');
         const user = userS? JSON.parse(userS): null;
         const adminToken = user? user.token: null;
         if(adminToken){
             try{
-                const serverResponse = await axios.put(`http://localhost:80/items/${id}`, payload, { responseType: "json",
+                const serverResponse = await axios.put(`http://localhost:80/users/${id}`, payload, { responseType: "json",
                 headers: {'Authorization': `Bearer ${adminToken}`}});
                 return serverResponse.data;
             } catch(e){
@@ -57,4 +53,4 @@ class ItemService {
     }
 }
 
-export const itemService = new ItemService();
+export const userService = new UserService();
