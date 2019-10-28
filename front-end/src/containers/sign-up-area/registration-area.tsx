@@ -13,10 +13,10 @@ interface Props {
     readonly onError: Function
     readonly isOpen: boolean,
     readonly errorMessage:string,
-    readonly isAuthorized: boolean
+
 }
 
-const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorMessage, isAuthorized}) => {
+const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorMessage}) => {
 
     const [signUpState, changeState] = React.useState<RegistrationModel>(() => ({'userName':'', 'password': '', 'email': '' }));
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,6 @@ const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorM
     }
 
     return (
-        isAuthorized? null :
         <Grid xs={4} item container justify='flex-end'>
             <button onClick={()=>{ onOpen()}}>Sign Up</button>
             <Modal

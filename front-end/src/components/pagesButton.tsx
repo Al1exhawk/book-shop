@@ -6,7 +6,7 @@ interface Prop {
     readonly onClick: Function
 }
 
-export const PageButton: React.FC<Prop> = (props) => {
+const PageButton: React.FC<Prop> = (props) => {
     const onclick = (e:React.MouseEvent<HTMLButtonElement>)=>{
         props.onClick(props.value)
     }
@@ -16,3 +16,5 @@ export const PageButton: React.FC<Prop> = (props) => {
         </Grid>
     )
 }
+
+export default PageButton;

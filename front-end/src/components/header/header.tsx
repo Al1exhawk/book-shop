@@ -9,7 +9,7 @@ import { GenericState } from '../../store';
   
 interface Props {
     readonly userRole?: string;
-  }
+}
 
 const Header: React.FC<Props> = ({userRole}) => {
     return (   

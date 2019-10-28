@@ -1,16 +1,15 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, Paper, TableFooter } from '@material-ui/core';
 import { openBagModal, closeBagModal, GenericState, removeItemFromBag } from '../../store'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { ItemModel } from '../../../../back-end/src/models';
-import { BagItem } from '../../components/bagItem';
+import { BagItem } from '../../components';
 import { stripeService, itemService } from '../../services'
 
 interface Props {
     readonly bagItems: {id: string, amount: number}[],
     readonly isOpen: boolean,
-    readonly isAuthorized: boolean,
     readonly onOpen: Function,
     readonly onClose: Function,
     readonly onDelete: Function
@@ -92,7 +91,6 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
 
 const mapStateToProps = (state: GenericState) => ({
     bagItems: state.bag.items,
-    isAuthorized: state.auth.userName.length!==0,
     isOpen: state.bag.isModalOpen
 })
 

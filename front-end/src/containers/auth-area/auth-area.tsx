@@ -1,25 +1,30 @@
 import { logIn, closeLoginModal, openLoginModal, logout } from '../../store';
 import { connect } from 'react-redux';
 import { GenericState } from '../../store';
-import { LoginPayload } from '../../constants/types';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { LoginModel } from '../../../../back-end/src/models';
 import { Grid, Modal, Button } from '@material-ui/core';
 import './authArea.scss'
 
+interface PropsFromDispatch {
+  onOpen: Function,
+  onClose: Function,
+  onLogin: Function,
+  onLogOut: Function
 
-interface Props{
-  readonly errorMessage: string,
-  readonly isAuthorized: boolean
-  readonly isOpen: boolean,
-  readonly onOpen: Function,
-  readonly onClose: Function,
-  readonly onLogin: Function,
-  readonly onLogOut: Function
 }
 
-const AuthArea: React.FC<Props> = ({onLogin, errorMessage, isOpen, onClose, onOpen, isAuthorized, onLogOut}) => {
- 
-  const [loginFormState, hanldeChange] = useState<LoginPayload>(() => ({"userName": "", "password": ""}));
+interface PropsFromState {
+   errorMessage: string,
+   isOpen: boolean,  
+   isAuthorized: boolean
+}
+
+type Props =  PropsFromState & PropsFromDispatch;
+
+const AuthArea: React.FC<Props> = (props: Props) => {
+ const {onLogin, errorMessage, isOpen, onClose, onOpen, isAuthorized, onLogOut} = props;
+  const [loginFormState, hanldeChange] = useState<LoginModel>(() => ({"userName": "", "password": ""}));
   
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;

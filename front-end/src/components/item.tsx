@@ -15,7 +15,7 @@ interface ItemProp {
     readonly addtoBag: Function
 }
 
-export const Item: React.FC<ItemProp> = ({ id , authors, isAuthorized, addtoBag, price, title, type}) => {
+const Item: React.FC<ItemProp> = ({ id , authors, isAuthorized, addtoBag, price, title, type}) => {
 
     const onAddClick = async (e:React.MouseEvent<HTMLButtonElement>)=> {
         e.preventDefault();
@@ -36,10 +36,12 @@ export const Item: React.FC<ItemProp> = ({ id , authors, isAuthorized, addtoBag,
                         <Typography paragraph>Description: Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex, maxime!</Typography>
                     </CardContent>
 
-                    <CardActions>
+                    {isAuthorized===false? null: <CardActions>
                         <button className='addToCardButton' onClick={onAddClick}><AddShoppingCartIcon/></button>
-                    </CardActions>
+                    </CardActions>}
                 </Card>
         </Grid>
     )
 }
+
+export default Item;

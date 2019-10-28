@@ -4,8 +4,7 @@ import {setNewPage, addItemToBag, GenericState} from '../../store'
 import { ItemModel } from '../../../../back-end/src/models';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
-import { Item } from '../../components/item';
-import { PageButton } from '../../components/pagesButton';
+import { Item, PageButton } from '../../components';
 import './items.scss';
 
 interface Props{  

@@ -1,0 +1,6 @@
+export {default as ItemShop} from './item-shop'
+export {default as Item} from './item'
+export {default as Main} from './main'
+export {default as PageButton} from './pagesButton'
+export {default as BagItem} from './bagItem'
+export { Header } from './header'

@@ -1,12 +1,28 @@
 import axios from "axios";
-import { ItemFilterState } from "../store";
-import { CreateUserModel } from "../../../back-end/src/models";
+import { PagingModel, CreateUserModel } from '../../../back-end/src/models';
+
 
 class UserService {
 
-    async getUsers(payload: ItemFilterState) {
-        const serverResponse = await axios.post("http://localhost:80/users", payload, { responseType: "json" });
-        return serverResponse;
+    async getUsers(payload: PagingModel) {
+        const userS = localStorage.getItem('user');
+        const user = userS? JSON.parse(userS): null;
+        const adminToken = user? user.token: null;
+        if(adminToken){
+            try{
+                const serverResponse = await axios.post("http://localhost:80/users", payload,
+                 { responseType: "json",
+                 headers: {'Authorization': `Bearer ${adminToken}`}});
+
+                console.log('serverResponse', serverResponse.data);
+
+                return serverResponse.data;
+            } 
+            catch(e){
+                console.log('object');
+                console.log('e', e);
+            }
+        }
     }
 
     async createUser (payload: CreateUserModel) {

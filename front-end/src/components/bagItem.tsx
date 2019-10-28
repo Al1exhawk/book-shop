@@ -8,7 +8,7 @@ interface Props {
 }
 
 
-export const BagItem: React.FC<Props> = ({ item, onDeleteClick}) => {
+const BagItem: React.FC<Props> = ({ item, onDeleteClick}) => {
     return (
       <TableRow>
           <TableCell>{item.title}</TableCell>
@@ -28,4 +28,6 @@ export const BagItem: React.FC<Props> = ({ item, onDeleteClick}) => {
 
     )
 }
+
+export default BagItem;
 
