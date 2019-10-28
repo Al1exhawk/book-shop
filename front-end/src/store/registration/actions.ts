@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { ActionTemplate } from "../../constants/types";
+import { ActionTemplate } from "../../models/types";
 
 
 export const OPEN_REGISTRATION_MODAL ='OPEN_REGISTRATION_MODAL';

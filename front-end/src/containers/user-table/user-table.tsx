@@ -1,12 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux';
-import { GenericState } from '../../store';
+import { GenericState, setNewUserPage } from '../../store';
 import { PagingModel, UserModel } from '../../../../back-end/src/models';
 import { userService } from '../../services/user.service';
+import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import { User, PageButton } from '../../components';
+import { UserFilterState } from '../../store';
 
 
 
-const UserTable: React.FC = ()=> {
+interface PropsFromState {
+    userFilter: UserFilterState
+}
+interface PropsFromDispatch {
+    onPageClick: Function
+}
+
+type Props = PropsFromState & PropsFromDispatch;
+
+const UserTable: React.FC<Props> = (props)=> {
     const [users, setUsers] = useState<UserModel[]>([]);
     const [pages, setPages] = useState([1]);
 
@@ -21,22 +33,83 @@ const UserTable: React.FC = ()=> {
        for(let i: number = 0; i<pagesNumber; i++) {
             pageButtonsArr.push(i+1)
        }
-    setPages(pageButtonsArr)
+    setPages(pageButtonsArr);
    }   
 
     useEffect(()=>{
         fetchUses();
-    },[]);
+    },[props.userFilter]);
 
+    const onDeleteClick = (id: string) => {
+        userService.deleteUser(id);
+    }
+
+    const onEditClick = (id: string) => {
+        
+    }
+    
     return (
-        <div>
-            <p>hello</p>            
-        </div>
+        <Grid item container direction='column' justify='center' alignContent='center' >
+            <Grid item container>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>
+                                <Typography>
+                                    UserName
+                                </Typography>
+                            </TableCell>
+
+                            <TableCell>
+                                <Typography>
+                                    Email
+                                </Typography>                            
+                            </TableCell>
+
+                            <TableCell>
+                                <Typography>
+                                    Status
+                                </Typography>
+                            </TableCell>
+
+                            <TableCell>
+                                <Typography>
+                                    Edit
+                                </Typography>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {users.map((user)=>{
+                                return <User
+                                        key={user.id}
+                                        id={user.id}
+                                        userName={user.userName}
+                                        email={user.email}
+                                        isConfirm={user.confirmPassword}
+                                        role={user.role}
+                                        onDeleteClick={onDeleteClick}
+                                        onEditClick={onEditClick}/>
+                            })
+                        }
+                    </TableBody>
+                </Table>  
+            </Grid>
+            <Grid item container spacing={1} justify='center' wrap='wrap' direction='row'>
+                {pages.map((page)=>{
+                    return <PageButton key={page} onClick={props.onPageClick} value={page}/>;
+                })}
+            </Grid>      
+        </Grid>
     )
 }
 
 const mapStateToProps = (state: GenericState) => ({
-    userFilter: state.itemFilter
+    userFilter: state.userFilter
 });
 
-export default connect(mapStateToProps)(UserTable);
+const mapDispatchToProps = {
+    onPageClick: setNewUserPage
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserTable);

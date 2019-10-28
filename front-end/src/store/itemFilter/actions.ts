@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
-import { FilterForm } from '../../constants/types';
-import { ActionTemplate } from "../../constants/types";
+import { FilterForm } from '../../models/types';
+import { ActionTemplate } from "../../models/types";
 
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const SET_NEW_PAGE = 'SET_NEW_PAGE';

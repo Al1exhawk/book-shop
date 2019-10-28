@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { ActionTemplate } from "../../constants/types";
+import { ActionTemplate } from "../../models/types";
 
 export const ADD_ITEM_TO_BAG = 'ADD_ITEM_TO_BAG';
 export const REMOVE_ITEM_FROM_BAG = 'REMOVE_ITEM_FROM_BAG';

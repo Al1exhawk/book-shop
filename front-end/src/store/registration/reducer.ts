@@ -1,5 +1,5 @@
 import {OPEN_REGISTRATION_MODAL, CLOSE_REGISTRATION_MODAL, REGISTRATION_ERROR} from './';
-import { ActionTemplate } from "../../constants/types";
+import { ActionTemplate } from "../../models/types";
 import { Reducer } from 'redux';
 
 export interface RegistrationState {

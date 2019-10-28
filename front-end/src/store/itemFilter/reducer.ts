@@ -1,5 +1,5 @@
 import { Reducer } from 'redux'
-import { ActionTemplate } from '../../constants/types';
+import { ActionTemplate } from '../../models/types';
 import { UPDATE_FILTER, SET_NEW_PAGE } from './'
 
 

@@ -1,6 +1,6 @@
 import React, {useState, FormEvent, ChangeEvent} from 'react';
 import { connect } from 'react-redux';
-import { FilterForm } from '../../constants/types';
+import { FilterForm } from '../../models/types';
 import { updateFilter } from '../../store'
 import { Select, MenuItem, InputLabel, Input , Button, Grid } from '@material-ui/core';
 import './itemFilter.scss'

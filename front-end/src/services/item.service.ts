@@ -17,7 +17,7 @@ class ItemService {
         const userS = localStorage.getItem('user');
         const user = userS? JSON.parse(userS): null;
         const adminToken = user? user.token: null;
-        if(adminToken){
+        
             try{
                 const serverResponse = await axios.post("http://localhost:80/items/add", payload, { responseType: "json",
                 headers: {'Authorization': `Bearer ${adminToken}`}});
@@ -25,8 +25,9 @@ class ItemService {
             } catch(e){
                 console.log('e', e);
             }
-        }
+        
     }
+    
     async deleteItem (id: string) {
         const userS = localStorage.getItem('user');
         const user = userS? JSON.parse(userS): null;

@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { ActionTemplate, LoginPayload } from "../../constants/types";
+import { ActionTemplate, LoginPayload } from "../../models/types";
 import { authService } from "../../services";
 
 

@@ -1,24 +1,27 @@
 import thunk from 'redux-thunk';
 import { authReducer, AuthState } from './auth';
 import { ItemFilterState, ItemFilterReducer} from './itemFilter';
-import { ActionTemplate } from '../constants/types';
+import { ActionTemplate } from '../models/types';
 import { createStore, applyMiddleware, Store, combineReducers } from 'redux';
 import {BagReducer, BagState} from './bag'
 import { RegistrationState, RegistrationReducer } from './registration'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import {UserFilterState, UserFilterReducer} from './userFilter'
 
 export interface GenericState {
-  readonly  auth: AuthState,
-   readonly signUp: RegistrationState,
-   readonly itemFilter: ItemFilterState,
-   readonly bag: BagState,
+    readonly signUp: RegistrationState,
+    readonly itemFilter: ItemFilterState,
+    readonly userFilter: UserFilterState
+    readonly bag: BagState,
+    readonly auth: AuthState,
 } 
 
 const genericReducer = combineReducers<GenericState>({
     auth: authReducer,
     itemFilter: ItemFilterReducer,
     bag: BagReducer,
-    signUp: RegistrationReducer
+    signUp: RegistrationReducer,
+    userFilter: UserFilterReducer
 });
 
 const store: Store<GenericState, ActionTemplate> = createStore(genericReducer, composeWithDevTools(
@@ -29,3 +32,4 @@ export * from './itemFilter';
 export * from './auth'
 export * from './bag'
 export * from './registration'
+export * from './userFilter'

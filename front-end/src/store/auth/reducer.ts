@@ -1,5 +1,5 @@
 import { Reducer } from 'redux'
-import { ActionTemplate } from '../../constants/types';
+import { ActionTemplate } from '../../models/types';
 import { LOG_OUT, LOG_IN, AUTH_ERROR, OPEN_LOGIN_MODAL, CLOSE_LOGIN_MODAL } from './';
 
 

@@ -1,5 +1,5 @@
 import { ADD_ITEM_TO_BAG, REMOVE_ITEM_FROM_BAG, OPEN_BAG_MODAL, CLOSE_BAG_MODAL } from './';
-import { ActionTemplate } from "../../constants/types";
+import { ActionTemplate } from "../../models/types";
 import { Reducer } from 'redux';
 
 
