@@ -1,10 +1,11 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { removeItemFromBag } from '../store';
 
 interface Props {
     item: {title: string, price: number, id: string, qty:number },   
-    onDeleteClick: Function,
+    onDeleteClick: typeof removeItemFromBag,
 }
 
 

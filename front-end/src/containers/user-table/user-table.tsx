@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux';
 import { GenericState, setNewUserPage } from '../../store';
-import { PagingModel, UserModel } from '../../../../back-end/src/models';
+import { PagingModel, UserModel } from '../../models';
 import { userService } from '../../services/user.service';
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import { User, PageButton } from '../../components';
 import { UserFilterState } from '../../store';
+import { RouteComponentProps } from 'react-router-dom';
 
 
 
 interface PropsFromState {
     userFilter: UserFilterState
 }
+
 interface PropsFromDispatch {
-    onPageClick: Function
+    onPageClick: typeof setNewUserPage
 }
 
-type Props = PropsFromState & PropsFromDispatch;
+type Props = PropsFromState & PropsFromDispatch & RouteComponentProps;
 
 const UserTable: React.FC<Props> = (props)=> {
     const [users, setUsers] = useState<UserModel[]>([]);
@@ -45,6 +47,7 @@ const UserTable: React.FC<Props> = (props)=> {
     }
 
     const onEditClick = (id: string) => {
+        console.log('object', props.history);
         
     }
     

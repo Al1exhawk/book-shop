@@ -2,19 +2,22 @@ import React, { ChangeEvent, FormEvent } from 'react'
 import {connect} from 'react-redux'
 import { Grid, Modal } from '@material-ui/core';
 import {openRegistrationModal, closeRegistrationModal, registrationError, GenericState} from '../../store'
-import { RegistrationModel } from '../../../../back-end/src/models';
+import { RegistrationModel } from '../../models';
 import { authService } from '../../services/auth.service';
 
 
 
-interface Props {
-    readonly onOpen: Function,
-    readonly onClose: Function,
-    readonly onError: Function
+interface PropsFromState {    
     readonly isOpen: boolean,
     readonly errorMessage:string,
-
 }
+interface PropsFromDispatch {
+    readonly onOpen: typeof openRegistrationModal,
+    readonly onClose: typeof closeRegistrationModal,
+    readonly onError: typeof registrationError,
+}
+
+type Props = PropsFromState & PropsFromDispatch;
 
 const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorMessage}) => {
 
@@ -28,11 +31,12 @@ const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorM
         e.preventDefault();
         try {
             authService.registration(signUpState);
+            onClose();
+
         } catch (e) {
            
            return onError(e.response && e.response.data.message ? e.response.data.message: e.message)
         }
-        return onClose();
     }
 
     return (

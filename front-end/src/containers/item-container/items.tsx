@@ -1,28 +1,32 @@
 import { itemService } from '../../services';
 import React, {useEffect, useState} from 'react';
 import {setNewPage, addItemToBag, GenericState} from '../../store'
-import { ItemModel } from '../../../../back-end/src/models';
+import { ItemModel, QueryObjectModel } from '../../models';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import { Item, PageButton } from '../../components';
 import './items.scss';
 
-interface Props{  
-    readonly itemFilter: any,
+interface PropsFromState {  
+    readonly itemFilter: QueryObjectModel,
     readonly isAuthorized: boolean
-    readonly setPage: Function,
-    readonly addtoBag: Function,
+
 }
+interface PropsFromDispatch {
+    readonly setPage: typeof setNewPage,
+    readonly addtoBag: typeof addItemToBag,
+}
+
+type Props = PropsFromState & PropsFromDispatch;
 
 const Items: React.FC<Props> = (props) => {
     const [items, setItems] = useState<ItemModel[]>([]);
     const [pages, setPages] = useState([1]);
     
     const fetchItems = async () => {
-       const serverResponse = await itemService.getItems(props.itemFilter);
-       const pagingModel = serverResponse.data;
-       const itemsArr: ItemModel[] = pagingModel.content;
-       const pagesNumber: number = pagingModel.pages;
+       const paginatedModel = await itemService.getItems(props.itemFilter);
+       const itemsArr = paginatedModel.content;
+       const pagesNumber: number = paginatedModel.pages;
     
        setItems(itemsArr);
         const pageButtonsArr: number[] = [] 

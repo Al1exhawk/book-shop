@@ -7,9 +7,11 @@ import { GenericState } from '../../store';
 
 
   
-interface Props {
-    readonly userRole?: string;
+interface PropsFromState {
+    readonly userRole: string;
 }
+
+type Props = PropsFromState
 
 const Header: React.FC<Props> = ({userRole}) => {
     return (   
@@ -23,4 +25,4 @@ const mapStateToProps = (state: GenericState) =>({
     userRole: state.auth.role,
   });
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);

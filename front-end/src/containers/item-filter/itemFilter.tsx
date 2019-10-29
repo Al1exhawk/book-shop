@@ -5,9 +5,11 @@ import { updateFilter } from '../../store'
 import { Select, MenuItem, InputLabel, Input , Button, Grid } from '@material-ui/core';
 import './itemFilter.scss'
 
-interface Props  {
-    update: Function
+interface PropsFromDispatch  {
+    update: typeof updateFilter
 }
+
+type Props = PropsFromDispatch;
 
   const ItemFilter: React.FC<Props> = (props) => {
         const [itemFilterState, hanldeChange] = useState<FilterForm>(
@@ -63,14 +65,12 @@ interface Props  {
 
                         <Grid item>
                             <InputLabel htmlFor="Title">by Title</InputLabel>
-                            <Input onChange={hanleInputChange} id='Title' name = 'titleSearchString' type = 'text' 
-                            />
+                            <Input onChange={hanleInputChange} id='Title' name = 'titleSearchString' type = 'text'/>
                         </Grid>
 
                         <Grid item>
                             <InputLabel htmlFor="Author">by Author</InputLabel>
-                            <Input onChange={hanleInputChange} id='Author' name = 'authorSearchString' type = 'text' 
-                            />
+                            <Input onChange={hanleInputChange} id='Author' name = 'authorSearchString' type = 'text'/>
                         </Grid>
 
                         <Grid item container justify='center' alignItems='center' >

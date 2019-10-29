@@ -2,15 +2,15 @@ import { logIn, closeLoginModal, openLoginModal, logout } from '../../store';
 import { connect } from 'react-redux';
 import { GenericState } from '../../store';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { LoginModel } from '../../../../back-end/src/models';
+import { LoginModel } from '../../models';
 import { Grid, Modal, Button } from '@material-ui/core';
 import './authArea.scss'
 
 interface PropsFromDispatch {
-  onOpen: Function,
-  onClose: Function,
-  onLogin: Function,
-  onLogOut: Function
+  onOpen: typeof openLoginModal,
+  onClose: typeof closeLoginModal,
+  onLogin:  Function,
+  onLogOut: typeof logout
 
 }
 

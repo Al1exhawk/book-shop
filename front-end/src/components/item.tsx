@@ -2,6 +2,7 @@ import React from 'react';
 import { ItemModel } from '../../../back-end/src/models';
 import { Grid, Card, CardMedia, CardHeader, CardContent, Typography, CardActions } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { addItemToBag } from '../store';
 
 
 interface ItemProp {
@@ -12,7 +13,7 @@ interface ItemProp {
     readonly type: string,
     readonly isAuthorized: boolean
     readonly item: ItemModel
-    readonly addtoBag: Function
+    readonly addtoBag: typeof addItemToBag
 }
 
 const Item: React.FC<ItemProp> = ({ id , authors, isAuthorized, addtoBag, price, title, type}) => {

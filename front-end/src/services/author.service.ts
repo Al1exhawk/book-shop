@@ -1,55 +1,45 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { ItemFilterState } from "../store";
-import { CreateAuthorModel } from "../../../back-end/src/models";
+import { CreateAuthorModel, FilterModel, AuthorModel, UpdateAuthorModel } from "../models";
 
 class AuthorService {
-
     async getauthors(payload: ItemFilterState) {
-        const serverResponse = await axios.post("http://localhost:80/authors", payload, { responseType: "json" });
-        return serverResponse;
+        const serverResponse = await axios.post<ItemFilterState, AxiosResponse<FilterModel<AuthorModel>>>("http://localhost:80/authors", payload, { responseType: "json" });
+        return serverResponse.data;
     }
 
     async createauthor (payload: CreateAuthorModel) {
-        const authorS = localStorage.getItem('author');
-        const author = authorS? JSON.parse(authorS): null;
-        const adminToken = author? author.token: null;
-        if(adminToken){
-            try{
-                const serverResponse = await axios.post("http://localhost:80/authors/add", payload, { responseType: "json",
-                headers: {'Authorization': `Bearer ${adminToken}`}});
-                return serverResponse.data;
-            } catch(e){
-                console.log('e', e);
-            }
-        }
+        const userS = localStorage.getItem('user');
+        const user = userS? JSON.parse(userS): null;
+        const adminToken = user? user.token: 'null';
+
+        const serverResponse = await axios.post<CreateAuthorModel, AxiosResponse<AuthorModel>>("http://localhost:80/authors/add",
+        payload, { responseType: "json",
+        headers: {'Authorization': `Bearer ${adminToken}`}});
+        return serverResponse.data;
     }
+
     async deleteauthor (id: string) {
-        const authorS = localStorage.getItem('author');
-        const author = authorS? JSON.parse(authorS): null;
-        const adminToken = author? author.token: null;
-        if(adminToken){
-            try{
-                const serverResponse = await axios.delete(`http://localhost:80/authors/${id}`, { responseType: "json",
-                headers: {'Authorization': `Bearer ${adminToken}`}});
-                return serverResponse.data;
-            } catch(e){
-                console.log('e', e);
-            }
+        const userS = localStorage.getItem('user');
+        const user = userS? JSON.parse(userS): null;
+        const adminToken = user? user.token: 'null';
+        
+        const serverResponse = await axios.delete<string, AxiosResponse<AuthorModel>>(`http://localhost:80/authors/${id}`, { 
+        responseType: "json",
+        headers: {'Authorization': `Bearer ${adminToken}`}});
+        return serverResponse.data;
         }
-    }
-    async updateauthor (id: string, payload: CreateAuthorModel) {
-        const authorS = localStorage.getItem('author');
-        const author = authorS? JSON.parse(authorS): null;
-        const adminToken = author? author.token: null;
-        if(adminToken){
-            try{
-                const serverResponse = await axios.put(`http://localhost:80/authors/${id}`, payload, { responseType: "json",
-                headers: {'Authorization': `Bearer ${adminToken}`}});
-                return serverResponse.data;
-            } catch(e){
-                console.log('e', e);
-            }
-        }
+
+    async updateauthor (id: string, payload: UpdateAuthorModel) {
+        const userS = localStorage.getItem('user');
+        const user = userS? JSON.parse(userS): null;
+        const adminToken = user? user.token: 'null';
+       
+        const serverResponse = await axios.put<UpdateAuthorModel, AxiosResponse<AuthorModel>>(`http://localhost:80/authors/${id}`, payload, {
+        responseType: "json",
+        headers: {'Authorization': `Bearer ${adminToken}`}});
+        return serverResponse.data;
+          
     }
 }
 
