@@ -1,11 +1,11 @@
 import React from 'react';
 import { ItemContainer, ItemFilter } from '../containers'
 import { Grid } from '@material-ui/core';
-import { RouteProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 
-type allProps = RouteProps;
+type Props = RouteComponentProps;
 
-const ItemShop: React.FC<allProps> = (props) => {
+const ItemShop: React.FC<Props> = (props) => {
     return (       
         <Grid item container  direction='column' >
             <ItemFilter/>

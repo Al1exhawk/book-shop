@@ -48,6 +48,7 @@ const UserTable: React.FC<Props> = (props)=> {
 
     const onEditClick = (id: string) => {
         console.log('object', props.history);
+        props.history.push(`/users/${id}`)
         
     }
     
@@ -58,25 +59,25 @@ const UserTable: React.FC<Props> = (props)=> {
                     <TableHead>
                         <TableRow>
                             <TableCell>
-                                <Typography>
+                                <Typography variant='h6' component='p'>
                                     UserName
                                 </Typography>
                             </TableCell>
 
                             <TableCell>
-                                <Typography>
+                                <Typography variant='h6' component='p'>
                                     Email
                                 </Typography>                            
                             </TableCell>
 
                             <TableCell>
-                                <Typography>
+                                <Typography variant='h6' component='p'>
                                     Status
                                 </Typography>
                             </TableCell>
 
                             <TableCell>
-                                <Typography>
+                                <Typography variant='h6' component='p'>
                                     Edit
                                 </Typography>
                             </TableCell>

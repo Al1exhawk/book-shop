@@ -1,22 +1,26 @@
 import React from 'react';
-import store from './store'
 import { Header, Main } from './components';
-import { Provider } from 'react-redux';
 import { Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { GenericState } from './store';
 
+interface PropsFromState {
+  role: string
+}
 
+type Props = PropsFromState;
 
-const App: React.FC = () => {
+const App: React.FC<Props> = (props) => {
   return (        
-    <Provider store={store}>  
       <Grid container direction='column'>
           <Header />
-          <Main/>
+          <Main role={props.role}/>
       </Grid>
-    </Provider>
   );
 }
 
+const mapStateToProps = (state: GenericState) => ({
+  role: state.auth.role,
+})
 
-
-export default App;
+export default connect(mapStateToProps)(App);

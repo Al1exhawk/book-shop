@@ -30,7 +30,7 @@ interface Prop {
 
             <TableCell>
                 <Typography>
-                   { props.isConfirm}
+                   { props.isConfirm===true? 'confirmed' : 'not confirmed'}
                 </Typography>
             </TableCell>
 

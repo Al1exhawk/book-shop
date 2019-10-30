@@ -18,6 +18,19 @@ class UserService {
         
     }
 
+    async getUser(id: string) {
+        const userS = localStorage.getItem('user');
+        const user = userS? JSON.parse(userS): null;
+        const adminToken = user? user.token: 'null';       
+        
+        const serverResponse = await axios.get<null,AxiosResponse<UserModel>>(`http://localhost:80/users/${id}`,
+        { responseType: "json",
+        headers: {'Authorization': `Bearer ${adminToken}`}});
+
+
+        return serverResponse.data;
+    }
+
     async createUser (payload: CreateUserModel) {
         const userS = localStorage.getItem('user');
         const user = userS? JSON.parse(userS): null;

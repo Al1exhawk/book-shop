@@ -1,47 +1,58 @@
 import React, { FormEvent, ChangeEvent } from 'react'
-import { RouteProps } from 'react-router'
-import {TextField,  FormControl} from '@material-ui/core';
+import { RouteComponentProps } from 'react-router';
+import {TextField} from '@material-ui/core';
+import './styles.scss';
+import { UpdateUserModel } from '../../models';
+import { userService } from '../../services/user.service';
 
-type Props = RouteProps;
+type TParams = { id: string };
+type Props = RouteComponentProps<TParams>;
 
-const EditUserForm: React.FC<Props> = (props) => {
+const EditUserForm: React.FC<Props> = ({match}) => {
+    
+    const [user, setUser] = React.useState<UpdateUserModel>({userName:'', password: '', confirmPassword: false, role:'', email: ''});
+
+    const fetchUser = async () => {
+        const userE = await userService.getUser(match.params.id);
+        const {userName, password, confirmPassword,role, email } = userE;
+        setUser({...user,userName, password, confirmPassword, role, email});
+        console.log('user', userE);
+        console.log('user', user);
+
+    }
 
     React.useEffect(() => {
-        
+        fetchUser();
     }, []);
     const onSubmit = (e: FormEvent<HTMLFormElement>)=> {
         e.preventDefault();
     }
     const onChange=(e:ChangeEvent<HTMLInputElement>)=> {
-        const e1 = e.target;
-        console.log('e1', e1)
+        const {value, name} = e.target;
+        console.log(`${name}`, value);
+;
     }
     return (
-        <form onSubmit={onSubmit} autoComplete='off'>
-            <div>
-                <FormControl>
+        <div className='editForm'>
+            <form onSubmit={onSubmit}>
                     <TextField
-                        onChange={onChange}/>
+                        onChange={onChange}
+                        name='userName'
+                        id='userName'
+                        defaultValue='123'
+                        label='UserName'
+                        />
+
+                    <TextField/>
+
+                    <TextField/>
 
 
-                    <TextField
-                    
-                    ></TextField>
+                    <TextField/>
 
 
-                    <TextField
-                    
-                    ></TextField>
-
-
-                    <TextField
-                    
-                    ></TextField>
-
-
-                </FormControl>         
-            </div>
-        </form>
+            </form>
+        </div>
     )
 }
 

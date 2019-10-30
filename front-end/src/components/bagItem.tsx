@@ -12,13 +12,17 @@ interface Props {
 const BagItem: React.FC<Props> = ({ item, onDeleteClick}) => {
     return (
       <TableRow>
-          <TableCell>{item.title}</TableCell>
           <TableCell>
-          {item.qty}        
+            {item.title}
           </TableCell>
-          <TableCell>{item.price}$</TableCell>
           <TableCell>
-            {item.qty*item.price}
+            {item.qty}        
+          </TableCell>
+          <TableCell>
+            {item.price}$
+          </TableCell>
+          <TableCell>
+            {item.qty*item.price}$
           </TableCell>
           <TableCell>
             <button onClick={() =>{onDeleteClick(item.id);}}>
