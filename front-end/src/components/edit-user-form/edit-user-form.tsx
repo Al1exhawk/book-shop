@@ -38,14 +38,23 @@ const EditUserForm: React.FC<Props> = ({match}) => {
                     <TextField
                         onChange={onChange}
                         name='userName'
-                        id='userName'
                         defaultValue='123'
-                        label='UserName'
+                        label='userName'
                         />
 
-                    <TextField/>
+                    <TextField
+                        onChange={onChange}
+                        name='password'
+                        defaultValue='123889'
+                        label='password'
+                    />
 
-                    <TextField/>
+                    <TextField
+                        onChange={onChange}
+                        name='email'
+                        defaultValue='123889'
+                        label='email'
+                    />
 
 
                     <TextField/>

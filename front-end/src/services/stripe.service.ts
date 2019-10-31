@@ -1,6 +1,6 @@
-import axios from "axios";
+import { BaseService } from "./base.service";
 
-class StripeService {
+class StripeService extends BaseService {
 
     loadStrpe() {
         if(!window.document.getElementById('stripe-script')) {
@@ -34,7 +34,7 @@ class StripeService {
     }
 
     async send(data: any) {
-      const charge =  await axios.post('http://localhost:80/checkout', data);
+      const charge =  await this.axiosInstance.post('/checkout', data);
      
       return charge;
     }
