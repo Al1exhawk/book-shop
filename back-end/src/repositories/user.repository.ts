@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 import { UserDocument } from '../documents';
 import { Injectable, Inject } from '@nestjs/common';
+import { UpdateUserModel } from 'src/models';
 
 @Injectable()
 export class UserRepository {
@@ -43,7 +44,7 @@ export class UserRepository {
     return newUser;
   }
 
-  async update(id: string, user: UserDocument): Promise<UserDocument> {
+  async update(id: string, user: UpdateUserModel): Promise<UserDocument> {
     const updUser = await this.userModel.findByIdAndUpdate(id, user, { new: true });
 
     return updUser;

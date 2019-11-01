@@ -4,7 +4,7 @@ import { RolesGuard } from '../common/guards/roles-guard';
 import { AuthorService } from '../services';
 import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateAuthorModel, AuthorModel, PagingModel, FilterModel } from '../models';
-import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
+import { Controller, Get,  Put,  Post, Delete, Body, Param, UseGuards } from '@nestjs/common';
 
 @ApiUseTags('Authors')
 @Controller('authors')

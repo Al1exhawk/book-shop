@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, Paper, TableFooter } from '@material-ui/core';
 import { openBagModal, closeBagModal, GenericState, removeItemFromBag } from '../../store'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { ItemModel } from '../../models';
+import { BagModel } from '../../models';
 import { BagItem } from '../../components';
 import { stripeService, itemService } from '../../services'
 
@@ -24,9 +24,7 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
     React.useEffect(()=>{
         stripeService.loadStrpe();
     },[])
-    const [BItems, setItems] = React.useState<{
-        items: Array<{item: ItemModel, amount: number}>,
-        totalPrice: number}>({items:[], totalPrice: 0});
+    const [BItems, setItems] = React.useState<BagModel>({items:[], totalPrice: 0});
     
     const fetchItems = async () => {        
             const items = await itemService.getBagItems(bagItems);

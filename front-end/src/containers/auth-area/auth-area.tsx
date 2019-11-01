@@ -20,6 +20,8 @@ interface PropsFromState {
    isAuthorized: boolean
 }
 
+
+
 type Props =  PropsFromState & PropsFromDispatch;
 
 const AuthArea: React.FC<Props> = (props: Props) => {

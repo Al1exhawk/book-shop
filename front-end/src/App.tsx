@@ -12,7 +12,7 @@ type Props = PropsFromState;
 
 const App: React.FC<Props> = (props) => {
   return (        
-      <Grid container direction='column'>
+      <Grid className='App' item container direction='column'>
           <Header />
           <Main role={props.role}/>
       </Grid>

@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ItemFilterState } from "../store";
-import { CreateItemModel, ItemModel, UpdateItemModel, FilterModel } from "../models";
+import { CreateItemModel, ItemModel, UpdateItemModel, FilterModel, BagModel } from "../models";
 import { BaseService } from "./base.service";
 
 class ItemService extends BaseService {
@@ -11,8 +11,7 @@ class ItemService extends BaseService {
     }
 
     async getBagItems(payload: Array<{id: string, amount: number}>) {
-        const serverResponse = await this.axiosInstance.post<Array<{id: string, amount: number}>, AxiosResponse<{items: Array<{item: ItemModel, amount: number}>,totalPrice: number }>>("/items/bag",
-        payload);
+        const serverResponse = await this.axiosInstance.post<Array<{id: string, amount: number}>, AxiosResponse<BagModel>>("/items/bag",payload);
         return serverResponse.data;
     }
 

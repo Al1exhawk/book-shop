@@ -2,7 +2,7 @@ import Item from '../documents/item/db.data';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from '../documents';
 import { ItemRepository, AuthorRepository } from '../repositories';
-import { FilterModel, QueryObjectModel, CreateItemModel, ItemModel } from '../models';
+import { FilterModel, QueryObjectModel, CreateItemModel, ItemModel, BagModel } from '../models';
 
 @Injectable()
 export class ItemService {
@@ -54,9 +54,7 @@ export class ItemService {
     return itemFilterModel;
   }
 
-  async findForBag(bagitems: Array<{id: string, amount: number}>): Promise<{
-    items: Array<{item: ItemModel, amount: number}>,
-    totalPrice: number }> {
+  async findForBag(bagitems: Array<{id: string, amount: number}>): Promise<BagModel> {
     const idArray: string[] = bagitems.map((item) => {
       return item.id;
     });

@@ -25,9 +25,9 @@ class UserService extends BaseService{
         return serverResponse.data;        
     }
 
-    async updateUser (id: string, payload: UpdateUserModel) {
-        const serverResponse = await this.axiosInstance.put<UpdateUserModel, AxiosResponse<UserModel>>(`/users/${id}`, payload);
-        return serverResponse.data;    
+    async updateUser (id: string, payload: UpdateUserModel) { 
+            const serverResponse = await this.axiosInstance.put<UpdateUserModel, AxiosResponse<UserModel>>(`/users/${id}`, payload);
+            return serverResponse.data;
     }
 }
 

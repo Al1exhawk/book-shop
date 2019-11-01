@@ -1,47 +1,41 @@
 import React, { FormEvent, ChangeEvent } from 'react'
 import { RouteComponentProps } from 'react-router';
 import {TextField, Button, Grid} from '@material-ui/core';
-import './styles.scss';
-import { UpdateUserModel } from '../../models';
+import {CreateUserModel } from '../../models';
 import { userService } from '../../services';
 
-type TParams = { id: string };
-type Props = RouteComponentProps<TParams>;
 
-const EditUserForm: React.FC<Props> = ({match}) => {
+type Props = RouteComponentProps;
+
+const AddUserForm: React.FC<Props> = (props) => {
     
-    const [user, setUser] = React.useState<UpdateUserModel>({userName:'', password: '', email: ''});
+    const [user, setUser] = React.useState<CreateUserModel>({
+        userName: '',
+        password: '',
+        email: '',
+    });
 
-    const fetchUser = async () => {
-        const userE = await userService.getUser(match.params.id);
-        const {userName, password, email } = userE;
-        
-        setUser({...user,userName, password, email});
-    }
-
-    React.useEffect(() => {
-        fetchUser();
-    }, []);
+    
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {        
         e.preventDefault();
-        userService.updateUser(match.params.id,user);
+        userService.createUser(user);
     }
 
     const onChange=(e:ChangeEvent<HTMLInputElement>)=> {
         const {value, name} = e.target;
         if(name!=='passwordConfirm') {
-            setUser({
-                ...user,  [name]: value 
+            setUser({...user,
+              [name]: value 
             });
         }
     }
+
     return (
         <form onSubmit={onSubmit} className='editForm'>  
             <Grid container direction='column'>       
                     <TextField
                         onChange={onChange}
                         name='userName'
-                        value={user.userName}
                         label='UserName'
                         />
 
@@ -60,13 +54,13 @@ const EditUserForm: React.FC<Props> = ({match}) => {
                     <TextField
                         onChange={onChange}
                         name='email'
-                        value={user.email}
                         label='Email'
                     />
-                    <Button type='submit' variant='contained'>Edit</Button>
+
+                    <Button type='submit' variant='contained'>Add</Button>
             </Grid>  
         </form>
     )
 }
 
-export default EditUserForm;
+export default AddUserForm;

@@ -3,7 +3,7 @@ import { UserDocument } from '../documents';
 import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from '../repositories';
 import { Injectable, HttpException, HttpStatus, Inject, forwardRef } from '@nestjs/common';
-import { UserModel, RegistrationModel, CreateUserModel, FilterModel } from '../models';
+import { UserModel, RegistrationModel, CreateUserModel, FilterModel, UpdateUserModel } from '../models';
 import { AuthService } from './';
 
 @Injectable()
@@ -119,17 +119,13 @@ export class UserService {
     return deletedUserModel;
   }
 
-  async update(userId: string, user: CreateUserModel): Promise<UserModel> {
+  async update(userId: string, newUser: UpdateUserModel): Promise<UserModel> {
+    const salt = await genSalt(10);
+    const updUser: UpdateUserModel = {...newUser,
+       password: await hash(newUser.password, salt),
+    };
 
-    const newUser: UserDocument = new User({
-      userName: user.userName,
-      role: user.role,
-      password: user.password,
-      confirmPassword: user.confirmPassword,
-      email: user.email,
-    });
-
-    const updatedUser: UserDocument = await this.userRepository.update(userId, newUser);
+    const updatedUser: UserDocument = await this.userRepository.update(userId, updUser);
     const { id, userName, role, password, email, confirmPassword } = updatedUser;
 
     const updatedUserModel: UserModel = {

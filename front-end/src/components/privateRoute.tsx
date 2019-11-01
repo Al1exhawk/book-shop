@@ -2,17 +2,15 @@ import { Route, Redirect, RouteProps} from 'react-router-dom';
 import React from 'react'
 
 interface OwnProps {
-    Comp:  any,
+    Сomponent :any,
     role: string,
-    exact: boolean,
-    path: string
 }
 type Props = OwnProps & RouteProps;
 
-const PrivateRoute:React.FC<Props> = ({Comp, role, ...rest}) => {
+const PrivateRoute: React.FC<Props> = ({Сomponent, role, ...rest}) => {
     return (
         <Route {...rest} render={(props)=>{
-            return role === 'admin' ?<Comp {...props}/>: <Redirect to='/'/>
+            return role === 'admin' ?<Сomponent {...props}/>: <Redirect to='/'/>
         }} />
     )
 }

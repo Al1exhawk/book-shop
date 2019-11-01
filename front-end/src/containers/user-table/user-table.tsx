@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { GenericState, setNewUserPage } from '../../store';
 import { PagingModel, UserModel } from '../../models';
 import { userService } from '../../services/user.service';
-import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import { User, PageButton } from '../../components';
+import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton } from '@material-ui/core';
+import { PageButton, UserRow } from '../../components';
 import { UserFilterState } from '../../store';
 import { RouteComponentProps } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
 
 
 
@@ -31,10 +32,10 @@ const UserTable: React.FC<Props> = (props)=> {
     const pagesNumber: number = pagingModel.pages;
 
     setUsers(itemsArr);
-     const pageButtonsArr: number[] = [] 
-       for(let i: number = 0; i<pagesNumber; i++) {
-            pageButtonsArr.push(i+1)
-       }
+    const pageButtonsArr: number[] = [] 
+    for(let i: number = 0; i<pagesNumber; i++) {
+        pageButtonsArr.push(i+1);
+    }
     setPages(pageButtonsArr);
    }   
 
@@ -47,13 +48,17 @@ const UserTable: React.FC<Props> = (props)=> {
     }
 
     const onEditClick = (id: string) => {
-        console.log('object', props.history);
-        props.history.push(`/users/${id}`)
-        
+        props.history.push(`/users/${id}`);    
+    }
+
+    const onAddClick =() =>{
+        props.history.push('/user/add');    
     }
     
     return (
         <Grid item container direction='column' justify='center' alignContent='center' >
+
+            
             <Grid item container>
                 <Table>
                     <TableHead>
@@ -81,11 +86,16 @@ const UserTable: React.FC<Props> = (props)=> {
                                     Edit
                                 </Typography>
                             </TableCell>
+                            <TableCell>
+                                <IconButton onClick={onAddClick}>
+                                    <AddIcon/>
+                                </IconButton>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map((user)=>{
-                                return <User
+                        {users.map((user: UserModel)=>{
+                                return <UserRow
                                         key={user.id}
                                         id={user.id}
                                         userName={user.userName}
