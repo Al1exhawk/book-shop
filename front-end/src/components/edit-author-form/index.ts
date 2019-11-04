@@ -1,0 +1,1 @@
+export {default as EditAuthorForm} from './edit-author-form';

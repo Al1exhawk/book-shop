@@ -2,7 +2,7 @@ import Item from '../documents/item/db.data';
 import { Injectable } from '@nestjs/common';
 import { ItemDocument } from '../documents';
 import { ItemRepository, AuthorRepository } from '../repositories';
-import { FilterModel, QueryObjectModel, CreateItemModel, ItemModel, BagModel } from '../models';
+import { FilterModel, QueryObjectModel, CreateItemModel, ItemModel, BagModel, UpdateItemModel } from '../models';
 
 @Injectable()
 export class ItemService {
@@ -139,15 +139,8 @@ export class ItemService {
     return deletedItemModel;
   }
 
-  async update(itemId: string, item: CreateItemModel): Promise<ItemModel> {
-    const newItem: ItemDocument = new Item({
-      title: item.title,
-      price: item.price,
-      type: item.type,
-      authors: item.authors,
-    });
-
-    const updatedItem = await this.itemRepository.update(itemId, newItem);
+  async update(itemId: string, item: UpdateItemModel): Promise<ItemModel> {
+    const updatedItem = await this.itemRepository.update(itemId, item);
 
     const {id, title, type, price, authors} = updatedItem;
 

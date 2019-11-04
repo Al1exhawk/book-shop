@@ -19,6 +19,7 @@ const AddUserForm: React.FC<Props> = (props) => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {        
         e.preventDefault();
         userService.createUser(user);
+        props.history.goBack();
     }
 
     const onChange=(e:ChangeEvent<HTMLInputElement>)=> {

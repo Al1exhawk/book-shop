@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux';
 import { GenericState, setNewUserPage } from '../../store';
 import { PagingModel, UserModel } from '../../models';
-import { userService } from '../../services/user.service';
+import { userService } from '../../services';
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton } from '@material-ui/core';
 import { PageButton, UserRow } from '../../components';
 import { UserFilterState } from '../../store';
@@ -26,8 +26,7 @@ const UserTable: React.FC<Props> = (props)=> {
     const [pages, setPages] = useState([1]);
 
    const fetchUses = async () => {
-    const p: PagingModel = {page: 1, contentPerPage: 10};
-    const pagingModel  = await userService.getUsers(p);
+    const pagingModel  = await userService.getUsers(props.userFilter);
     const itemsArr: UserModel[] = pagingModel.content;
     const pagesNumber: number = pagingModel.pages;
 
@@ -56,9 +55,7 @@ const UserTable: React.FC<Props> = (props)=> {
     }
     
     return (
-        <Grid item container direction='column' justify='center' alignContent='center' >
-
-            
+        <Grid item container direction='column' justify='center' alignContent='center' >            
             <Grid item container>
                 <Table>
                     <TableHead>
