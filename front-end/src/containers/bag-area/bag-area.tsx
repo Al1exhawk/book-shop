@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Grid, Modal, Table, TableBody, TableCell, TableHead, TableRow, Paper, TableFooter } from '@material-ui/core';
+import { Modal, Table, TableBody, TableCell, TableHead, TableRow, Paper, TableFooter, IconButton, Box, Badge } from '@material-ui/core';
 import { openBagModal, closeBagModal, GenericState, removeItemFromBag } from '../../store'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { BagModel } from '../../models';
@@ -39,8 +39,12 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
         onClose();
     }
     return (
-        <Grid  xs={4} item container justify='flex-end'>
-            <button onClick={()=>{ onOpen()}}><ShoppingCartIcon/></button>
+        <Box >        
+            <IconButton onClick={()=>{ onOpen()}}>
+                <Badge badgeContent={12} color='primary'>
+                    <ShoppingCartIcon/>
+                </Badge>
+            </IconButton>
             <Modal
             open={isOpen}
             onClose={()=>{ onClose()}}>                
@@ -88,7 +92,7 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
                     </Paper>
                 </div>
             </Modal>
-        </Grid>
+        </Box>
     )
 }
 

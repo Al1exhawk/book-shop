@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { GenericState } from '../../store';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { LoginModel } from '../../models';
-import { Grid, Modal, Button } from '@material-ui/core';
+import { Modal, Button, Box } from '@material-ui/core';
 import './authArea.scss'
 
 interface PropsFromDispatch {
@@ -42,7 +42,7 @@ const AuthArea: React.FC<Props> = (props: Props) => {
   
 
   return (
-    <Grid   xs={4} item container spacing={0} justify='flex-end' >     
+    <Box>     
       <Button variant='contained' color='secondary'onClick={()=>{isAuthorized? onLogOut():onOpen()}} >{isAuthorized? 'LogOut':'LogIn'}</Button>
       <Modal
       open={isOpen}
@@ -54,7 +54,7 @@ const AuthArea: React.FC<Props> = (props: Props) => {
                 <button>Sign In</button>
           </form>
       </Modal>
-    </Grid>
+    </Box>
   );
 }
 

@@ -11,7 +11,7 @@ interface Prop {
 }
 
  const AuthorRow: React.FC<Prop> = ({author, onDeleteClick, onEditClick}) => {
-
+    
     return (
         <TableRow>
             <TableCell>
@@ -22,7 +22,7 @@ interface Prop {
 
             <TableCell>
                 <Typography>
-                   { author.firstName}
+                   { author.lastName}
                 </Typography>
             </TableCell>
 

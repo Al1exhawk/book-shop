@@ -10,7 +10,7 @@ type Props = OwnProps & RouteProps;
 const PrivateRoute: React.FC<Props> = ({Сomponent, role, ...rest}) => {
     return (
         <Route {...rest} render={(props)=>{
-            return role === 'admin' ?<Сomponent {...props}/>: <Redirect to='/'/>
+            return role === 'admin' ?<Сomponent {...props}/> : <Redirect to='/'/>
         }} />
     )
 }

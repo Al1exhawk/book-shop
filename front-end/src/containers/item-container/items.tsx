@@ -41,7 +41,7 @@ const Items: React.FC<Props> = (props) => {
         }, [props.itemFilter]);
        
     return(
-        <Grid item container spacing={1} direction='column'>
+        <Grid item container  direction='column'>
             <Grid item container direction='row' wrap='wrap' className='items'>
                 {items.length? items.map((item: ItemModel) => {       
                     const authorsString: string = item.authors.length? item.authors.reduce((prev:string,author)=>{
@@ -60,7 +60,7 @@ const Items: React.FC<Props> = (props) => {
                             isAuthorized={props.isAuthorized}/>
                 }): null}
             </Grid>
-            <Grid item container spacing={1} justify='center' wrap='wrap' direction='row'>         
+            <Grid item container justify='center' wrap='wrap' direction='row'>         
                 {pages.map((page) => {
                     return <PageButton key={page} value={page} onClick={props.setPage}/>
                 })}

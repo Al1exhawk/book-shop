@@ -1,5 +1,4 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
 
 interface Prop {
     readonly value: number,
@@ -11,9 +10,9 @@ const PageButton: React.FC<Prop> = (props) => {
         props.onClick(props.value)
     }
     return (
-        <Grid item>
+        <div>
             <button className='pageButtton' onClick={onclick}>{props.value}</button>
-        </Grid>
+        </div>
     )
 }
 

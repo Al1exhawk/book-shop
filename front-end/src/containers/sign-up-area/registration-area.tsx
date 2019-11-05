@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from 'react'
 import {connect} from 'react-redux'
-import { Grid, Modal } from '@material-ui/core';
+import { Grid, Modal, Button, Box } from '@material-ui/core';
 import {openRegistrationModal, closeRegistrationModal, registrationError, GenericState} from '../../store'
 import { RegistrationModel } from '../../models';
 import { authService } from '../../services/auth.service';
@@ -40,8 +40,8 @@ const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorM
     }
 
     return (
-        <Grid xs={4} item container justify='flex-end'>
-            <button onClick={()=>{ onOpen()}}>Sign Up</button>
+        <Box >
+            <Button color='secondary' onClick={()=>{ onOpen()}}>Sign Up</Button>
             <Modal
             open={isOpen}
             onClose={()=>{ onClose()}}>
@@ -53,7 +53,7 @@ const Registration: React.FC<Props> = ({isOpen, onClose, onOpen, onError, errorM
                     <button>Sign Up</button>
                 </form>
             </Modal>
-        </Grid>
+        </Box>
     )
 }
 

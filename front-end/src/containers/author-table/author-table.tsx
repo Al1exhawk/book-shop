@@ -42,12 +42,16 @@ const AuthorTable: React.FC<Props> = (props) => {
         fetchAuthor()
     },[])
 
+    const onAddClick = () => {
+        props.history.push('/authors/add')
+    }
+
     const onDelete = (id: string) => {
         authorService.deleteAuthor(id);
     }
 
     const onEdit = (id: string) => {
-        props.history.push(`/authrs/${id}`)
+        props.history.push(`/authors/edit/${id}`)
     }
 
     return (
@@ -80,20 +84,20 @@ const AuthorTable: React.FC<Props> = (props) => {
                                 </Typography>
                             </TableCell>
                             <TableCell>
-                                <IconButton>
+                                <IconButton onClick={onAddClick}>
                                     <AddIcon/>
                                 </IconButton>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {authors.map((author)=>{
+                        {authors.map(author=>{
                             return <AuthorRow onDeleteClick={onDelete} onEditClick={onEdit} key={author.id} author={author}/> 
                         })}                   
                     </TableBody>
                 </Table>  
             </Grid>
-            <Grid item container spacing={1} justify='center' wrap='wrap' direction='row'>
+            <Grid item container justify='center' direction='row'>
                {pagesB.map((page)=>{
                     return <PageButton key={page} onClick={props.onPageClick} value={page}/>;
                 })} 

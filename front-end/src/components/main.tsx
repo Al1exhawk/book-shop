@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Switch, Route} from 'react-router-dom';
-import { ItemShop, EditUserForm, PrivateRoute, AddAuthorForm, AddUserForm, EditAuthorForm} from './';
-import { UserTable, AuthorTable } from '../containers';
+import { ItemShop, EditUserForm, PrivateRoute, AddAuthorForm, AddUserForm, EditAuthorForm, AddItemForm} from './';
+import { UserTable, AuthorTable, ItemTable } from '../containers';
 
 interface OwnProps {
     role: string
@@ -13,12 +13,14 @@ const Main: React.FC<Props> = (props) => {
     return (
             <Switch>
                 <Route exact path='/' component={ItemShop}/>
-                <Route exact path='/authors' component={AuthorTable}/>
-                <Route exact path='/authors/add' component={AddAuthorForm}/>
-                <Route path='/authors/:id' component={EditAuthorForm}/>
-                <PrivateRoute exact path='/users' role={props.role} Сomponent={UserTable}/>
-                <PrivateRoute exact path='/user/add' role={props.role} Сomponent={ AddUserForm }/>                
-                <PrivateRoute path='/users/:id' role={props.role} Сomponent={ EditUserForm }/>                
+                <PrivateRoute exact path='/authors' role={props.role} Сomponent={AuthorTable}/>
+                <PrivateRoute exact path='/authors/add' role={props.role} Сomponent={AddAuthorForm}/>
+                <PrivateRoute path='/authors/edit/:id' role={props.role} Сomponent={EditAuthorForm}/>
+                <PrivateRoute exact path='/users' role={props.role} Сomponent={ UserTable }/>
+                <PrivateRoute path='/users/edit/:id' role={props.role} Сomponent={ EditUserForm }/>                
+                <PrivateRoute exact path='/users/add' role={props.role} Сomponent={ AddUserForm }/>                
+                <PrivateRoute exact path='/items' role={props.role} Сomponent={ ItemTable }/>
+                <PrivateRoute exact path='/items/add' role={props.role} Сomponent={ AddItemForm }/>
             </Switch>
         
     )
