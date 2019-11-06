@@ -22,6 +22,7 @@ class AuthorService extends BaseService {
         const serverResponse = await this.axiosInstance.put<UpdateAuthorModel, AxiosResponse<AuthorModel>>(`/authors/${id}`, payload);
         return serverResponse.data;          
     }
+    
     async getAuthor(id: string) {
         const serverResponse = await this.axiosInstance.put<null, AxiosResponse<AuthorModel>>(`/authors/${id}`);
         return serverResponse.data; 

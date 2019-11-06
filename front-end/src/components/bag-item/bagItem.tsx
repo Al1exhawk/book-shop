@@ -1,7 +1,7 @@
 import React from 'react';
 import { TableRow, TableCell } from '@material-ui/core';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { removeItemFromBag } from '../store';
+import { removeItemFromBag } from '../../store';
 
 interface Props {
     item: {title: string, price: number, id: string, qty:number },   
@@ -15,15 +15,19 @@ const BagItem: React.FC<Props> = ({ item, onDeleteClick}) => {
           <TableCell>
             {item.title}
           </TableCell>
+          
           <TableCell>
             {item.qty}        
           </TableCell>
+          
           <TableCell>
             {item.price}$
           </TableCell>
+          
           <TableCell>
             {item.qty*item.price}$
           </TableCell>
+          
           <TableCell>
             <button onClick={() =>{onDeleteClick(item.id);}}>
               <HighlightOffIcon/>

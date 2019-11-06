@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from 'axios';
 
 export abstract class BaseService {
-    protected axiosInstance:AxiosInstance;
+    protected axiosInstance: AxiosInstance;
 
     constructor(){
         this.axiosInstance = axios.create({

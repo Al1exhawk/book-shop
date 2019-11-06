@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Switch, Route} from 'react-router-dom';
-import { ItemShop, EditUserForm, PrivateRoute, AddAuthorForm, AddUserForm, EditAuthorForm, AddItemForm} from './';
-import { UserTable, AuthorTable, ItemTable } from '../containers';
+import { ItemShop, EditUserForm, PrivateRoute, AddAuthorForm, AddUserForm, EditAuthorForm, AddItemForm, EditItemForm} from '../';
+import { UserTable, AuthorTable, ItemTable } from '../../containers';
 
 interface OwnProps {
     role: string
@@ -21,6 +21,8 @@ const Main: React.FC<Props> = (props) => {
                 <PrivateRoute exact path='/users/add' role={props.role} Сomponent={ AddUserForm }/>                
                 <PrivateRoute exact path='/items' role={props.role} Сomponent={ ItemTable }/>
                 <PrivateRoute exact path='/items/add' role={props.role} Сomponent={ AddItemForm }/>
+                <PrivateRoute path='/items/edit/:id' role={props.role} Сomponent={ EditItemForm }/>                
+
             </Switch>
         
     )

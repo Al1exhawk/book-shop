@@ -14,13 +14,13 @@ export const logIn = (loginPayload: LoginPayload) => async (
 ) => {
   try {
     const serverResponse = await authService.logIn(loginPayload);
-    const data = serverResponse.data;
-    localStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("user", JSON.stringify(serverResponse));
 
     return dispatch({
       type: LOG_IN,
-      payload: data
+      payload: serverResponse
     });
+    
   } catch (e) {
     return dispatch({
       type: AUTH_ERROR,

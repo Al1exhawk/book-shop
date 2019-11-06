@@ -33,7 +33,9 @@ interface Prop {
 
             <TableCell>
                 <Typography>
-                  lol
+                {item.authors.reduce((prev, curr)=>{
+                        return `${prev} ${curr.firstName}`
+                    },'')}
                 </Typography>
             </TableCell>
 

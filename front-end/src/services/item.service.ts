@@ -15,6 +15,11 @@ class ItemService extends BaseService {
         return serverResponse.data;
     }
 
+    async getItem(id: string) {    
+        const serverResponse = await this.axiosInstance.get<null, AxiosResponse<ItemModel>>(`/items/${id}`);
+        return serverResponse.data;
+    }
+
     async createItem (payload: CreateItemModel) {
         const serverResponse = await this.axiosInstance.post<CreateItemModel,AxiosResponse<ItemModel>>("/items/add", payload);
         return serverResponse.data;
