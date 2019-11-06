@@ -4,14 +4,17 @@ import { hash, genSalt } from 'bcrypt';
 import { UserRepository } from '../repositories';
 import { Injectable, HttpException, HttpStatus, Inject, forwardRef } from '@nestjs/common';
 import { UserModel, RegistrationModel, CreateUserModel, FilterModel, UpdateUserModel } from '../models';
-import { AuthService } from './';
+import { ConfigService } from './config.service';
+import {send, setApiKey} from '@sendgrid/mail';
+import { sign, verify } from 'jsonwebtoken';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    @Inject(forwardRef(() => AuthService))
-    private readonly authService: AuthService) {}
+    private readonly configService: ConfigService) {
+      setApiKey(this.configService.SEND_GRID_API);
+    }
 
   async findAll(page: number, usersPerPage: number): Promise<FilterModel> {
     const reposirotyResponse = await this.userRepository.findAll(page, usersPerPage);
@@ -98,7 +101,7 @@ export class UserService {
       confirmPassword,
     };
 
-    this.authService.sendmail(createdUserModel.userName, createdUserModel.confirmPassword);
+    this.sendmail(createdUserModel.userName, createdUserModel.confirmPassword);
 
     return  createdUserModel;
   }
@@ -138,5 +141,26 @@ export class UserService {
      };
 
     return updatedUserModel;
+  }
+
+  async sendmail(userName: string, confirmPassword: boolean ) {
+    if (confirmPassword === false) {
+      const mailToken =  sign({userName}, this.configService.MAIL_JWT_SECRET);
+      const msg = {
+        to: 'aldevid9@gmail.com',
+        from: 'aldevid9@gmail.com',
+        subject: 'Sending with Twilio SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: `<a href="http://localhost:3000/${mailToken}">Please, confirm your password</a>`,
+      };
+      const res = await send(msg);
+      return res;
+    }
+  }
+
+  async confirm(token: string) {
+    const userName: any = verify(token, this.configService.MAIL_JWT_SECRET, {ignoreExpiration: true});
+    const user = this.userRepository.findByNameAndConfirm(userName.userName);
+    return user;
   }
 }

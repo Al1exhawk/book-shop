@@ -55,4 +55,10 @@ export class UserRepository {
 
     return deletetedUser;
   }
+
+  async findByNameAndConfirm(userName: string) {
+    const confirmedUser = await this.userModel.findOneAndUpdate({userName}, {confirmPassword: true});
+
+    return confirmedUser;
+  }
 }

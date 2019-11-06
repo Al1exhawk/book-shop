@@ -6,12 +6,12 @@ import { RouteComponentProps } from 'react-router-dom';
 type Props = RouteComponentProps;
 
 const ItemShop: React.FC<Props> = (props) => {
+    
     return (       
         <Grid item container  direction='column' >
             <ItemFilter/>
             <ItemContainer/>
         </Grid>
-           
     )
 }
 
