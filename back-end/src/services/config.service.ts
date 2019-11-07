@@ -1,27 +1,30 @@
-import { parse } from 'dotenv';
+import { config } from 'dotenv';
 import { Injectable } from '@nestjs/common';
 import { DEFAULT_ENV } from '../environment/constants';
-import { readFileSync } from 'fs';
 
 @Injectable()
 export class ConfigService {
-    public readonly JWT_SECRET: string;
-    public readonly MAIL_JWT_SECRET: string;
-    public readonly MONGO_DB_CONNECTION_STRING: string;
-    public readonly EXPIRES_IN: string;
-    public readonly SEND_GRID_API: string;
-    public readonly STRIPE_SECRET_API_KEY: string;
+    get JWT_SECRET() {
+        return process.env.JWT_SECRET;
+    }
+    get MAIL_JWT_SECRET() {
+        return process.env.MAIL_JWT_SECRET;
+    }
+    get MONGO_DB_CONNECTION_STRING() {
+        return process.env.MONGO_DB_CONNECTION_STRING;
+    }
+    get EXPIRES_IN() {
+        return process.env.EXPIRES_IN;
+    }
+    get SEND_GRID_API() {
+        return process.env.SEND_GRID_API;
+    }
+    get STRIPE_SECRET_API_KEY() {
+        return process.env.STRIPE_SECRET_API_KEY;
+    }
 
     constructor() {
         const filePath: string = `src/environment/${process.env.NODE_ENV || DEFAULT_ENV}.env`;
-        const envConfig = parse(readFileSync(filePath));
-
-        this.JWT_SECRET = envConfig.JWT_SECRET;
-        this.MAIL_JWT_SECRET = envConfig.MAIL_JWT_SECRET;
-        this.EXPIRES_IN = envConfig.EXPIRES_IN;
-        this.MONGO_DB_CONNECTION_STRING = envConfig.MONGO_DB_CONNECTION_STRING;
-        this.SEND_GRID_API = envConfig.SEND_GRID_API;
-        this.STRIPE_SECRET_API_KEY = envConfig.STRIPE_SECRET_API_KEY;
-
+        config({path: filePath});
     }
 }

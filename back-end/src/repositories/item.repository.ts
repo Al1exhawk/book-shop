@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { ItemDocument } from '../documents';
 import { Injectable, Inject } from '@nestjs/common';
-import { UpdateItemModel } from 'src/models';
+import { UpdateItemModel, ItemType } from 'src/models';
 
 @Injectable()
 export class ItemRepository {
@@ -22,7 +22,7 @@ export class ItemRepository {
   ): Promise<{items: ItemDocument[]; pages: number}> {
 
     const query: any = {
-      type: { $in: itemType && itemType.length ? itemType : ['book', 'magazine'] },
+      type: { $in: itemType && itemType.length ? itemType : [ItemType.book, ItemType.magazine] },
       price: {
         $gte: minPrice && minPrice >= 0  ? minPrice : 0,
       },

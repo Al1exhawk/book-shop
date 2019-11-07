@@ -2,7 +2,6 @@ import { Controller, Body, Post} from '@nestjs/common';
 import { StripeService } from '../services';
 
 @Controller('checkout')
-
 export class StripeController {
 
     constructor(private readonly stripeService: StripeService) {}

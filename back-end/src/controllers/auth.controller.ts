@@ -1,9 +1,6 @@
-import { ApiUseTags } from '@nestjs/swagger';
 import { Controller, Post, Body } from '@nestjs/common';
 import { UserService, AuthService } from '../services';
 import { RegistrationModel, LoginModel, UserModel, LoginResponse } from '../models';
-
-@ApiUseTags('Auth')
 
 @Controller('')
 export class AuthController {

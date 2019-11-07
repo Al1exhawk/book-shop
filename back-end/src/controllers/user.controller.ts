@@ -2,14 +2,10 @@ import { Roles } from '../common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../common/guards/roles-guard';
 import { UserService } from '../services';
-import { ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateUserModel, UserModel, PagingModel, FilterModel, UpdateUserModel } from '../models';
 import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
 
-@ApiUseTags('Users')
 @Controller('users')
-@ApiBearerAuth()
-
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

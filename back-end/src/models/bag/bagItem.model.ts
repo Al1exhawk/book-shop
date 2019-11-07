@@ -1,6 +1,6 @@
 import { ItemModel } from '..';
 
 export interface BagItemModel {
-    item: ItemModel;
-    amount: number;
+    readonly item: ItemModel;
+    readonly amount: number;
 }

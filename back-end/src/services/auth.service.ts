@@ -4,7 +4,6 @@ import { UserService } from './user.service';
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { LoginModel, UserModel, LoginResponse, JWTpayload } from '../models';
 
-
 @Injectable()
 export class AuthService {
   constructor(

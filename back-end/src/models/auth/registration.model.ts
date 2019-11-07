@@ -1,10 +1,5 @@
-import { ApiModelProperty } from '@nestjs/swagger';
-
-export class RegistrationModel {
-  @ApiModelProperty()
+export interface RegistrationModel {
   readonly userName: string;
-  @ApiModelProperty()
   readonly password: string;
-  @ApiModelProperty()
   readonly email: string;
 }
