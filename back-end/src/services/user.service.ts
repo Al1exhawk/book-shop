@@ -151,7 +151,7 @@ export class UserService {
         from: 'aldevid9@gmail.com',
         subject: 'Sending with Twilio SendGrid is Fun',
         text: 'and easy to do anywhere, even with Node.js',
-        html: `<a href="http://localhost:3000/${mailToken}">Please, confirm your password</a>`,
+        html: `<a href="http://localhost:3000/confirm/${mailToken}">Please, confirm your password</a>`,
       };
       const res = await send(msg);
       return res;

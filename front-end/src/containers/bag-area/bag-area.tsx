@@ -24,7 +24,7 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
     React.useEffect(()=>{
         stripeService.loadStrpe();
     },[])
-    const [BItems, setItems] = React.useState<BagModel>({items:[], totalPrice: 0});
+    const [BItems, setItems] = React.useState<BagModel>({items:[], totalPrice: 0, totalAmount: 0});
     
     const fetchItems = async () => {        
             const items = await itemService.getBagItems(bagItems);
@@ -41,7 +41,7 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
     return (
         <Box >        
             <IconButton onClick={()=>{ onOpen()}}>
-                <Badge badgeContent={12} color='primary'>
+                <Badge badgeContent={BItems.totalAmount} color='primary'>
                     <ShoppingCartIcon/>
                 </Badge>
             </IconButton>

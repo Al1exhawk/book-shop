@@ -60,6 +60,7 @@ export class ItemService {
     });
     const items =  await this.itemRepository.findForBag(idArray);
     let totalPrice: number = 0;
+    let totalAmount: number = 0;
 
     const BItems = items.map((item) => {
       const { id, title, type , price, authors } = item;
@@ -76,12 +77,14 @@ export class ItemService {
         return BagItem.id === id;
       }).amount;
 
+      totalAmount += amount;
+
       totalPrice += amount * price;
 
       return {item: itemModel, amount };
     });
 
-    return {items: BItems, totalPrice: +totalPrice.toFixed(2) };
+    return {items: BItems, totalPrice: +totalPrice.toFixed(2), totalAmount };
   }
 
   async findOne(itemId: string): Promise<ItemModel> {
