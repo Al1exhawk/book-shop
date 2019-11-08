@@ -1,8 +1,8 @@
-import { logIn, closeLoginModal, openLoginModal, logout } from '../../store';
+import { logIn, closeLoginModal, openLoginModal, logout } from 'store';
 import { connect } from 'react-redux';
-import { GenericState } from '../../store';
+import { GenericState } from 'store';
 import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { LoginModel } from '../../models';
+import { LoginModel } from 'models';
 import { Modal, Button, Box } from '@material-ui/core';
 import './authArea.scss'
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ItemModel } from '../../../../back-end/src/models';
+import { ItemModel } from 'models';
 import { Grid, Card, CardMedia, CardHeader, CardContent, Typography, CardActions } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { addItemToBag } from '../../store';
+import { addItemToBag } from 'store';
 
 
 interface ItemProp {

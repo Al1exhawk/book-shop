@@ -1,9 +1,9 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import'./header.scss';
-import { RegistrationArea, BagArea, AuthArea } from '../../containers'
+import { RegistrationArea, BagArea, AuthArea } from 'containers'
 import { connect } from 'react-redux';
-import { GenericState } from '../../store';
+import { GenericState } from 'store';
 
 
   

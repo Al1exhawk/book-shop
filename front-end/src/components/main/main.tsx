@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Switch, Route} from 'react-router-dom';
 import { ItemShop, EditUserForm, PrivateRoute, AddAuthorForm, AddUserForm, EditAuthorForm, AddItemForm, EditItemForm, ConfirmationPage} from '../';
-import { UserTable, AuthorTable, ItemTable } from '../../containers';
+import { UserTable, AuthorTable, ItemTable } from 'containers';
 
 interface OwnProps {
     role: string
@@ -9,16 +9,17 @@ interface OwnProps {
 
 type Props = OwnProps ;
 
+
 const Main: React.FC<Props> = (props) => {
     return (
             <Switch>
-                <Route path='/' component={ItemShop}/>
-                <Route path='/:token' component={ConfirmationPage} />
-                <PrivateRoute exact path='/authors' role={props.role} Сomponent={AuthorTable}/>
-                <PrivateRoute exact path='/authors/add' role={props.role} Сomponent={AddAuthorForm}/>
+                <Route  path='/' exact component={ItemShop}/>
+                <Route  path='/:token' component={ConfirmationPage} />
+                <PrivateRoute  path='/authors' exact role={props.role} Сomponent={AuthorTable}/>
+                <PrivateRoute  path='/authors/add' exact role={props.role} Сomponent={AddAuthorForm}/>
                 <PrivateRoute path='/authors/edit/:id' role={props.role} Сomponent={EditAuthorForm}/>
 
-                <PrivateRoute exact path='/users' role={props.role} Сomponent={ UserTable }/>
+                <PrivateRoute  path='/users' role={props.role} exact Сomponent={ UserTable }/>
                 <PrivateRoute path='/users/edit/:id' role={props.role} Сomponent={ EditUserForm }/>                
                 <PrivateRoute exact path='/users/add' role={props.role} Сomponent={ AddUserForm }/>        
 

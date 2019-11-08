@@ -1,8 +1,8 @@
 import React from 'react';
-import { Header, Main } from './components';
+import { Header, Main } from 'components';
 import { Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { GenericState } from './store';
+import { GenericState } from 'store';
 
 interface PropsFromState {
   role: string

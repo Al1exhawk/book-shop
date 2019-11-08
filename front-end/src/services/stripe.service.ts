@@ -1,7 +1,6 @@
 import { BaseService } from "./base.service";
 
 class StripeService extends BaseService {
-
     loadStrpe() {
         if(!window.document.getElementById('stripe-script')) {
             const stripe = window.document.createElement("script");
@@ -14,7 +13,7 @@ class StripeService extends BaseService {
 
     async checkout (amount: number) {
         const handler = (window as any).StripeCheckout.configure({
-            key: 'pk_test_7ggPhvQ5Kh3opZ6h358HGXjK00qyZOOH7D',
+            key: this.environmentService.REACT_APP_SEND_GRID_PUBLIC_KEY,
             locale: 'auto',
             token:  (token: any) => {   
               const data = {  

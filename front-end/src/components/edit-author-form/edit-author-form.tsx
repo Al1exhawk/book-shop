@@ -1,8 +1,8 @@
 import React, { FormEvent, ChangeEvent } from 'react'
 import { RouteComponentProps } from 'react-router';
 import {TextField, Button, Grid} from '@material-ui/core';
-import { UpdateAuthorModel } from '../../models';
-import { authorService } from '../../services';
+import { UpdateAuthorModel } from 'models';
+import { authorService } from 'services';
 
 type TParams = { id: string };
 type Props = RouteComponentProps<TParams>;

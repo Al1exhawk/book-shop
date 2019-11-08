@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { PagingModel, CreateUserModel, UpdateUserModel, UserModel, FilterModel } from '../models';
+import { PagingModel, CreateUserModel, UpdateUserModel, UserModel, FilterModel } from 'models';
 import { BaseService } from "./base.service";
 
 

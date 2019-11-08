@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 
-import { ActionTemplate } from "../../models/types";
+import { ActionTemplate } from "models/types";
 
 import { SET_AUTHOR_PER_PAGE, SET_NEW_AUTHOR_PAGE } from "./actions";
 

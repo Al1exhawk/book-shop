@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Modal, Table, TableBody, TableCell, TableHead, TableRow, Paper, TableFooter, IconButton, Box, Badge } from '@material-ui/core';
-import { openBagModal, closeBagModal, GenericState, removeItemFromBag } from '../../store'
+import { openBagModal, closeBagModal, GenericState, removeItemFromBag } from 'store'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { BagModel } from '../../models';
-import { BagItem } from '../../components';
-import { stripeService, itemService } from '../../services'
+import { BagModel } from 'models';
+import { BagItem } from 'components';
+import { stripeService, itemService } from 'services'
 
 interface PropsFromState {
     readonly bagItems: {id: string, amount: number}[],

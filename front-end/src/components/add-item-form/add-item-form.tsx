@@ -1,8 +1,8 @@
 import React, { FormEvent, ChangeEvent } from 'react'
 import { RouteComponentProps } from 'react-router';
 import {TextField, Button, FormGroup, RadioGroup, Radio, FormControlLabel, Select, MenuItem} from '@material-ui/core';
-import {CreateItemModel, AuthorModel } from '../../models';
-import { itemService, authorService } from '../../services';
+import {CreateItemModel, AuthorModel } from 'models';
+import { itemService, authorService } from 'services';
 
 
 type Props = RouteComponentProps;

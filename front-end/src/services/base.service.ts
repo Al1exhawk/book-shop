@@ -1,11 +1,13 @@
 import axios, {AxiosInstance} from 'axios';
+import { ConfigService } from "./config.service";
 
 export abstract class BaseService {
     protected axiosInstance: AxiosInstance;
-
+    protected environmentService: ConfigService;
     constructor(){
+        this.environmentService = new ConfigService();
         this.axiosInstance = axios.create({
-            baseURL: 'http://localhost:80',
+            baseURL: this.environmentService.REACT_APP_API_ENDPOINT,
         });
         this.axiosInstance.interceptors.request.use((axiosRequestConfig)=>{
             const userS = localStorage.getItem('user');

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import { connect } from 'react-redux';
-import { GenericState, setNewPage } from '../../store';
-import { ItemModel } from '../../models';
-import { itemService } from '../../services';
+import { GenericState, setNewPage } from 'store';
+import { ItemModel } from 'models';
+import { itemService } from 'services';
 import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton, Container } from '@material-ui/core';
-import { PageButton, ItemRow } from '../../components';
-import { ItemFilterState } from '../../store';
+import { PageButton, ItemRow } from 'components';
+import { ItemFilterState } from 'store';
 import { RouteComponentProps } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 

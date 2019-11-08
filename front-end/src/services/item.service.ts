@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
-import { ItemFilterState } from "../store";
-import { CreateItemModel, ItemModel, UpdateItemModel, FilterModel, BagModel } from "../models";
+import { ItemFilterState } from "store";
+import { CreateItemModel, ItemModel, UpdateItemModel, FilterModel, BagModel } from "models";
 import { BaseService } from "./base.service";
 
 class ItemService extends BaseService {

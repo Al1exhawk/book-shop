@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FormEvent } from 'react'
 import {connect} from 'react-redux'
 import {Modal, Button, Box } from '@material-ui/core';
-import {openRegistrationModal, closeRegistrationModal, registrationError, GenericState} from '../../store'
-import { RegistrationModel } from '../../models';
-import { authService } from '../../services/auth.service';
+import {openRegistrationModal, closeRegistrationModal, registrationError, GenericState} from 'store'
+import { RegistrationModel } from 'models';
+import { authService } from 'services';
 
 
 

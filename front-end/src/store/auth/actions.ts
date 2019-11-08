@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { ActionTemplate, LoginPayload } from "../../models/types";
+import { ActionTemplate, LoginModel} from "models";
 import { authService } from "../../services";
 
 
@@ -9,7 +9,7 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const OPEN_LOGIN_MODAL = "OPEN_LOGIN_MODAL";
 export const CLOSE_LOGIN_MODAL = "CLOSE_LOGIN_MODAL";
 
-export const logIn = (loginPayload: LoginPayload) => async (
+export const logIn = (loginPayload: LoginModel) => async (
   dispatch: Dispatch<ActionTemplate>
 ) => {
   try {

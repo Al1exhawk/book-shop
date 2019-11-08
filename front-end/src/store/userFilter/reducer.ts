@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 
-import { ActionTemplate } from "../../models/types";
+import { ActionTemplate } from "models";
 
 import { SET_USER_PER_PAGE, SET_NEW_USER_PAGE } from "./actions";
 

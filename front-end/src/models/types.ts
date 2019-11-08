@@ -3,11 +3,6 @@ export interface ActionTemplate  {
     readonly payload?: any;
 } 
 
-export interface LoginPayload  {
-    readonly userName: string;
-    readonly password: string;    
-}
-
 export interface FilterForm {
     readonly minPrice: number,
     readonly maxPrice: number,

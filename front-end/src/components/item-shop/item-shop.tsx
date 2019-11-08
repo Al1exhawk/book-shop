@@ -1,5 +1,5 @@
 import React from 'react';
-import { ItemContainer, ItemFilter } from '../../containers'
+import { ItemContainer, ItemFilter } from 'containers'
 import { Grid } from '@material-ui/core';
 import { RouteComponentProps } from 'react-router-dom';
 
@@ -14,5 +14,4 @@ const ItemShop: React.FC<Props> = (props) => {
         </Grid>
     )
 }
-
 export default ItemShop;

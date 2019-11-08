@@ -1,5 +1,5 @@
 book-shop.code-workspace
-*.env
+*.env*
 
 # compiled output
 */dist

@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { RegistrationModel, LoginModel, LoginResponse, UserModel } from "../models";
+import { RegistrationModel, LoginModel, LoginResponse, UserModel } from "models";
 import { BaseService } from "./base.service";
 
 class AuthService extends BaseService {   
