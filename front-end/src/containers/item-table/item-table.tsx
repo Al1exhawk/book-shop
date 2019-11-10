@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { GenericState, setNewPage } from 'store';
 import { ItemModel } from 'models';
@@ -21,41 +21,41 @@ interface PropsFromDispatch {
 
 type Props = PropsFromState & PropsFromDispatch & RouteComponentProps;
 
-const ItemTable: React.FC<Props> = (props)=> {
+const ItemTable: React.FC<Props> = (props) => {
     const [items, setItems] = useState<ItemModel[]>([]);
     const [pages, setPages] = useState([1]);
 
-   const fetchUses = async () => {
-    const pagingModel  = await itemService.getItems(props.itemFilter);
-    const itemsArr = pagingModel.content;
-    const pagesNumber: number = pagingModel.pages;
+    const fetchUses = async () => {
+        const pagingModel = await itemService.getItems(props.itemFilter);
+        const itemsArr = pagingModel.content;
+        const pagesNumber: number = pagingModel.pages;
 
-    setItems(itemsArr);
-    const pageButtonsArr: number[] = [] 
-    for(let i: number = 0; i<pagesNumber; i++) {
-        pageButtonsArr.push(i+1);
+        setItems(itemsArr);
+        const pageButtonsArr: number[] = []
+        for (let i: number = 0; i < pagesNumber; i++) {
+            pageButtonsArr.push(i + 1);
+        }
+        setPages(pageButtonsArr);
     }
-    setPages(pageButtonsArr);
-   }   
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchUses();
-    },[props.itemFilter]);
+    }, [props.itemFilter]);
 
     const onDeleteClick = (id: string) => {
         itemService.deleteItem(id);
     }
 
     const onEditClick = (id: string) => {
-        props.history.push(`/items/edit/${id}`);    
+        props.history.push(`/items/edit/${id}`);
     }
 
-    const onAddClick =() =>{
-        props.history.push('/items/add');    
+    const onAddClick = () => {
+        props.history.push('/items/add');
     }
-    
+
     return (
-        <Container maxWidth='xl' >            
+        <Container maxWidth='xl' >
             <Grid item container>
                 <Table>
                     <TableHead>
@@ -69,7 +69,7 @@ const ItemTable: React.FC<Props> = (props)=> {
                             <TableCell>
                                 <Typography variant='h6' component='p'>
                                     Title
-                                </Typography>                            
+                                </Typography>
                             </TableCell>
 
                             <TableCell>
@@ -98,24 +98,24 @@ const ItemTable: React.FC<Props> = (props)=> {
 
                             <TableCell>
                                 <IconButton onClick={onAddClick}>
-                                    <AddIcon/>
+                                    <AddIcon />
                                 </IconButton>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {items.map(item => {
-                                return <ItemRow key={item.id} item={item} onDeleteClick={onDeleteClick} onEditClick={onEditClick} />
-                            })
+                            return <ItemRow key={item.id} item={item} onDeleteClick={onDeleteClick} onEditClick={onEditClick} />
+                        })
                         }
                     </TableBody>
-                </Table>  
+                </Table>
             </Grid>
             <Grid item container justify='center' wrap='wrap' direction='row'>
-                {pages.map((page)=>{
-                    return <PageButton key={page} onClick={props.onPageClick} value={page}/>;
+                {pages.map((page) => {
+                    return <PageButton key={page} onClick={props.onPageClick} value={page} />;
                 })}
-            </Grid>      
+            </Grid>
         </Container>
     )
 }

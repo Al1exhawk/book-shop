@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { GenericState, setNewAuthorPage } from '../../store';
 import { AuthorModel } from '../../models';
@@ -24,23 +24,23 @@ const AuthorTable: React.FC<Props> = (props) => {
     const [authors, setAuthors] = useState<AuthorModel[]>([]);
     const [pagesB, setPages] = useState<number[]>([1]);
 
-   const fetchAuthor = async() => {
+    const fetchAuthor = async () => {
         const pagingModel = await authorService.getAuthors(props.authorFilter);
         const pagesNumber = pagingModel.pages;
         const authorArray = pagingModel.content;
 
         setAuthors(authorArray);
 
-        const pageButtonsArr: number[] = [] 
-         for(let i: number = 0; i<pagesNumber; i++) {
-            pageButtonsArr.push(i+1);
+        const pageButtonsArr: number[] = []
+        for (let i: number = 0; i < pagesNumber; i++) {
+            pageButtonsArr.push(i + 1);
         }
         setPages(pageButtonsArr);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchAuthor()
-    },[])
+    }, [])
 
     const onAddClick = () => {
         props.history.push('/authors/add')
@@ -55,7 +55,7 @@ const AuthorTable: React.FC<Props> = (props) => {
     }
 
     return (
-        <>            
+        <>
             <Grid item container>
                 <Table>
                     <TableHead>
@@ -69,7 +69,7 @@ const AuthorTable: React.FC<Props> = (props) => {
                             <TableCell>
                                 <Typography variant='h6' component='p'>
                                     Second name
-                                </Typography>                            
+                                </Typography>
                             </TableCell>
 
                             <TableCell>
@@ -85,28 +85,28 @@ const AuthorTable: React.FC<Props> = (props) => {
                             </TableCell>
                             <TableCell>
                                 <IconButton onClick={onAddClick}>
-                                    <AddIcon/>
+                                    <AddIcon />
                                 </IconButton>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {authors.map(author=>{
-                            return <AuthorRow onDeleteClick={onDelete} onEditClick={onEdit} key={author.id} author={author}/> 
-                        })}                   
+                        {authors.map(author => {
+                            return <AuthorRow onDeleteClick={onDelete} onEditClick={onEdit} key={author.id} author={author} />
+                        })}
                     </TableBody>
-                </Table>  
+                </Table>
             </Grid>
             <Grid item container justify='center' direction='row'>
-               {pagesB.map((page)=>{
-                    return <PageButton key={page} onClick={props.onPageClick} value={page}/>;
-                })} 
-            </Grid>      
+                {pagesB.map((page) => {
+                    return <PageButton key={page} onClick={props.onPageClick} value={page} />;
+                })}
+            </Grid>
         </>
     )
 }
 
-const mapStateToProps = (state: GenericState)=>({
+const mapStateToProps = (state: GenericState) => ({
     authorFilter: state.authorFilter
 })
 

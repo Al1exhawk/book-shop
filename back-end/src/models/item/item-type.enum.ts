@@ -1,4 +1,4 @@
 export const enum ItemType {
-    book  = 'book',
-    magazine = 'magazine',
+  book = 'book',
+  magazine = 'magazine',
 }

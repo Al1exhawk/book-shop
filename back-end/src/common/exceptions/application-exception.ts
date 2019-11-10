@@ -1,5 +1,5 @@
 export class ApplicationException extends Error {
-    getStatus() {
-        return 400;
-    }
+  getStatus() {
+    return 400;
+  }
 }

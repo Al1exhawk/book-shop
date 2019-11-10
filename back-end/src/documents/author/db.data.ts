@@ -8,12 +8,14 @@ export interface AuthorDocument extends Document {
 }
 
 export const AuthorSchema = new Schema({
-     firstName: String,
-     lastName: String,
-     items: [{
-          type: Schema.Types.ObjectId,
-          ref: 'Item',
-     }],
+  firstName: String,
+  lastName: String,
+  items: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Item',
+    },
+  ],
 });
 
 export default model<AuthorDocument>('Author', AuthorSchema);

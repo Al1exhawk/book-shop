@@ -1,4 +1,4 @@
 export interface PagingModel {
-    readonly page: number;
-    readonly contentPerPage: number;
+  readonly page: number;
+  readonly contentPerPage: number;
 }

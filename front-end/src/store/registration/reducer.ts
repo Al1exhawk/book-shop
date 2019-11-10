@@ -1,41 +1,49 @@
-import {OPEN_REGISTRATION_MODAL, CLOSE_REGISTRATION_MODAL, REGISTRATION_ERROR} from './';
-import { ActionTemplate } from "models/types";
+import {
+  OPEN_REGISTRATION_MODAL,
+  CLOSE_REGISTRATION_MODAL,
+  REGISTRATION_ERROR,
+} from './';
+import { ActionTemplate } from 'models/types';
 import { Reducer } from 'redux';
 
 export interface RegistrationState {
-    isModalOpen: boolean,
-    errorMessage: string
+  isModalOpen: boolean;
+  errorMessage: string;
 }
-const initialState:RegistrationState = {
-    isModalOpen: false,
-    errorMessage:''
-}
+const initialState: RegistrationState = {
+  isModalOpen: false,
+  errorMessage: '',
+};
 
-export const RegistrationReducer: Reducer<RegistrationState,ActionTemplate> = (state=initialState , action) => {
-    switch(action.type){
+export const RegistrationReducer: Reducer<RegistrationState, ActionTemplate> = (
+  state = initialState,
+  action,
+) => {
+  switch (action.type) {
     case OPEN_REGISTRATION_MODAL: {
-        return {
-            ...state,
-            isModalOpen: true,
-            errorMessage: ''
-        }
+      return {
+        ...state,
+        isModalOpen: true,
+        errorMessage: '',
+      };
     }
     case CLOSE_REGISTRATION_MODAL: {
-        return {
-            ...state,
-            isModalOpen: false,
-            errorMessage: ''
-        }
+      return {
+        ...state,
+        isModalOpen: false,
+        errorMessage: '',
+      };
     }
 
     case REGISTRATION_ERROR: {
-        return{
-            ...state, 
-            errorMessage: action.payload
-        }
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
     }
 
-    default:{
-        return state;
-    }}
-}
+    default: {
+      return state;
+    }
+  }
+};

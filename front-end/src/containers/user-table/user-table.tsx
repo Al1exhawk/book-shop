@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { GenericState, setNewUserPage } from 'store';
 import { UserModel } from 'models';
@@ -21,41 +21,41 @@ interface PropsFromDispatch {
 
 type Props = PropsFromState & PropsFromDispatch & RouteComponentProps;
 
-const UserTable: React.FC<Props> = (props)=> {
+const UserTable: React.FC<Props> = (props) => {
     const [users, setUsers] = useState<UserModel[]>([]);
     const [pages, setPages] = useState([1]);
 
-   const fetchUses = async () => {
-    const pagingModel  = await userService.getUsers(props.userFilter);
-    const userArr: UserModel[] = pagingModel.content;
-    const pagesNumber: number = pagingModel.pages;
+    const fetchUses = async () => {
+        const pagingModel = await userService.getUsers(props.userFilter);
+        const userArr: UserModel[] = pagingModel.content;
+        const pagesNumber: number = pagingModel.pages;
 
-    setUsers(userArr);
-    const pageButtonsArr: number[] = [] 
-    for(let i: number = 0; i<pagesNumber; i++) {
-        pageButtonsArr.push(i+1);
+        setUsers(userArr);
+        const pageButtonsArr: number[] = []
+        for (let i: number = 0; i < pagesNumber; i++) {
+            pageButtonsArr.push(i + 1);
+        }
+        setPages(pageButtonsArr);
     }
-    setPages(pageButtonsArr);
-   }   
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchUses();
-    },[props.userFilter]);
+    }, [props.userFilter]);
 
     const onDeleteClick = (id: string) => {
         userService.deleteUser(id);
     }
 
     const onEditClick = (id: string) => {
-        props.history.push(`/users/edit/${id}`);    
+        props.history.push(`/users/edit/${id}`);
     }
 
-    const onAddClick =() =>{
-        props.history.push('/users/add');    
+    const onAddClick = () => {
+        props.history.push('/users/add');
     }
-    
+
     return (
-        <Grid item container direction='column' justify='center' alignContent='center' >            
+        <Grid item container direction='column' justify='center' alignContent='center' >
             <Grid item container>
                 <Table>
                     <TableHead>
@@ -69,7 +69,7 @@ const UserTable: React.FC<Props> = (props)=> {
                             <TableCell>
                                 <Typography variant='h6' component='p'>
                                     Email
-                                </Typography>                            
+                                </Typography>
                             </TableCell>
 
                             <TableCell>
@@ -85,32 +85,32 @@ const UserTable: React.FC<Props> = (props)=> {
                             </TableCell>
                             <TableCell>
                                 <IconButton onClick={onAddClick}>
-                                    <AddIcon/>
+                                    <AddIcon />
                                 </IconButton>
                             </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {users.map((user: UserModel)=>{
-                                return <UserRow
-                                        key={user.id}
-                                        id={user.id}
-                                        userName={user.userName}
-                                        email={user.email}
-                                        isConfirm={user.confirmPassword}
-                                        role={user.role}
-                                        onDeleteClick={onDeleteClick}
-                                        onEditClick={onEditClick}/>
-                            })
+                        {users.map((user: UserModel) => {
+                            return <UserRow
+                                key={user.id}
+                                id={user.id}
+                                userName={user.userName}
+                                email={user.email}
+                                isConfirm={user.confirmPassword}
+                                role={user.role}
+                                onDeleteClick={onDeleteClick}
+                                onEditClick={onEditClick} />
+                        })
                         }
                     </TableBody>
-                </Table>  
+                </Table>
             </Grid>
             <Grid item container justify='center' wrap='wrap' direction='row'>
-                {pages.map((page)=>{
-                    return <PageButton key={page} onClick={props.onPageClick} value={page}/>;
+                {pages.map((page) => {
+                    return <PageButton key={page} onClick={props.onPageClick} value={page} />;
                 })}
-            </Grid>      
+            </Grid>
         </Grid>
     )
 }

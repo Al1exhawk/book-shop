@@ -8,9 +8,9 @@ import { BagItem } from 'components';
 import { stripeService, itemService } from 'services'
 
 interface PropsFromState {
-    readonly bagItems: {id: string, amount: number}[],
+    readonly bagItems: Array<{ id: string, amount: number }>,
     readonly isOpen: boolean,
-   
+
 }
 interface PropsFromDispatch {
     readonly onOpen: typeof openBagModal,
@@ -20,34 +20,34 @@ interface PropsFromDispatch {
 
 type Props = PropsFromState & PropsFromDispatch;
 
-const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => {
-    React.useEffect(()=>{
+const Bag: React.FC<Props> = ({ isOpen, onClose, onOpen, bagItems, onDelete }) => {
+    React.useEffect(() => {
         stripeService.loadStrpe();
-    },[])
-    const [BItems, setItems] = React.useState<BagModel>({items:[], totalPrice: 0, totalAmount: 0});
-    
-    const fetchItems = async () => {        
-            const items = await itemService.getBagItems(bagItems);
-            setItems(items);        
-    } 
-        
+    }, [])
+    const [BItems, setItems] = React.useState<BagModel>({ items: [], totalPrice: 0, totalAmount: 0 });
+
+    const fetchItems = async () => {
+        const items = await itemService.getBagItems(bagItems);
+        setItems(items);
+    }
+
     React.useEffect(() => {
         fetchItems();
-        }, [bagItems]);  
-    const onPayClick = ()=>{
+    }, [bagItems]);
+    const onPayClick = () => {
         stripeService.checkout(BItems.totalPrice);
         onClose();
     }
     return (
-        <Box >        
-            <IconButton onClick={()=>{ onOpen()}}>
+        <Box >
+            <IconButton onClick={() => { onOpen() }}>
                 <Badge badgeContent={BItems.totalAmount} color='primary'>
-                    <ShoppingCartIcon/>
+                    <ShoppingCartIcon />
                 </Badge>
             </IconButton>
             <Modal
-            open={isOpen}
-            onClose={()=>{ onClose()}}>                
+                open={isOpen}
+                onClose={() => { onClose() }}>
                 <div className='modalForm'>
                     <Paper>
                         <Table>
@@ -65,21 +65,24 @@ const Bag: React.FC<Props> = ({isOpen, onClose, onOpen, bagItems, onDelete}) => 
                                     <TableCell>
                                         Order Amount
                                     </TableCell>
-                                    <TableCell/>
+                                    <TableCell />
                                 </TableRow>
-                            </TableHead>                         
-                                <TableBody>{                                  
-                                    BItems.items.map((item)=>{                                        
-                                        return <BagItem 
-                                                key={item.item.id} 
-                                                onDeleteClick={onDelete}
-                                                item={{title:item.item.title,
-                                                     price: item.item.price,
-                                                     id: item.item.id,
-                                                     qty: item.amount}}
-                                                />})
-                                    }                                 
-                                </TableBody>
+                            </TableHead>
+                            <TableBody>{
+                                BItems.items.map((item) => {
+                                    return <BagItem
+                                        key={item.item.id}
+                                        onDeleteClick={onDelete}
+                                        item={{
+                                            title: item.item.title,
+                                            price: item.item.price,
+                                            id: item.item.id,
+                                            qty: item.amount
+                                        }}
+                                    />
+                                })
+                            }
+                            </TableBody>
                             <TableFooter>
                                 <TableRow>
                                     <TableCell variant='head' align='center'>

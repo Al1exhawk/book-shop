@@ -6,8 +6,8 @@ export const DatabaseProviders = [
   {
     provide: DATABASE_CONNECTION,
     useFactory: (): Promise<typeof mongoose> => {
-    const config = new ConfigService();
-    return mongoose.connect(config.MONGO_DB_CONNECTION_STRING, {
+      const config = new ConfigService();
+      return mongoose.connect(config.MONGO_DB_CONNECTION_STRING, {
         useNewUrlParser: true,
         useFindAndModify: false,
       });

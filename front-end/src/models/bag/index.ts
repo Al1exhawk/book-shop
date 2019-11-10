@@ -1,2 +1,2 @@
-export * from './bag.model'
-export * from './bagItem.model'
+export * from './bag.model';
+export * from './bagItem.model';

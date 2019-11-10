@@ -1,9 +1,31 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ItemService, AuthorService, UserService, AuthService, ConfigService, StripeService } from './services';
-import { UserController, AuthorController, ItemController, AuthController, StripeController } from './controllers';
-import { ItemRepository, AuthorRepository, UserRepository } from './repositories';
-import { ItemProviders,  DatabaseProviders, UserProviders, AuthorProviders  } from './common/providers';
+import {
+  ItemService,
+  AuthorService,
+  UserService,
+  AuthService,
+  ConfigService,
+  StripeService,
+} from './services';
+import {
+  UserController,
+  AuthorController,
+  ItemController,
+  AuthController,
+  StripeController,
+} from './controllers';
+import {
+  ItemRepository,
+  AuthorRepository,
+  UserRepository,
+} from './repositories';
+import {
+  ItemProviders,
+  DatabaseProviders,
+  UserProviders,
+  AuthorProviders,
+} from './common/providers';
 import { JwtStrategy } from './common/strategies/jwt.strategy';
 
 const config = new ConfigService();
@@ -17,7 +39,13 @@ const config = new ConfigService();
       },
     }),
   ],
-  controllers: [AuthController, ItemController, UserController, AuthorController, StripeController],
+  controllers: [
+    AuthController,
+    ItemController,
+    UserController,
+    AuthorController,
+    StripeController,
+  ],
   providers: [
     ItemService,
     AuthService,

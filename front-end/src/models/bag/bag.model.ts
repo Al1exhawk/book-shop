@@ -1,7 +1,7 @@
-import { BagItemModel } from "./bagItem.model";
+import { BagItemModel } from './bagItem.model';
 
 export interface BagModel {
-    items: BagItemModel[];
-    totalPrice: number;
-    totalAmount: number;
+  items: BagItemModel[];
+  totalPrice: number;
+  totalAmount: number;
 }

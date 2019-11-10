@@ -8,10 +8,10 @@ import { LoginModel, UserModel, LoginResponse, JWTpayload } from '../models';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userService: UserService) {
-    }
+    private readonly userService: UserService,
+  ) {}
 
-  async validatePayload(payload: JWTpayload): Promise<UserModel|null> {
+  async validatePayload(payload: JWTpayload): Promise<UserModel | null> {
     const user = await this.userService.findByName(payload.userName);
 
     return user;
@@ -19,15 +19,15 @@ export class AuthService {
 
   async login(loginModel: LoginModel): Promise<LoginResponse> {
     const { userName, password } = loginModel;
-    const user: UserModel|null =  await this.userService.findByName(userName);
+    const user: UserModel | null = await this.userService.findByName(userName);
 
     if (!user) {
-      throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
 
     const isMath: boolean = await compare(password, user.password);
     if (!isMath) {
-      throw  new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Invalid credentials', HttpStatus.BAD_REQUEST);
     }
 
     const payload: JWTpayload = {

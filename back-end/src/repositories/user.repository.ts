@@ -10,19 +10,20 @@ export class UserRepository {
     private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async findAll(page: number, usersPerPage: number): Promise<{pages: number, users: UserDocument[]}> {
+  async findAll(
+    page: number,
+    usersPerPage: number,
+  ): Promise<{ pages: number; users: UserDocument[] }> {
+    const amount = await this.userModel.find().countDocuments();
 
-    const amount = await this.userModel
-    .find()
-    .countDocuments();
-
-    const users = await this.userModel.find()
-    .skip(usersPerPage * (page - 1))
-    .limit(usersPerPage);
+    const users = await this.userModel
+      .find()
+      .skip(usersPerPage * (page - 1))
+      .limit(usersPerPage);
 
     const pages = Math.ceil(amount / usersPerPage);
 
-    return {pages, users};
+    return { pages, users };
   }
 
   async findOne(id: string): Promise<UserDocument> {
@@ -32,7 +33,7 @@ export class UserRepository {
   }
 
   async findByName(name: string): Promise<UserDocument> {
-    const user = await this.userModel.findOne({userName: name});
+    const user = await this.userModel.findOne({ userName: name });
 
     return user;
   }
@@ -45,7 +46,9 @@ export class UserRepository {
   }
 
   async update(id: string, user: UpdateUserModel): Promise<UserDocument> {
-    const updUser = await this.userModel.findByIdAndUpdate(id, user, { new: true });
+    const updUser = await this.userModel.findByIdAndUpdate(id, user, {
+      new: true,
+    });
 
     return updUser;
   }
@@ -57,7 +60,10 @@ export class UserRepository {
   }
 
   async findByNameAndConfirm(userName: string) {
-    const confirmedUser = await this.userModel.findOneAndUpdate({userName}, {confirmPassword: true});
+    const confirmedUser = await this.userModel.findOneAndUpdate(
+      { userName },
+      { confirmPassword: true },
+    );
 
     return confirmedUser;
   }

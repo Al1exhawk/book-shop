@@ -2,8 +2,23 @@ import { Roles } from '../common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../common/guards/roles-guard';
 import { UserService } from '../services';
-import { CreateUserModel, UserModel, PagingModel, FilterModel, UpdateUserModel } from '../models';
-import { Controller,  Get,  Put,  Post,  Delete,  Body,  Param, UseGuards } from '@nestjs/common';
+import {
+  CreateUserModel,
+  UserModel,
+  PagingModel,
+  FilterModel,
+  UpdateUserModel,
+} from '../models';
+import {
+  Controller,
+  Get,
+  Put,
+  Post,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 
 @Controller('users')
 export class UserController {
@@ -13,12 +28,15 @@ export class UserController {
   @Roles('user', 'admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   findAll(@Body() pagingModel: PagingModel): Promise<FilterModel> {
-    const users = this.userService.findAll(pagingModel.page, pagingModel.contentPerPage);
+    const users = this.userService.findAll(
+      pagingModel.page,
+      pagingModel.contentPerPage,
+    );
     return users;
   }
 
   @Post('confirm')
-  confirmUser(@Body() t: {token: string} ) {
+  confirmUser(@Body() t: { token: string }) {
     const confirmedUser = this.userService.confirm(t.token);
     return confirmedUser;
   }
@@ -42,7 +60,10 @@ export class UserController {
   @Put(':id')
   @Roles('user', 'admin')
   @UseGuards(AuthGuard('jwt'), RolesGuard)
-  update(@Body() updateUser: UpdateUserModel, @Param('id') id: string): Promise<UserModel> {
+  update(
+    @Body() updateUser: UpdateUserModel,
+    @Param('id') id: string,
+  ): Promise<UserModel> {
     const updatedUser = this.userService.update(id, updateUser);
     return updatedUser;
   }

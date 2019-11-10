@@ -11,11 +11,11 @@ interface PropsFromState {
 type Props = PropsFromState;
 
 const App: React.FC<Props> = (props) => {
-  return (        
-      <Grid className='App' item container direction='column'>
-          <Header />
-          <Main role={props.role}/>
-      </Grid>
+  return (
+    <Grid className='App' item container direction='column'>
+      <Header />
+      <Main role={props.role} />
+    </Grid>
   );
 }
 

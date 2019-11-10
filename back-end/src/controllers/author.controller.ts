@@ -2,8 +2,23 @@ import { Roles } from '../common/decorators/role-decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { RolesGuard } from '../common/guards/roles-guard';
 import { AuthorService } from '../services';
-import { CreateAuthorModel, AuthorModel, PagingModel, FilterModel, UpdateAuthorModel } from '../models';
-import { Controller, Get,  Put,  Post, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  CreateAuthorModel,
+  AuthorModel,
+  PagingModel,
+  FilterModel,
+  UpdateAuthorModel,
+} from '../models';
+import {
+  Controller,
+  Get,
+  Put,
+  Post,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 
 @Controller('authors')
 @Roles('admin')
@@ -13,7 +28,10 @@ export class AuthorController {
 
   @Post()
   findAll(@Body() pagingModel: PagingModel): Promise<FilterModel> {
-    const authors = this.authorService.findAll(pagingModel.page, pagingModel.contentPerPage);
+    const authors = this.authorService.findAll(
+      pagingModel.page,
+      pagingModel.contentPerPage,
+    );
 
     return authors;
   }
@@ -40,7 +58,10 @@ export class AuthorController {
   }
 
   @Put(':id')
-  update(@Body() updateAuthor: UpdateAuthorModel, @Param('id') id: string): Promise<AuthorModel> {
+  update(
+    @Body() updateAuthor: UpdateAuthorModel,
+    @Param('id') id: string,
+  ): Promise<AuthorModel> {
     const updatedAuthor = this.authorService.update(id, updateAuthor);
 
     return updatedAuthor;

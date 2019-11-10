@@ -19,12 +19,16 @@ export class ItemRepository {
     pageNumber: number,
     itemsPerPage: number,
     isAuthorSearchStringEmpty: boolean,
-  ): Promise<{items: ItemDocument[]; pages: number}> {
-
+  ): Promise<{ items: ItemDocument[]; pages: number }> {
     const query: any = {
-      type: { $in: itemType && itemType.length ? itemType : [ItemType.book, ItemType.magazine] },
+      type: {
+        $in:
+          itemType && itemType.length
+            ? itemType
+            : [ItemType.book, ItemType.magazine],
+      },
       price: {
-        $gte: minPrice && minPrice >= 0  ? minPrice : 0,
+        $gte: minPrice && minPrice >= 0 ? minPrice : 0,
       },
       title: {
         $regex: titleSearchString.length
@@ -34,7 +38,7 @@ export class ItemRepository {
     };
 
     if (maxPrice && maxPrice > minPrice && maxPrice > 0) {
-      query.price = {...query.price, $lte: maxPrice};
+      query.price = { ...query.price, $lte: maxPrice };
     }
 
     if (authorsId && !isAuthorSearchStringEmpty) {
@@ -58,9 +62,9 @@ export class ItemRepository {
 
   async findForBag(id: string[]): Promise<ItemDocument[]> {
     const items = await this.itemModel
-    .find({_id: {$in: id}})
-    .populate('authors')
-    .exec();
+      .find({ _id: { $in: id } })
+      .populate('authors')
+      .exec();
     return items;
   }
 

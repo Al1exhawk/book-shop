@@ -5,7 +5,10 @@ import { ApplicationExceptionFilter } from './common/exceptions/application-exce
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  app.useGlobalFilters(new MyExceptionFilter(), new ApplicationExceptionFilter());
+  app.useGlobalFilters(
+    new MyExceptionFilter(),
+    new ApplicationExceptionFilter(),
+  );
 
   await app.listen(80);
 }

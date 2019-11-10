@@ -6,7 +6,7 @@ interface Prop {
 }
 
 const PageButton: React.FC<Prop> = (props) => {
-    const onclick = (e:React.MouseEvent<HTMLButtonElement>)=>{
+    const onclick = (e: React.MouseEvent<HTMLButtonElement>) => {
         props.onClick(props.value)
     }
     return (
