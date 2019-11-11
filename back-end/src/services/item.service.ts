@@ -21,7 +21,7 @@ export class ItemService {
   async findAll(queryObject: QueryObjectModel): Promise<FilterModel> {
     const authorsId: string[] = [];
     const isAuthorSearchStringEmpty: boolean = !queryObject.authorSearchString
-      .length; // 0 - true, not 0 - false
+      .length;
     if (!isAuthorSearchStringEmpty) {
       const authorsSearchResult = await this.authorRepository.findByRegExp(
         queryObject.authorSearchString,

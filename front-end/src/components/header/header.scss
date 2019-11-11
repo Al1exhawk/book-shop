@@ -1,4 +1,8 @@
-.header {
-  background-color: #333333;
-  padding: 1rem;
+.MuiAppBar-root .MuiToolbar-root {
+   background-color: #272424cb;
+   position: static;
+}
+
+.MuiAppBar-root.header {
+   position: static;
 }

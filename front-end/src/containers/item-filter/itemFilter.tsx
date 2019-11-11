@@ -1,54 +1,81 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import { FilterForm } from '../../models/types';
-import { updateFilter } from '../../store'
-import { Select, MenuItem, InputLabel, Input, Button, Grid } from '@material-ui/core';
-import './itemFilter.scss'
+import { updateFilter } from '../../store';
+import {
+    Select,
+    MenuItem,
+    InputLabel,
+    Input,
+    Button,
+    Grid,
+} from '@material-ui/core';
+import './itemFilter.scss';
 
 interface PropsFromDispatch {
-    update: typeof updateFilter
+    update: typeof updateFilter;
 }
 
 type Props = PropsFromDispatch;
 
-const ItemFilter: React.FC<Props> = (props) => {
-    const [itemFilterState, hanldeChange] = useState<FilterForm>(
-        {
-            minPrice: 0,
-            maxPrice: 0,
-            itemType: ['book', 'magazine'],
-            authorSearchString: '',
-            titleSearchString: ''
-        });
+const ItemFilter: React.FC<Props> = props => {
+    const [itemFilterState, hanldeChange] = useState<FilterForm>({
+        minPrice: 0,
+        maxPrice: 0,
+        itemType: ['book', 'magazine'],
+        authorSearchString: '',
+        titleSearchString: '',
+    });
 
     const hanleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value, type } = e.target;
 
-        hanldeChange({ ...itemFilterState, [name]: type === 'number' ? +value : value });
-    }
+        hanldeChange({
+            ...itemFilterState,
+            [name]: type === 'number' ? +value : value,
+        });
+    };
 
     const [selectValue, Change] = useState<string>('All');
 
-    const handleSelectChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    const handleSelectChange = (
+        event: React.ChangeEvent<{ name?: string; value: unknown }>,
+    ) => {
         const { name, value } = event.target;
         Change(value as string);
-        hanldeChange({ ...itemFilterState, [name as string]: value === 'All' ? ['book', 'magazine'] : [value] });
-
+        hanldeChange({
+            ...itemFilterState,
+            [name as string]: value === 'All' ? ['book', 'magazine'] : [value],
+        });
     };
 
     const onFilterSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         props.update(itemFilterState);
-    }
+    };
 
     return (
         <Grid item container justify='center'>
-            <form className='ItemFilter' onSubmit={onFilterSubmit} >
-                <Grid container direction='row' justify='center' alignItems='center' spacing={2}>
+            <form className='ItemFilter' onSubmit={onFilterSubmit}>
+                <Grid
+                    container
+                    direction='row'
+                    justify='center'
+                    alignItems='center'
+                    spacing={2}
+                >
                     <Grid item>
                         <InputLabel htmlFor='select'>Type</InputLabel>
-                        <Select value={selectValue} name='itemType' onChange={handleSelectChange} id='select' autoWidth={true}>
-                            <MenuItem selected value='All'>All</MenuItem>
+                        <Select
+                            value={selectValue}
+                            name='itemType'
+                            onChange={handleSelectChange}
+                            id='select'
+                            autoWidth={true}
+                        >
+                            <MenuItem selected value='All'>
+                                All
+                            </MenuItem>
                             <MenuItem value='magazine'>Magazine</MenuItem>
                             <MenuItem value='book'>Book</MenuItem>
                         </Select>
@@ -56,41 +83,65 @@ const ItemFilter: React.FC<Props> = (props) => {
 
                     <Grid item>
                         <InputLabel htmlFor='min'>Min Price</InputLabel>
-                        <Input onChange={hanleInputChange} id='min' name='minPrice' type='number' />
+                        <Input
+                            onChange={hanleInputChange}
+                            id='min'
+                            name='minPrice'
+                            type='number'
+                        />
                     </Grid>
 
                     <Grid item>
                         <InputLabel htmlFor='max'>Max Price</InputLabel>
-                        <Input onChange={hanleInputChange} id='max' name='maxPrice' type='number' />
+                        <Input
+                            onChange={hanleInputChange}
+                            id='max'
+                            name='maxPrice'
+                            type='number'
+                        />
                     </Grid>
 
                     <Grid item>
                         <InputLabel htmlFor='Title'>by Title</InputLabel>
-                        <Input onChange={hanleInputChange} id='Title' name='titleSearchString' type='text' />
+                        <Input
+                            onChange={hanleInputChange}
+                            id='Title'
+                            name='titleSearchString'
+                            type='text'
+                        />
                     </Grid>
 
                     <Grid item>
                         <InputLabel htmlFor='Author'>by Author</InputLabel>
-                        <Input onChange={hanleInputChange} id='Author' name='authorSearchString' type='text' />
+                        <Input
+                            onChange={hanleInputChange}
+                            id='Author'
+                            name='authorSearchString'
+                            type='text'
+                        />
                     </Grid>
 
-                    <Grid item container justify='center' alignItems='center' >
+                    <Grid item container justify='center' alignItems='center'>
                         <Button
                             color='primary'
                             className='SearchButton'
                             type='submit'
                             variant='contained'
-                        >Search
-                            </Button>
+                        >
+                            Search
+                        </Button>
                     </Grid>
                 </Grid>
             </form>
         </Grid>
-    )
-}
+    );
+};
 
 const mapDispathToProps = {
-    update: updateFilter
-}
+    update: updateFilter,
+};
 
-export default connect(null, mapDispathToProps)(ItemFilter);
+export default connect(
+    null,
+    mapDispathToProps,
+)(ItemFilter);

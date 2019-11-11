@@ -5,36 +5,36 @@ import { ActionTemplate } from 'models';
 import { SET_USER_PER_PAGE, SET_NEW_USER_PAGE } from './actions';
 
 export interface UserFilterState {
-  page: number;
-  contentPerPage: number;
+    page: number;
+    contentPerPage: number;
 }
 
 const initialState: UserFilterState = {
-  page: 1,
-  contentPerPage: 10,
+    page: 1,
+    contentPerPage: 10,
 };
 
 export const UserFilterReducer: Reducer<UserFilterState, ActionTemplate> = (
-  state: UserFilterState = initialState,
-  action: ActionTemplate,
+    state: UserFilterState = initialState,
+    action: ActionTemplate,
 ): UserFilterState => {
-  switch (action.type) {
-    case SET_NEW_USER_PAGE: {
-      return {
-        ...state,
-        page: action.payload,
-      };
-    }
+    switch (action.type) {
+        case SET_NEW_USER_PAGE: {
+            return {
+                ...state,
+                page: action.payload,
+            };
+        }
 
-    case SET_USER_PER_PAGE: {
-      return {
-        ...state,
-        contentPerPage: action.payload,
-      };
-    }
+        case SET_USER_PER_PAGE: {
+            return {
+                ...state,
+                contentPerPage: action.payload,
+            };
+        }
 
-    default: {
-      return state;
+        default: {
+            return state;
+        }
     }
-  }
 };

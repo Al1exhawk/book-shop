@@ -1,27 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { GenericState, setNewUserPage } from 'store';
 import { UserModel } from 'models';
 import { userService } from 'services';
-import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography, IconButton } from '@material-ui/core';
+import {
+    Grid,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography,
+    IconButton,
+} from '@material-ui/core';
 import { PageButton, UserRow } from 'components';
 import { UserFilterState } from 'store';
 import { RouteComponentProps } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
-
-
 interface PropsFromState {
-    userFilter: UserFilterState
+    userFilter: UserFilterState;
 }
 
 interface PropsFromDispatch {
-    onPageClick: typeof setNewUserPage
+    onPageClick: typeof setNewUserPage;
 }
 
 type Props = PropsFromState & PropsFromDispatch & RouteComponentProps;
 
-const UserTable: React.FC<Props> = (props) => {
+const UserTable: React.FC<Props> = props => {
     const [users, setUsers] = useState<UserModel[]>([]);
     const [pages, setPages] = useState([1]);
 
@@ -31,12 +38,12 @@ const UserTable: React.FC<Props> = (props) => {
         const pagesNumber: number = pagingModel.pages;
 
         setUsers(userArr);
-        const pageButtonsArr: number[] = []
+        const pageButtonsArr: number[] = [];
         for (let i: number = 0; i < pagesNumber; i++) {
             pageButtonsArr.push(i + 1);
         }
         setPages(pageButtonsArr);
-    }
+    };
 
     useEffect(() => {
         fetchUses();
@@ -44,18 +51,24 @@ const UserTable: React.FC<Props> = (props) => {
 
     const onDeleteClick = (id: string) => {
         userService.deleteUser(id);
-    }
+    };
 
     const onEditClick = (id: string) => {
         props.history.push(`/users/edit/${id}`);
-    }
+    };
 
     const onAddClick = () => {
         props.history.push('/users/add');
-    }
+    };
 
     return (
-        <Grid item container direction='column' justify='center' alignContent='center' >
+        <Grid
+            item
+            container
+            direction='column'
+            justify='center'
+            alignContent='center'
+        >
             <Grid item container>
                 <Table>
                     <TableHead>
@@ -92,35 +105,46 @@ const UserTable: React.FC<Props> = (props) => {
                     </TableHead>
                     <TableBody>
                         {users.map((user: UserModel) => {
-                            return <UserRow
-                                key={user.id}
-                                id={user.id}
-                                userName={user.userName}
-                                email={user.email}
-                                isConfirm={user.confirmPassword}
-                                role={user.role}
-                                onDeleteClick={onDeleteClick}
-                                onEditClick={onEditClick} />
-                        })
-                        }
+                            return (
+                                <UserRow
+                                    key={user.id}
+                                    id={user.id}
+                                    userName={user.userName}
+                                    email={user.email}
+                                    isConfirm={user.confirmPassword}
+                                    role={user.role}
+                                    onDeleteClick={onDeleteClick}
+                                    onEditClick={onEditClick}
+                                />
+                            );
+                        })}
                     </TableBody>
                 </Table>
             </Grid>
             <Grid item container justify='center' wrap='wrap' direction='row'>
-                {pages.map((page) => {
-                    return <PageButton key={page} onClick={props.onPageClick} value={page} />;
+                {pages.map(page => {
+                    return (
+                        <PageButton
+                            key={page}
+                            onClick={props.onPageClick}
+                            value={page}
+                        />
+                    );
                 })}
             </Grid>
         </Grid>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state: GenericState) => ({
-    userFilter: state.userFilter
+    userFilter: state.userFilter,
 });
 
 const mapDispatchToProps = {
-    onPageClick: setNewUserPage
-}
+    onPageClick: setNewUserPage,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTable);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(UserTable);
